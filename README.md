@@ -12,7 +12,7 @@ HealthPixel prioritizes patient data privacy, ensuring that only authorized heal
 After consultations or treatments, healthcare professionals can easily update patient records with new test results, diagnoses, or treatments. This ensures that the latest medical information is always available for future visits.
 
 4. Real-Time Patient Access
-Patients can securely view their medical information in real time through read-only API endpoints. This feature eliminates the need for a traditional login interface while maintaining data security.
+Patients can securely view their medical information in real time through unique, secure links provided by healthcare professionals. This feature eliminates the need for a traditional login interface while maintaining data security.
 
 ## API Endpoints
 HealthPixel offers a set of RESTful API endpoints for managing patient records, user authentication, and data access:
@@ -39,4 +39,4 @@ We welcome contributions to HealthPixel! Please fork the repository, create a ne
 HealthPixel is licensed under the MIT License. See the LICENSE file for more information.
 
 ## Contact
-For questions or support, please open an issue on GitHub.
+For questions or support, please open an issue on GitHub or contact us at healthpixelproject@gmail.com.
