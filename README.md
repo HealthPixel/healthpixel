@@ -32,6 +32,11 @@ __Patient Management__
 ## Usage
 Once the application is up and running, healthcare professionals can log in using their credentials to access patient records, update information, and manage patient data. Patients can view their records using secure links provided by their healthcare providers.
 
+## Authors
+- Samuel Odumu [Github](https://github.com/samuelodumu) / [Email](themainsamuel@gmail.com) - Frontend Development and API testing
+- Keith Juma [Github](https://github.com/TaiKeith) / [Email](keithsteve.ks@hotmail.com) - Database and Backend Development
+- Fortune Iheanacho [Github](https://github.com/na-cho-dev) / [Email](fortuneihean0314@gmail.com) - Back and frontend Development
+
 ## Contributing
 We welcome contributions to HealthPixel! Please fork the repository, create a new branch, and submit a pull request with your changes. Make sure to follow our coding guidelines and include tests where applicable.
 
