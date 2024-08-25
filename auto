@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 # script to automate pushing to remote branch
+
+# Usage: auto COMMIT_MESSAGE
+
 git add .
-git commit
+
+git commit -m "$1"
+
 git push
