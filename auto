@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# script to automate pushing to remote branch
+git add .
+git commit
+git push
