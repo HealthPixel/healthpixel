@@ -15,11 +15,11 @@
   </head>
   <body>
     <div class="container">
-      <div class="row justify-content-center mt-5">
+      <div class="row justify-content-center pt-5">
         <div class="col-sm-7">
-          <h3 class="text-success fw-bold mt-4">HealthPixel</h3>
+          <h3 class="text-success fw-bold pt-4">HealthPixel</h3>
           <form
-            class="d-grid mt-4 border-dark border-2"
+            class="d-grid pt-4 border-dark border-2"
             method="GET"
             action="{{ url_for('login') }}"
           >
@@ -67,6 +67,9 @@
           </form>
         </div>
       </div>
+      <footer class="fixed-bottom text-center">
+        <p class="text-secondary-emphasis">&copy HealthPixel 2024</p>
+      </footer>
     </div>
   </body>
 </html>
