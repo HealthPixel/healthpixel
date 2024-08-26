@@ -24,7 +24,7 @@ class DBStorage():
         host = getenv("HP_MYSQL_HOST")
         db = getenv("HP_MYSQL_DB")
 
-        self.__engine = create_engine('mysql+mysqlconnector://{}:{}@{}/{}'
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
                                       .format(user, password, host, db),
                                       pool_pre_ping=True)
         if env == 'test':
