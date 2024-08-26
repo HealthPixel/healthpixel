@@ -2,18 +2,20 @@
 """
 Creates a new User and Integrates with Backend Database
 """
-from flask import Flask, request, render_template, redirect, url_for, flash
 from models import BaseModel, Doctor, Patient, storage
 from models.base_model import Base
-from werkzeug.security import generate_password_hash
+from flask import Blueprint, request, render_template, redirect, url_for, flash
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
-app = Flask(__name__)
+auth = Blueprint('auth', __name__)
 
 
-@app.route('healthpixels/signup', methods=['GET'])
-def signup():
+@auth.route('healthpixels/register', methods=['GET'])
+def register():
+    hashed_password = ''
     if request.method == "GET":
         first_name = request.form['fname']
         last_name = request.form['lname']
@@ -39,3 +41,12 @@ def signup():
             flash('Username already exists')
             return redirect(url_for('register'))
     return (render_template('signup.html'))
+
+
+@auth.route('healthpixels/login', method=['GET'])
+def login():
+    email = request.form['email']
+    id = request.form['id']
+    password = request.form['password']
+
+    doctor = Doctor.
