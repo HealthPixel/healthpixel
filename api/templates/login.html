@@ -17,12 +17,12 @@
     </head>
 <body>
   <div class="container">
-    <div class="row justify-content-center mt-2">
+    <div class="row justify-content-center mt-5">
       <div class="col-sm-7">
         <h3 class="text-success fw-bold mt-4">HealthPixel</h3>
         <form
           class="d-grid mt-4 border-dark border-2"
-          action="#">
+          method="GET" action="{{ url_for('signin') }}">
           <div class="row">
             <h3 class="text-secondary-emphasis mb-3">
               Sign in to your account
@@ -66,7 +66,7 @@
           <p class="text-center text-secondary-emphasis">
             New to HealthPixel?
             <a
-              href="login.html"
+              href="signup.html"
               class="text-success fw-semibold text-decoration-none"
               >Create account</a
             >
