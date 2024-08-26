@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="sign_up.css" />
+    <link rel="shortcut icon" href="img/Logo-icon.ico" />
+    <title>HealthPixel Register</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-sm-7">
+          <h3 class="text-success fw-bold mt-4">HealthPixel</h3>
+          <form
+            class="d-grid mt-4 border-dark border-2"
+            method="GET"
+            action="{{ url_for('register') }}"
+          >
+            <div class="row">
+              <h3 class="text-secondary-emphasis mb-3">Create an Account</h3>
+              <div class="col-sm-6 mb-2">
+                <label for="fname">First Name</label>
+                <input
+                  type="text"
+                  name="fname"
+                  class="form-control"
+                  id="fname"
+                />
+              </div>
+              <div class="col">
+                <label for="lname">Last Name</label>
+                <input
+                  type="text"
+                  name="lname"
+                  class="form-control"
+                  id="lname"
+                />
+              </div>
+              <div class="col-sm-7 mb-2">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  id="email"
+                />
+              </div>
+              <div class="col">
+                <label for="tel">Telephone</label>
+                <input type="number" name="tel" class="form-control" id="tel" />
+              </div>
+            </div>
+            <div>
+              <label for="spec">Specialization</label>
+              <input type="text" name="spec" class="form-control mb-2" />
+            </div>
+            <div class="row">
+              <div class="col-sm-6 mb-4">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  id="password"
+                />
+              </div>
+              <div class="col-sm-6">
+                <label for="lname">Confirm Password</label>
+                <input
+                  type="password"
+                  name="conf_password"
+                  class="form-control"
+                  id="conf_password"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-success mb-2">
+              Create Account
+            </button>
+            <p class="text-center text-secondary-emphasis">
+              Already have an account?
+              <a
+                href="login.html"
+                class="text-success fw-semibold text-decoration-none"
+                >Login here</a
+              >
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
