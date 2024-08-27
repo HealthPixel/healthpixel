@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Set enironment variable
+
+HP_ENV=dev
+HP_MYSQL_USER=healthpixel
+HP_MYSQL_PWD=hp_pwd
+HP_MYSQL_HOST=localhost
+HP_MYSQL_DB=healthpixel_db
+
+# echo "HP_ENV=$HP_ENV" "HP_MYSQL_USER=$HP_MYSQL_USER" "HP_MYSQL_PWD=$HP_MYSQL_PWD" "HP_MYSQL_HOST=$HP_MYSQL_HOST" "HP_MYSQL_DB=$HP_MYSQL_DB"

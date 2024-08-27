@@ -2,6 +2,8 @@
 """
 User Profile route for the Flask Application
 """
+from models import storage
+from os import getenv
 from flask import Flask, request, render_template, redirect, url_for, flash
 from api.auth import auth
 
@@ -15,4 +17,6 @@ def healthpixel():
 
 
 if __name__ == "__main__":
-    app.run()
+    """ Main Function """
+    host = getenv("HP_MYSQL_HOST")
+    app.run(host=host, threaded=True, debug=True)
