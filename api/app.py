@@ -6,12 +6,15 @@ from models import storage
 from os import getenv
 from flask import Flask, request, render_template, redirect, url_for, flash
 from api.auth import auth
+import secrets
+
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 
 app.register_blueprint(auth)
 
-@app.route('/healthpixel/')
+@app.route('/')
 def healthpixel():
     return("Hello There, your app is live!!!")
 

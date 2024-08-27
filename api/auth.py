@@ -14,7 +14,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/healthpixel/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
         first_name = request.form['fname']
@@ -28,8 +28,8 @@ def register():
         if password != conf_password:
             flash('Passwords do not match')
             return redirect(url_for('auth.register'))
-
-        hashed_password = generate_password_hash(password, method='sha256')
+        else:
+            hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
         new_user = Doctor(first_name=first_name,
                           last_name=last_name,
@@ -49,7 +49,7 @@ def register():
     return render_template('register.html')
 
 
-@auth.route('/healthpixel/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
