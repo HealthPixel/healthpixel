@@ -19,4 +19,4 @@ def healthpixel():
 if __name__ == "__main__":
     """ Main Function """
     host = getenv("HP_MYSQL_HOST")
-    app.run(host=host, threaded=True, debug=True)
+    app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)

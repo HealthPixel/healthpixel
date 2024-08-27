@@ -23,10 +23,10 @@ class DBStorage():
         password = getenv("HP_MYSQL_PWD")
         host = getenv("HP_MYSQL_HOST")
         db = getenv("HP_MYSQL_DB")
+        db_url = f"mysql+mysqldb://{user}:{password}@{host}/{db}"
 
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                                      .format(user, password, host, db),
-                                      pool_pre_ping=True)
+        self.__engine = create_engine(db_url)
+    
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -69,7 +69,8 @@ class DBStorage():
             bind=self.__engine, expire_on_commit=False))
         """
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(session_factory)
+        Session = scoped_session(session_factory)
+        self.__session = Session
 
     def close(self):
         """Closes the session"""
