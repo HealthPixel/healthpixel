@@ -11,12 +11,12 @@ app = Flask(__name__)
 
 app.register_blueprint(auth)
 
-app.route('/healthpixel/')
+@app.route('/healthpixel/')
 def healthpixel():
-    render_template('base.html')
+    return("Hello There, your app is live!!!")
 
 
 if __name__ == "__main__":
     """ Main Function """
-    host = getenv("HP_MYSQL_HOST")
-    app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)
+    host = getenv("HP_MYSQL_HOST", "0.0.0.0")
+    app.run(host=host, port=5000, threaded=True, debug=True)

@@ -17,7 +17,7 @@
       <div class="row justify-content-center mt-5">
         <div class="col-sm-7">
           <h3 class="text-success fw-bold mt-4">HealthPixel</h3>
-          <form class="d-grid mt-4 border-dark border-2" method="GET" action="{{ url_for('register') }}">
+          <form class="d-grid mt-4 border-dark border-2" method="GET" action="{{ url_for('auth.register') }}">
             <div class="row">
               <h3 class="text-secondary-emphasis mb-3">Create an Account</h3>
               <div class="col-sm-6 mb-2">
@@ -92,7 +92,7 @@
             <p class="text-center text-secondary-emphasis">
               Already have an account?
               <a
-                href="login.html"
+                href="{{ url_for('auth.login') }}"
                 class="text-success fw-semibold text-decoration-none"
                 >Login here</a
               >

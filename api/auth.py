@@ -14,10 +14,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('healthpixels/register', methods=['GET', 'POST'])
+@auth.route('/healthpixel/register', methods=['GET', 'POST'])
 def register():
-    hashed_password = ''
-    if request.method == "GET":
+    if request.method == "POST":
         first_name = request.form['fname']
         last_name = request.form['lname']
         email = request.form['email']
@@ -44,19 +43,19 @@ def register():
             storage.save(new_user)
             flash("User Created Successfully!!!")
             return redirect(url_for('auth.login'))
-        except:
-            flash('Username already exists')
+        except Exception as e:
+            flash(f'Error: {str(e)}')
             return redirect(url_for('auth.register'))
-    return (render_template('register.html'))
+    return render_template('register.html')
 
 
-@auth.route('healthpixels/login', method=['GET'])
+@auth.route('/healthpixel/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
+    if request.method == 'POST':
         email = request.form['email']
         id = request.form['id']
         password = request.form['password']
-        doctor = storage.__session.query(Doctor).filter_by(id=id).first()
+        doctor = storage.__session.query(Doctor).filter_by(email=email).first()
         
         if (doctor and check_password_hash(doctor.password, password)
                                             and doctor.email == email):
@@ -65,4 +64,5 @@ def login():
             # redirect(url_for())
         else:
                 flash('Login Unsuccessful. Please check username and password.')
+
     return render_template('login.html')
