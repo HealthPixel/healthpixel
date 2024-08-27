@@ -1,4 +1,4 @@
--- Craete a database for HealthPixel Project
+-- Create and Setup a database for HealthPixel Project
 
 CREATE DATABASE IF NOT EXISTS healthpixel_db;
 CREATE USER IF NOT EXISTS 'healthpixel'@'localhost' IDENTIFIED BY 'hp_pwd';
