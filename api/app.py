@@ -11,7 +11,7 @@ app.register_blueprint(auth)
 
 app.route('/healthpixel/')
 def healthpixel():
-    pass
+    render_template('base.html')
 
 
 if __name__ == "__main__":
