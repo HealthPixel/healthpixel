@@ -37,3 +37,4 @@ class Patient(BaseModel, Base):
     email = Column(String(50), nullable=False)
     emergency_contact_name = Column(String(50), nullable=False)
     emergency_contact_phone = Column(String(50), nullable=False)
+    password = Column(String(128), nullable=False)
