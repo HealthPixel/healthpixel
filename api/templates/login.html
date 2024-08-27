@@ -23,7 +23,6 @@
             method="GET"
             action="{{ url_for('login') }}"
           >
-            <div class="row">
               <h3 class="text-secondary-emphasis mb-3">
                 Sign in to your account
               </h3>
@@ -36,11 +35,6 @@
                   id="email"
                 />
               </div>
-              <div class="col">
-                <label for="id">ID</label>
-                <input type="number" name="id" class="form-control" id="id" />
-              </div>
-            </div>
             <label for="pwd">Password</label>
             <input type="password" name="password" class="form-control mb-2" />
             <div class="form-check">
