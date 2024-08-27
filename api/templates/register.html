@@ -8,17 +8,17 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="sign_up.css" />
+    <link rel="stylesheet" href="css/sign_in.css" />
     <link rel="shortcut icon" href="img/Logo-icon.ico" />
-    <title>HealthPixel Register</title>
+    <title>Create a HealthPixel account</title>
   </head>
   <body>
     <div class="container">
-      <div class="row justify-content-center mt-5">
+      <div class="row justify-content-center pt-5">
         <div class="col-sm-7">
-          <h3 class="text-success fw-bold mt-4">HealthPixel</h3>
+          <h3 class="text-success fw-bold pt-4">HealthPixel</h3>
           <form
-            class="d-grid mt-4 border-dark border-2"
+            class="d-grid pt-4 border-dark border-2"
             method="GET"
             action="{{ url_for('register') }}"
           >
@@ -94,6 +94,9 @@
           </form>
         </div>
       </div>
+      <footer class="fixed-bottom text-center">
+        <p class="text-secondary-emphasis">&copy HealthPixel 2024</p>
+      </footer>
     </div>
   </body>
 </html>
