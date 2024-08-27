@@ -8,20 +8,16 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/sign_in.css" />
+    <link rel="stylesheet" href="sign_up.css" />
     <link rel="shortcut icon" href="img/Logo-icon.ico" />
-    <title>Create a HealthPixel account</title>
+    <title>HealthPixel Sign Up</title>
   </head>
   <body>
     <div class="container">
-      <div class="row justify-content-center pt-5">
+      <div class="row justify-content-center mt-5">
         <div class="col-sm-7">
-          <h3 class="text-success fw-bold pt-4">HealthPixel</h3>
-          <form
-            class="d-grid pt-4 border-dark border-2"
-            method="GET"
-            action="{{ url_for('register') }}"
-          >
+          <h3 class="text-success fw-bold mt-4">HealthPixel</h3>
+          <form class="d-grid mt-4 border-dark border-2" method="GET" action="{{ url_for('auth.register') }}">
             <div class="row">
               <h3 class="text-secondary-emphasis mb-3">Create an Account</h3>
               <div class="col-sm-6 mb-2">
@@ -61,7 +57,7 @@
               <input type="text" name="spec" class="form-control mb-2" />
             </div>
             <div class="row">
-              <div class="col-sm-6 mb-4">
+              <div class="col-sm-6 mb-2">
                 <label for="password">Password</label>
                 <input
                   type="password"
@@ -80,13 +76,23 @@
                 />
               </div>
             </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input
+                  class="form-check-input mb-3"
+                  type="checkbox"
+                  name="remember"
+                />
+                Remember me
+              </label>
+            </div>
             <button type="submit" class="btn btn-lg btn-success mb-2">
               Create Account
             </button>
             <p class="text-center text-secondary-emphasis">
               Already have an account?
               <a
-                href="login.html"
+                href="{{ url_for('auth.login') }}"
                 class="text-success fw-semibold text-decoration-none"
                 >Login here</a
               >

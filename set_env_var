@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Set environment variables
+
+export HP_ENV=dev
+export HP_MYSQL_USER=healthpixel
+export HP_MYSQL_PWD=hp_pwd
+export HP_MYSQL_HOST=localhost
+export HP_MYSQL_DB=healthpixel_db

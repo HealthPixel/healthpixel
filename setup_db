@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Setup the HealthPixel database
+
+sudo mysql -u root -p < $1

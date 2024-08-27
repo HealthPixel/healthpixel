@@ -21,7 +21,7 @@
           <form
             class="d-grid pt-4 border-dark border-2"
             method="GET"
-            action="{{ url_for('login') }}"
+            action="{{ url_for('auth.login') }}"
           >
               <h3 class="text-secondary-emphasis mb-3">
                 Sign in to your account
@@ -53,7 +53,7 @@
             <p class="text-center text-secondary-emphasis">
               New to HealthPixel?
               <a
-                href="register.html"
+                href="{{ url_for('auth.register') }}"
                 class="text-success fw-semibold text-decoration-none"
                 >Create account</a
               >
