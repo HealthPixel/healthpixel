@@ -6,6 +6,14 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base
+from models.patient import Patient
+from models.doctor import Doctor
+from models.allergies import Allergies
+from models.appointment import Appointment
+from models.lab_results import Lab_Results
+from models.medical_record import Medical_Record
+from models.medication import Medication
+from models.vitals import Vitals
 
 
 class DBStorage():
