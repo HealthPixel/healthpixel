@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <!-- Link is to the HealthPixel logo but I'm yet to add it -->
     <link rel="shortcut icon" href="img/Logo-icon.ico" />
     <title>HealthPixel Login | Login to your HealthPixel Dashboard</title>
@@ -17,10 +17,17 @@
     <div class="container">
       <div class="row justify-content-center pt-5">
         <div class="col-sm-7">
-          <h3 class="text-success fw-bold pt-4">HealthPixel</h3>
+          <h3 class="text-success fw-bold pt-4 mb-4">HealthPixel</h3>
+          <!-- Display errors -->
+          {% if err_login %}
+          <p id="error-l" class="error">{{ err_login }}</p>
+          {% endif %}
+          {% if err_ef %}
+          <p id="error-ef" class="error">{{ err_ef }}</p>
+          {% endif %}
           <form
-            class="d-grid pt-4 border-dark border-2"
-            method="GET"
+            class="d-grid pt-2 border-dark border-2"
+            method="POST"
             action="{{ url_for('auth.login') }}"
           >
             <h3 class="text-secondary-emphasis mb-3">
@@ -72,5 +79,23 @@
         <p class="text-secondary-emphasis">&copy HealthPixel 2024</p>
       </footer>
     </div>
+    <script>
+      // Function to hide the element after a delay
+      function hideElementAfterDelay(elementId, delay) {
+          setTimeout(function() {
+              var element = document.getElementById(elementId);
+              if (element) {
+                  element.style.transition = "opacity 1s ease-out";
+                  element.style.opacity = "0";
+                  setTimeout(function() {
+                      element.style.display = "none";
+                  }, 1000);
+              }
+          }, delay);
+      }
+
+      hideElementAfterDelay('error-l', 3000);
+      hideElementAfterDelay('error-ef', 3000);
+  </script>
   </body>
 </html>

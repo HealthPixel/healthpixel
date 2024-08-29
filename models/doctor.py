@@ -23,7 +23,7 @@ class Doctor(BaseModel, Base, UserMixin):
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
     phone_number = Column(String(50), nullable=False)
-    email = Column(String(50), nullable=False)
+    email = Column(String(50), nullable=False, unique=True)
     specialization = Column(String(50), nullable=False)
     password = Column(String(128), nullable=False)
 

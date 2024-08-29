@@ -1,3 +1,7 @@
+body {
+    background-color: #F0DBBF;
+}
+
 .error {
     background-color: #b40000;
     color: #eaeaea;
@@ -5,5 +9,4 @@
     border-radius: 10px;
     font-weight: bold;
     font-size: 16x;
-    display: block;
 }

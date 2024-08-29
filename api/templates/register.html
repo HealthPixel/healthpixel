@@ -23,6 +23,9 @@
           {% endif %} {% if error_pm %}
           <p id="error-pm" class="error">{{ error_pm }}</p>
           {% endif %}
+          {% if err_reg_user %}
+          <p id="error-ru" class="error">{{ err_reg_user }}</p>
+          {% endif %}
           <form
             class="d-grid mt-4 border-dark border-2"
             method="POST"
@@ -114,14 +117,14 @@
                   element.style.opacity = "0";
                   setTimeout(function() {
                       element.style.display = "none";
-                  }, 1000); // Wait for the transition to complete before setting display to none
+                  }, 1000);
               }
           }, delay);
       }
   
-      // Apply the function to your error messages
-      hideElementAfterDelay('error-ef', 2000); // 5000 ms = 5 seconds
-      hideElementAfterDelay('error-pm', 2000); // 5000 ms = 5 seconds
+      hideElementAfterDelay('error-ef', 3000);
+      hideElementAfterDelay('error-pm', 3000);
+      hideElementAfterDelay('error-ru', 3000);
   </script>
   </body>
 </html>
