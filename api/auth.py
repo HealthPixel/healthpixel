@@ -16,6 +16,9 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    errors = []
+    error_empty_fields = ''
+    error_pwd_mismatch = ''
     if request.method == "POST":
         first_name = request.form['fname']
         last_name = request.form['lname']
@@ -25,35 +28,42 @@ def register():
         password = request.form['password']
         conf_password = request.form['conf_password']
 
+        # Check if all fields are not empty
+        if not first_name or not last_name or not email or not tel or not specialization or not password or not conf_password:
+            error_empty_fields = 'All fields are required'
+            errors.append(error_empty_fields)
+
+        # Check if passwords match before hashing
         if password != conf_password:
-            flash('Passwords do not match')
-            return redirect(url_for('auth.register'))
+            error_pwd_mismatch = 'Passwords do not match'
+            errors.append(error_pwd_mismatch)
         else:
             hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
-        new_user = Doctor(first_name=first_name,
-                          last_name=last_name,
-                          phone_number=tel,
-                          email=email,
-                          specialization=specialization,
-                          password=hashed_password)
+        if not errors:
+            new_user = Doctor(first_name=first_name,
+                            last_name=last_name,
+                            phone_number=tel,
+                            email=email,
+                            specialization=specialization,
+                            password=hashed_password)
 
-        try:
-            storage.new(new_user)
-            storage.save(new_user)
-            flash("User Created Successfully!!!")
-            return redirect(url_for('auth.login'))
-        except Exception as e:
-            flash(f'Error: {str(e)}')
-            return redirect(url_for('auth.register'))
-    return render_template('register.html')
+            try:
+                storage.new(new_user)
+                storage.save()
+                flash("User Created Successfully!!!")
+                return redirect(url_for('auth.login'))
+            except Exception as e:
+                errors.append(f'Error: {str(e)}')
+    return render_template('register.html',
+                           error_ef = error_empty_fields,
+                           error_pm = error_pwd_mismatch)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
-        id = request.form['id']
         password = request.form['password']
         doctor = storage.__session.query(Doctor).filter_by(email=email).first()
         

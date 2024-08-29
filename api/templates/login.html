@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/sign_in.css" />
+    <link rel="stylesheet" href="css/login.css" />
     <!-- Link is to the HealthPixel logo but I'm yet to add it -->
     <link rel="shortcut icon" href="img/Logo-icon.ico" />
     <title>HealthPixel Login | Login to your HealthPixel Dashboard</title>
@@ -23,20 +23,27 @@
             method="GET"
             action="{{ url_for('auth.login') }}"
           >
-              <h3 class="text-secondary-emphasis mb-3">
-                Sign in to your account
-              </h3>
-              <div class="col-sm-8 mb-2">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  id="email"
-                />
-              </div>
-            <label for="pwd">Password</label>
-            <input type="password" name="password" class="form-control mb-2" />
+            <h3 class="text-secondary-emphasis mb-3">
+              Sign in to your account
+            </h3>
+            <div class="col-sm-12 mb-2">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+              />
+            </div>
+            <div class="col-sm-12 mb-2">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="password"
+              />
+            </div>
             <div class="form-check">
               <label class="form-check-label">
                 <input
