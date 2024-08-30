@@ -16,9 +16,9 @@
   <body>
     <div class="container">
       <div class="justify-content-center pt-5">
-        <div class="col-sm-7">
+        <header class="col-sm-7">
           <h3 class="text-success fw-bold pt-4 mb-4 logo"><a href="{{ url_for('healthpixel') }}">HealthPixel</a></h3>
-        </div>
+        </header>
         <h1>Welcome, Dr. {{ user.first_name }} {{ user.last_name }}</h1>
         <p>Email: {{ user.email }}</p>
         <p>Specialization: {{ user.specialization }}</p>

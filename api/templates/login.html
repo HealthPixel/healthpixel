@@ -16,9 +16,28 @@
   </head>
   <body>
     <div class="container">
-      <div class="row justify-content-center pt-5">
+      <header class="d-flex justify-content-between align-items-center">
+        <div class="d-flex">
+            <img
+            src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
+            alt="HealthPixel Logo"
+            class="logo">
+            <h1 class="text-success fw-bold px-4 pt-2 logo"><a href="{{ url_for('healthpixel') }}">HealthPixel</a></h1>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('auth.dashboard_redirect') }}"
+            class="custom-icon bi bi-grid"></a>
+            <a href="{{ url_for('auth.logout') }}"
+            class="bi bi-box-arrow-right custom-icon ms-4"></a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}"
+            class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign in &#x2192</a>
+            {% endif %}
+        </div>
+      </header>
+      <div class="row justify-content-center custom-main">
         <div class="col-sm-7">
-          <h3 class="text-success fw-bold pt-4 mb-4 logo"><a href="{{ url_for('healthpixel') }}">HealthPixel</a></h3>
           <!-- Display errors -->
           {% if err_login %}
           <p id="error-l" class="error">{{ err_login }}</p>
@@ -80,8 +99,8 @@
         </div>
       </div>
     </div>
-    <footer class="fixed-bottom text-center">
-      <p class="text-secondary-emphasis">&copy HealthPixel 2024</p>
+    <footer class="text-center">
+      <p class="">&copy HealthPixel 2024</p>
     </footer>
     <script>
       // Function to hide the element after a delay
