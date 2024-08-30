@@ -37,6 +37,7 @@ def register():
             errors.append(error_empty_fields)
 
         doctor = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
+
         if doctor:
             error_reg_user = 'User already exist, use a different email!'
             errors.append(error_reg_user)
@@ -50,7 +51,7 @@ def register():
             hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
         if not errors:
-            new_user = Doctor(first_name=first_name,
+            new_doc = Doctor(first_name=first_name,
                             last_name=last_name,
                             phone_number=tel,
                             email=email,
@@ -58,9 +59,12 @@ def register():
                             password=hashed_password)
 
             try:
-                storage.new(new_user)
+                storage.new(new_doc)
                 storage.save()
-                return redirect(url_for('auth.login'))
+                # register_success = "You have successfully created an account. Please log in!"
+                if not errors:
+                    login_user(new_doc)
+                    return redirect(url_for('auth.dashboard', id=new_doc.id))
             except Exception as e:
                 errors.append(f'Error: {str(e)}')
     return render_template('register.html',
@@ -95,6 +99,12 @@ def login():
             return redirect(url_for('auth.dashboard', id=doctor.id))
 
     return render_template('login.html')
+
+@auth.route('/logout')
+def logout():
+    logout_user()
+    logout_success = "You have successfully logged out!"
+    return render_template('login.html', logout_success=logout_success)
 
 @auth.route('/dashboard/<id>')
 @login_required
