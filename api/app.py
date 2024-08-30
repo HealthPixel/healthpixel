@@ -4,7 +4,7 @@ User Profile route for the Flask Application
 """
 from models import storage
 from os import getenv
-from flask import Flask, request, render_template, redirect, url_for, flash
+from flask import Flask, request, render_template, redirect, url_for, render_template
 from api.auth import auth
 import secrets
 from flask_login import LoginManager
@@ -28,6 +28,9 @@ app.register_blueprint(auth)
 def healthpixel():
     return("Hello There, your app is live!!!")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html'), 404
 
 if __name__ == "__main__":
     """ Main Function """

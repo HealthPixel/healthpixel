@@ -75,6 +75,7 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        remember = 'remember' in request.form
         
         # Check if all fields are not empty
         if not email or not password:
@@ -90,7 +91,7 @@ def login():
             return render_template('login.html', err_login=error_login)
 
         if not errors:
-            login_user(doctor)
+            login_user(doctor, remember=remember)
             return redirect(url_for('auth.dashboard', id=doctor.id))
 
     return render_template('login.html')
