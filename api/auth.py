@@ -114,3 +114,9 @@ def dashboard(id):
         return render_template('error.html', message='Unauthorized access.')
 
     return render_template('dashboard.html', user=user_data, user_id=id)
+
+@auth.route('/dashboard')
+@login_required
+def dashboard_redirect():
+    # Redirect to the current user's dashboard using their ID
+    return redirect(url_for('auth.dashboard', id=current_user.id))

@@ -20,7 +20,42 @@ body {
     font-size: 16x;
 }
 
+#abs-img {
+    top: 75px;
+    left: 50px;
+    z-index: 1;
+    width: 300px;
+}
+
+.logo {
+    width: 65px;
+    height: auto;
+}
+
 .logo a {
     color: #008638;
     text-decoration: none;
+}
+
+header {
+    padding-top: 2em;
+}
+
+.custom-main {
+    height: 85vh;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    width: 100%;
+    background-color: #00200d;
+    padding: 2em 0em;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p {
+    color: white;
+    margin-bottom: 0;
 }

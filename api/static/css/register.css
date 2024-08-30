@@ -2,6 +2,22 @@ body {
     background-color: #F0DBBF;
 }
 
+.logo {
+    width: 65px;
+    height: auto;
+}
+
+#abs-img {
+    top: 75px;
+    left: 50px;
+    z-index: 1;
+    width: 300px;
+}
+
+header {
+    padding-top: 2em;
+}
+
 .error {
     background-color: #b40000;
     color: #eaeaea;
@@ -14,4 +30,23 @@ body {
 .logo a {
     color: #008638;
     text-decoration: none;
+}
+
+.custom-main {
+    height: 85vh;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    width: 100%;
+    background-color: #00200d;
+    padding: 2em 0em;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p {
+    color: white;
+    margin-bottom: 0;
 }

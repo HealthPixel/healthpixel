@@ -27,3 +27,26 @@ body {
         /* margin-right: 5%; */
     }
 }
+
+.custom-icon {
+    font-size: 1.5rem;
+    color: #008638;
+}
+
+.custom-main {
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background-color: #00200d;
+    padding: 2em 0em;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p {
+    color: white;
+    margin-bottom: 0;
+}
