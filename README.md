@@ -32,6 +32,28 @@ __Patient Management__
 ## Usage
 Once the application is up and running, healthcare professionals can log in using their credentials to access patient records, update information, and manage patient data. Patients can view their records using secure links provided by their healthcare providers.
 
+### Dependencies
+
+You need to have a MySQL server running in your terminal to store the db, If you don't have it you can follow this article to install it (change the distribution or Ubuntu version to the one you're running)
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
+
+### Below are other dependencies you'd need to run the flask application;
+- pip install flask
+- pip install flask-login
+- pip install sqlalchemy
+- pip install flask_sqlalchemy
+- sudo apt-get install pkg-config libmysqlclient-dev
+- pip install mysqlclient
+
+### Run App
+```
+ubuntu@ubuntu:/healthpixel $ source set_env_var # To set environment variable for the database setup
+
+ubuntu@ubuntu:/healthpixel $ sudo mysql -u root -p < setup_mysql_db.sql
+
+ubuntu@ubuntu:/healthpixel $ python3 -m api.app
+```
+
 ## Authors
 - Samuel Odumu [Github](https://github.com/samuelodumu) / [Email](themainsamuel@gmail.com) - Frontend Development and API Testing
 - Keith Juma [Github](https://github.com/TaiKeith) / [Email](keithsteve.ks@hotmail.com) - Database and Backend Development
