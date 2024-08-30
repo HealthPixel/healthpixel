@@ -8,10 +8,9 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
-
-    <title>HealthPixel Dashboard</title>
+    <title>Page not Found</title>
   </head>
   <body>
     <div class="container">
@@ -19,9 +18,7 @@
         <div class="col-sm-7">
           <h3 class="text-success fw-bold pt-4 mt-4 mb-4">HealthPixel</h3>
         </div>
-        <h1>Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
-        <p>Email: {{ user.email }}</p>
-        <p>Specialization: {{ user.specialization }}</p>
+        <h1>Page not Found</h1>
       </div>
       <footer class="fixed-bottom text-center">
         <p class="text-secondary-emphasis">&copy HealthPixel 2024</p>

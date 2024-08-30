@@ -99,5 +99,7 @@ def login():
 @login_required
 def dashboard(id):
     user_data = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
+    if current_user.id != id:
+        return render_template('error.html', message='Unauthorized access.')
 
     return render_template('dashboard.html', user=user_data, user_id=id)
