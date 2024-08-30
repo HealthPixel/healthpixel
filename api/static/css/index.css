@@ -1,10 +1,12 @@
 body {
     background-color: #F0DBBF;
 }
+
 .logo {
     width: 65px;
     height: auto;
 }
+
 #abs-img {
     top: 75px;
     left: 50px;

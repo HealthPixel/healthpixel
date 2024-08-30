@@ -10,3 +10,8 @@ body {
     font-weight: bold;
     font-size: 16x;
 }
+
+.logo a {
+    color: #008638;
+    text-decoration: none;
+}

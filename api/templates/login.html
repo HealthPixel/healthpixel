@@ -18,13 +18,16 @@
     <div class="container">
       <div class="row justify-content-center pt-5">
         <div class="col-sm-7">
-          <h3 class="text-success fw-bold pt-4 mb-4">HealthPixel</h3>
+          <h3 class="text-success fw-bold pt-4 mb-4 logo"><a href="{{ url_for('healthpixel') }}">HealthPixel</a></h3>
           <!-- Display errors -->
           {% if err_login %}
           <p id="error-l" class="error">{{ err_login }}</p>
           {% endif %}
           {% if err_ef %}
           <p id="error-ef" class="error">{{ err_ef }}</p>
+          {% endif %}
+          {% if logout_success %}
+          <p id="success-lo" class="success">{{ logout_success }}</p>
           {% endif %}
           <form
             class="d-grid pt-2 border-dark border-2"
@@ -97,6 +100,7 @@
 
       hideElementAfterDelay('error-l', 3000);
       hideElementAfterDelay('error-ef', 3000);
+      hideElementAfterDelay('success-lo', 3000);
   </script>
   </body>
 </html>

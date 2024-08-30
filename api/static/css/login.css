@@ -10,3 +10,17 @@ body {
     font-weight: bold;
     font-size: 16x;
 }
+
+.success {
+    background-color: #008638;
+    color: #eaeaea;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16x;
+}
+
+.logo a {
+    color: #008638;
+    text-decoration: none;
+}
