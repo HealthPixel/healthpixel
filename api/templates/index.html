@@ -13,31 +13,47 @@
     <title>HealthPixel | View Your Patients Medical Records</title>
 </head>
 
-<body class="text-center">
-    <div class="container py-5">
+<body class="text-center d-flex flex-column min-vh-100">
+    <div class="container py-5 flex-grow-1">
         <!-- Header -->
-        <header class="d-flex justify-content-between align-items-center pb-5">
-            <img src="img/healthpixel_logo.png" alt="HealthPixel Logo"
-                class="logo">
-            <h1 class="text-success fw-bold">HealthPixel</h1>
+        <header class="d-flex justify-content-between align-items-center mb-5">
+            <div class="d-flex">
+                <img src="img/healthpixel_logo.png" alt="HealthPixel Logo"
+                    class="logo">
+                <h1 class="text-success fw-bold px-4 pt-2">HealthPixel</h1>
+            </div>
             <a href="login.html"
-                class="btn btn-outline-success btn-lg rounded-pill">Sign in</a
-                href="">
+                class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign
+                in &#x2192</a>
         </header>
         <!-- Main content -->
         <main>
-            <h2 class="display-4 fw-bold pb-4">YOUR PATIENTS MEDICAL DATA AT
-                YOUR FINGERTIPS</h2>
-            <a href="#"
-                class="btn btn-outline-success btn-lg rounded-pill mb-5">TRY
-                DEMO</a>
+            <div class="row">
+                <div class="col-sm-7">
+                    <h2 class="display-3 fw-bold mb-4 text-shadow">YOUR PATIENTS
+                        MEDICAL
+                        DATA AT
+                        YOUR FINGERTIPS</h2>
+                    <a href="#"
+                        class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">TRY
+                        A DEMO</a>
+                </div>
 
-            <div class="position-relative d-inline-block mb-5">
-                <img src="" alt="Sample data" class="img-fluid rounded position-absolute" id="abs-img">
-                <img src="" alt="Sample data" class="img-fluid rounded" style="width: 300px;">
+                <div class="col-sm-5">
+                    <div class="position-relative d-inline-block mb-5">
+                        <img src="img/medical records 1.jpg" alt="Sample data"
+                            class="img-fluid rounded position-absolute"
+                            id="abs-img">
+                        <img src="img/medical records.jpg" alt="Sample data"
+                            class="img-fluid rounded" style="width: 300px;">
+                    </div>
+                </div>
             </div>
         </main>
     </div>
+    <footer class="text-center mt-auto">
+        <p class="text-secondary-emphasis">&copy HealthPixel 2024</p>
+    </footer>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

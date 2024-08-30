@@ -2,12 +2,26 @@ body {
     background-color: #F0DBBF;
 }
 .logo {
-    width: 60px;
+    width: 65px;
     height: auto;
 }
 #abs-img {
-    top: -50px;
+    top: 75px;
     left: 50px;
     z-index: 1;
     width: 300px;
+}
+
+@media screen and (min-width:768px) {
+    .display-3 {
+        margin-top: 10px;
+        text-shadow: 3px 3px 1px grey;
+    }    
+}
+
+@media screen and (max-width: 469px) {
+    .logo {
+        width: 45px;
+        /* margin-right: 5%; */
+    }
 }
