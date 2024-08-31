@@ -47,7 +47,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-
 
 ### Run App
 ```
-**ubuntu@ubuntu:/healthpixel $** source set_env_var # To set environment variable for the database setup
+ubuntu@ubuntu:/healthpixel $ source set_env_var
 
 ubuntu@ubuntu:/healthpixel $ sudo mysql -u root -p < setup_mysql_db.sql
 
