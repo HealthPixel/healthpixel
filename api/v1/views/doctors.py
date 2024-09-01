@@ -8,6 +8,8 @@ from api.v1.views import app_views
 from models import storage
 from models.doctor import Doctor
 from models.patient import Patient
+from sqlalchemy.exc import IntegrityError
+from werkzeug.security import generate_password_hash
 
 
 @app_views.route('/doctors', methods=['GET'], strict_slashes=False)
@@ -53,9 +55,14 @@ def create_a_patient():
             abort(400, f"Missing {field}")
 
     try:
+        data['password'] = generate_password_hash(data['password'],
+                                                  method='pbkdf2:sha256')
+
         new_patient = Patient(**data)
         storage.new(new_patient)
         storage.save()
+    except IntegrityError:
+        abort(400, "A patient with the same email already exists!")
     except Exception as e:
         abort(500, f"An error occured while saving the Patient: {str(e)}")
 
