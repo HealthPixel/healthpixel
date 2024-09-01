@@ -14,3 +14,9 @@ def get_doctors():
     """Retrieves a list of all Doctors"""
     doctors = storage.all(Doctor).values()
     return jsonify([doctor.to_dict() for doctor in doctors])
+
+
+@app_views.route('/doctors/<id>', methods=['GET'], strict_slashes=False)
+def get_a_doctor(id):
+    """Retrieves a Doctor based on his/her ID"""
+    pass
