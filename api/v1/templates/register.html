@@ -1,149 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
-    <title>Create a HealthPixel account</title>
-  </head>
-  <body>
-    <div class="container">
-      <header class="d-flex justify-content-between align-items-center">
-        <div class="d-flex">
-            <img
-            src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
-            alt="HealthPixel Logo"
-            class="logo">
-            <h1 class="text-success fw-bold px-4 pt-2 logo"><a href="{{ url_for('healthpixel') }}">HealthPixel</a></h1>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            {% if current_user.is_authenticated %}
-            <a href="{{ url_for('auth.dashboard_redirect') }}"
-            class="custom-icon bi bi-grid"></a>
-            <a href="{{ url_for('auth.logout') }}"
-            class="bi bi-box-arrow-right custom-icon ms-4"></a>
-            {% else %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet" />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/register.css') }}">
+  <link rel="shortcut icon"
+    href="{{ url_for('static', filename='img/favicon.ico') }}" />
+  <title>Create a HealthPixel account</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <div class="container flex-grow-1">
+    <header class="d-flex justify-content-between align-items-center py-3">
+      <div class="d-flex">
+        <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
+          alt="HealthPixel Logo" class="logo">
+        <h1 class="fw-bold px-4 pt-2"><a href="{{ url_for('healthpixel') }}"
+            class="text-success text-decoration-none">HealthPixel</a></h1>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.dashboard_redirect') }}"
+          class="custom-icon bi bi-grid"></a>
+        <a href="{{ url_for('auth.logout') }}"
+          class="bi bi-box-arrow-right custom-icon ms-4"></a>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}"
+          class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign in
+          &#x2192</a>
+        {% endif %}
+      </div>
+    </header>
+    <div class="row justify-content-center">
+      <div class="col-sm-7">
+        <!-- Display errors -->
+        {% if error_ef %}
+        <p id="error-ef" class="error">{{ error_ef }}</p>
+        {% endif %} {% if error_pm %}
+        <p id="error-pm" class="error">{{ error_pm }}</p>
+        {% endif %}
+        {% if err_reg_user %}
+        <p id="error-ru" class="error">{{ err_reg_user }}</p>
+        {% endif %}
+        <form class="d-grid mt-4" method="POST"
+          action="{{ url_for('auth.register') }}">
+          <div class="row">
+            <h3 class="text-secondary-emphasis mb-3">Create an Account</h3>
+            <div class="col-sm-6 mb-2">
+              <label for="fname">First Name</label>
+              <input type="text" name="fname" class="form-control" id="fname" />
+            </div>
+            <div class="col-sm-6 mb-2">
+              <label for="lname">Last Name</label>
+              <input type="text" name="lname" class="form-control" id="lname" />
+            </div>
+            <div class="col-sm-7 mb-2">
+              <label for="email">Email</label>
+              <input type="email" name="email" class="form-control"
+                id="email" />
+            </div>
+            <div class="col-sm-5 mb-2">
+              <label for="tel">Telephone</label>
+              <input type="number" name="tel" class="form-control" id="tel" />
+            </div>
+          </div>
+          <div>
+            <label for="spec">Specialization</label>
+            <input type="text" name="spec" class="form-control mb-2" />
+          </div>
+          <div class="row">
+            <div class="col-sm-6 mb-2">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control"
+                id="password" />
+            </div>
+            <div class="col-sm-6 mb-2">
+              <label for="conf_password">Confirm Password</label>
+              <input type="password" name="conf_password" class="form-control"
+                id="conf_password" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-lg btn-success mt-3">
+            Create Account
+          </button>
+          <p class="text-center text-secondary-emphasis">
+            Already have an account?
             <a href="{{ url_for('auth.login') }}"
-            class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign in &#x2192</a>
-            {% endif %}
-        </div>
-      </header>
-      <div class="row justify-content-center custom-main">
-        <div class="col-sm-7">
-          <!-- Display errors -->
-          {% if error_ef %}
-          <p id="error-ef" class="error">{{ error_ef }}</p>
-          {% endif %} {% if error_pm %}
-          <p id="error-pm" class="error">{{ error_pm }}</p>
-          {% endif %}
-          {% if err_reg_user %}
-          <p id="error-ru" class="error">{{ err_reg_user }}</p>
-          {% endif %}
-          <form
-            class="d-grid mt-4 border-dark border-2"
-            method="POST"
-            action="{{ url_for('auth.register') }}"
-          >
-            <div class="row">
-              <h3 class="text-secondary-emphasis mb-3">Create an Account</h3>
-              <div class="col-sm-6 mb-2">
-                <label for="fname">First Name</label>
-                <input
-                  type="text"
-                  name="fname"
-                  class="form-control"
-                  id="fname"
-                />
-              </div>
-              <div class="col">
-                <label for="lname">Last Name</label>
-                <input
-                  type="text"
-                  name="lname"
-                  class="form-control"
-                  id="lname"
-                />
-              </div>
-              <div class="col-sm-7 mb-2">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  id="email"
-                />
-              </div>
-              <div class="col">
-                <label for="tel">Telephone</label>
-                <input type="number" name="tel" class="form-control" id="tel" />
-              </div>
-            </div>
-            <div>
-              <label for="spec">Specialization</label>
-              <input type="text" name="spec" class="form-control mb-2" />
-            </div>
-            <div class="row">
-              <div class="col-sm-6 mb-4">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  class="form-control"
-                  id="password"
-                />
-              </div>
-              <div class="col-sm-6">
-                <label for="conf_password">Confirm Password</label>
-                <input
-                  type="password"
-                  name="conf_password"
-                  class="form-control"
-                  id="conf_password"
-                />
-              </div>
-            </div>
-            <button type="submit" class="btn btn-lg btn-success mt-4 mb-2">
-              Create Account
-            </button>
-            <p class="text-center text-secondary-emphasis">
-              Already have an account?
-              <a
-                href="{{ url_for('auth.login') }}"
-                class="text-success fw-semibold text-decoration-none"
-                >Login here</a
-              >
-            </p>
-          </form>
-        </div>
+              class="text-success fw-semibold text-decoration-none">Login
+              here</a>
+          </p>
+        </form>
       </div>
     </div>
-    <footer class="text-center">
-      <p class="">&copy HealthPixel 2024</p>
-    </footer>
-    <script>
-      // Function to hide the element after a delay
-      function hideElementAfterDelay(elementId, delay) {
-          setTimeout(function() {
-              var element = document.getElementById(elementId);
-              if (element) {
-                  element.style.transition = "opacity 1s ease-out";
-                  element.style.opacity = "0";
-                  setTimeout(function() {
-                      element.style.display = "none";
-                  }, 1000);
-              }
-          }, delay);
-      }
-  
-      hideElementAfterDelay('error-ef', 3000);
-      hideElementAfterDelay('error-pm', 3000);
-      hideElementAfterDelay('error-ru', 3000);
+  </div>
+  <footer class="text-center text-bg-dark py-3">
+    <p class="mb-0">&copy HealthPixel 2024</p>
+  </footer>
+  <script>
+    // Function to hide the element after a delay
+    function hideElementAfterDelay(elementId, delay) {
+      setTimeout(function () {
+        var element = document.getElementById(elementId);
+        if (element) {
+          element.style.transition = "opacity 1s ease-out";
+          element.style.opacity = "0";
+          setTimeout(function () {
+            // element.style.display = "none";
+          }, 1000);
+        }
+      }, delay);
+    }
+
+    hideElementAfterDelay('error-ef', 3000);
+    hideElementAfterDelay('error-pm', 3000);
+    hideElementAfterDelay('error-ru', 3000);
   </script>
-  </body>
+</body>
+
 </html>
