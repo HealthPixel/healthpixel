@@ -44,9 +44,21 @@ def create_a_patient():
     if not data:
         abort(400, "Not a JSON")
 
-    new_patient = Patient(**data)
-    storage.new(new_patient)
-    storage.save()
+    required_fields = ['first_name', 'last_name', 'date_of_birth', 'gender',
+                       'blood_group', 'phone_number', 'email',
+                       'emergency_contact_name', 'emergency_contact_phone',
+                       'password']
+    for field in required_fields:
+        if field not in data:
+            abort(400, f"Missing {field}")
+
+    try:
+        new_patient = Patient(**data)
+        storage.new(new_patient)
+        storage.save()
+    except Exception as e:
+        abort(500, f"An error occured while saving the Patient: {str(e)}")
+
     return jsonify(new_patient.to_dict()), 201
 
 
