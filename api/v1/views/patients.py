@@ -1,13 +1,11 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Flask, request, jsonify
 from models import storage
 from models.patient import Patient
+from api.v1.views import app_views
 
 
-patient = Blueprint('patient', __name__)
-
-
-@patient.route('/create-patient', methods=['GET', 'POST'])
-def create_patient():
+@app_views.route('/create-patient', methods=['GET', 'POST'])
+def patient():
     # patient_obj = storage._DBStorage__session.query(Patient).all()
     # for patient in patient_obj:
     #     for column in Patient.__table__.columns:
