@@ -52,7 +52,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-
 (change the distribution or Ubuntu version to the one you're running)
 - Once your MySQL server is installed and running, you need to make sure `root` authenticates with a password by using either the `mysql_native_password` or `caching_sha2_password` authentication plugin (the article explains how to do that)
 
-__Create a MySQL database and configure the connection settings in the set_env_var file__
+__Create a MySQL database and configure the connection settings in the set_env_var file:__
 ```
 sudo mysql -u root -p < setup_mysql_db.sql
 source set_env_var
