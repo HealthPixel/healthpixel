@@ -39,7 +39,7 @@ def register():
         doctor = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
 
         if doctor:
-            error_reg_user = 'User already exist, use a different email!'
+            error_reg_user = 'Email already in use, please choose another!'
             errors.append(error_reg_user)
             return render_template('register.html', err_reg_user=error_reg_user)
 

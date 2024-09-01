@@ -32,30 +32,10 @@ body {
     height: auto;
 }
 
-.logo a {
-    color: #008638;
-    text-decoration: none;
-}
-
-header {
-    padding-top: 2em;
-}
-
-.custom-main {
-    height: 85vh;
-    justify-content: center;
-    align-items: center;
-}
-
-footer {
-    width: 100%;
-    background-color: #00200d;
-    padding: 2em 0em;
-    justify-content: center;
-    align-items: center;
-}
-
-footer p {
-    color: white;
-    margin-bottom: 0;
+/* Media queries */
+@media screen and (max-width: 469px) {
+    .logo {
+        width: 45px;
+        /* margin-right: 5%; */
+    }
 }
