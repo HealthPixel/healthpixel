@@ -61,7 +61,7 @@ def update_a_doctor(doctor_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_key = ['id', 'created_at', 'updated_at']
+    ignored_keys = ['id', 'created_at', 'updated_at']
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(doctor, key, value)
