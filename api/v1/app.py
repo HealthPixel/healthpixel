@@ -5,7 +5,7 @@ User Profile route for the Flask Application
 from models import storage
 from os import getenv
 from flask import Flask, request, render_template, redirect, url_for
-from api.auth import auth
+from api.v1.auth import auth
 import secrets
 from flask_login import LoginManager
 from models.doctor import Doctor
