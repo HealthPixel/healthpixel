@@ -7,6 +7,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
 from models.doctor import Doctor
+from models.patient import Patient
 
 
 @app_views.route('/doctors', methods=['GET'], strict_slashes=False)
