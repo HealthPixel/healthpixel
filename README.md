@@ -29,6 +29,39 @@ __Patient Management__
 - POST /api/patients - Register a new patient.
 - PUT /api/patients/:id - Update patient records.
 
+## Installation
+__Clone the repository:__
+```
+git clone https://github.com/HealthPixel/healthpixel.git
+cd healthpixel
+```
+
+__Install dependencies:__
+```
+pip install flask
+pip install flask-login
+pip install sqlalchemy
+pip install flask_sqlalchemy
+sudo apt-get install pkg-config libmysqlclient-dev
+pip install mysqlclient
+```
+
+__Set up the database:__
+- You need to have a MySQL server running in your terminal to store the db, If you don't have it you can follow this article to install it.
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
+(change the distribution or Ubuntu version to the one you're running)
+- Once your MySQL server is installed and running, you need to make sure `root` authenticates with a password by using either the `mysql_native_password` or `caching_sha2_password` authentication plugin (the article explains how to do that)
+
+__Create a MySQL database and configure the connection settings in the set_env_var file:__
+```
+sudo mysql -u root -p < setup_mysql_db.sql
+source set_env_var
+```
+__Start the application:__
+```
+python3 -m api.app 
+```
+
 ## Usage
 Once the application is up and running, healthcare professionals can log in using their credentials to access patient records, update information, and manage patient data. Patients can view their records using secure links provided by their healthcare providers.
 
