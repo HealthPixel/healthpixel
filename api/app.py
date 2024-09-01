@@ -6,6 +6,7 @@ from models import storage
 from os import getenv
 from flask import Flask, request, render_template, redirect, url_for
 from api.auth import auth
+from api.v1.patient import patient
 import secrets
 from flask_login import LoginManager
 from models.doctor import Doctor
@@ -22,7 +23,8 @@ login_manager.login_view = 'auth.login'
 def load_user(id):
     return storage._DBStorage__session.query(Doctor).get(id)
 
-app.register_blueprint(auth)
+app.register_blueprint(auth, url_prefix='/auth')
+app.register_blueprint(patient)
 
 @app.route('/')
 def healthpixel():
