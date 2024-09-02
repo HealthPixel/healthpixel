@@ -23,7 +23,7 @@ def get_access_logs_by_patient(patient_id):
     # logs = storage.query(Access_Log).filter_by(patient_id=patient_id).all()
     logs = storage._DBStorage__session.query(Access_Log).filter_by(patient_id=patient_id).all()
     if not logs:
-        abort(404, "No access logs found for the specified Patient")
+        abort(400, "No access logs found for the specified Patient")
     return jsonify([log.to_dict() for log in logs])
 
 
@@ -34,5 +34,5 @@ def get_access_logs_by_doctor(doctor_id):
     # logs = storage.query(Access_Log).filter_by(user_id=doctor_id).all()
     logs = storage._DBStorage__session.query(Access_Log).filter_by(user_id=doctor_id).all()
     if not logs:
-        abort(404, "No access logs found for the specified Doctor")
+        abort(400, "No access logs found for the specified Doctor")
     return jsonify([log.to_dict() for log in logs])

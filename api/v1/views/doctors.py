@@ -33,7 +33,7 @@ def update_a_doctor(doctor_id):
     """Updates a Doctor object based on its ID"""
     doctor = storage.get(Doctor, doctor_id)
     if not doctor:
-        abort(404, "Doctor does not exist!")
+        abort(400, "Doctor does not exist!")
 
     data = request.get_json()
     if not data:

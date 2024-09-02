@@ -6,3 +6,4 @@ from api.v1.views.doctors import *
 from api.v1.views.patients import *
 from api.v1.views.access_logs import *
 from api.v1.views.medications import *
+from api.v1.views.medical_records import *

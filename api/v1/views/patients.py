@@ -26,9 +26,9 @@ def get_a_patient(doctor_id, patient_id):
     patient = storage.get(Patient, patient_id)
 
     if not doctor:
-        abort(404, "Doctor not found")
+        abort(400, "Doctor not found")
     if not patient:
-        abort(404, "Patient not found")
+        abort(400, "Patient not found")
 
     # Log the access
     access_log = Access_Log(user_id=doctor_id, patient_id=patient_id)
