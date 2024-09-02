@@ -23,6 +23,13 @@ __Authentication__
 - POST      **/api/v1/auth/register**        (Register a new healthcare professional (Admin use).)
 - POST      **/api/v1/auth/logout**          (Log out of the system.)
 
+__Doctor Management__
+- POST      **/api/v1/register-doctor**             (Register a new Doctor.)
+- GET       **/api/v1/doctor/id**                   (Retrieve a Doctor record.)
+- GET       **/api/v1/doctors**                     (Retrieve Doctors records.)
+- PUT       **/api/v1/doctor/id**                   (Update a Doctor record.)
+- DELETE    **/api/v1/doctor/id**                   (Delete a Doctor record.)
+
 __Patient Management__
 
 - POST      **/api/v1/doctor/register-patient**     (Register a new Patient.)
@@ -31,12 +38,6 @@ __Patient Management__
 - PUT       **/api/v1/patient/id**                  (Update a Patient record.)
 - DELETE    **/api/v1/doctor/patient/id**           (Delete a Patient record.)
 
-__Doctor Management__
-- POST      **/api/v1/register-doctor**             (Register a new Doctor.)
-- GET       **/api/v1/doctor/id**                   (Retrieve a Doctor record.)
-- GET       **/api/v1/doctors**                     (Retrieve Doctors records.)
-- PUT       **/api/v1/doctor/id**                   (Update a Doctor record.)
-- DELETE    **/api/v1/doctor/id**                   (Delete a Doctor record.)
 
 ## Installation
 __Clone the repository:__
