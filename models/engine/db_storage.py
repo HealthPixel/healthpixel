@@ -14,6 +14,7 @@ from models.lab_results import Lab_Results
 from models.medical_record import Medical_Record
 from models.medication import Medication
 from models.vitals import Vitals
+from models.access_log import Access_Log
 
 
 class DBStorage():
