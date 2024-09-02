@@ -19,77 +19,60 @@ HealthPixel offers a set of RESTful API endpoints for managing patient records, 
 
 __Authentication__
 
-- POST /api/auth/login - Authenticate healthcare professionals.
-- POST /api/auth/logout - Log out of the system.
-- POST /api/auth/register - Register a new healthcare professional (admin use).
+- POST      **/api/v1/auth/login**           (Authenticate healthcare professionals.)
+- POST      **/api/v1/auth/register**        (Register a new healthcare professional (Admin use).)
+- POST      **/api/v1/auth/logout**          (Log out of the system.)
 
 __Patient Management__
 
-- GET /api/patients/:id - Retrieve patient records.
-- POST /api/patients - Register a new patient.
-- PUT /api/patients/:id - Update patient records.
+- POST      **/api/v1/doctor/register-patient**     (Register a new Patient.)
+- GET       **/api/v1/patient/id**                  (Retrieve a Patient record.)
+- GET       **/api/v1/patients**                    (Retrieve Patients records.)
+- PUT       **/api/v1/patient/id**                  (Update a Patient record.)
+- DELETE    **/api/v1/doctor/patient/id**           (Delete a Patient record.)
+
+__Doctor Management__
+- POST      **/api/v1/register-doctor**             (Register a new Doctor.)
+- GET       **/api/v1/doctor/id**                   (Retrieve a Doctor record.)
+- GET       **/api/v1/doctors**                     (Retrieve Doctors records.)
+- PUT       **/api/v1/doctor/id**                   (Update a Doctor record.)
+- DELETE    **/api/v1/doctor/id**                   (Delete a Doctor record.)
 
 ## Installation
 __Clone the repository:__
 ```
 git clone https://github.com/HealthPixel/healthpixel.git
-cd healthpixel
+ubuntu@ubuntu:/ $cd healthpixel
 ```
 
 __Install dependencies:__
+All dependencies that would be needed by the application are all in the **requirement.txt**. Use the command below to install them all.
 ```
-pip install flask
-pip install flask-login
-pip install sqlalchemy
-pip install flask_sqlalchemy
-sudo apt-get install pkg-config libmysqlclient-dev
-pip install mysqlclient
+ubuntu@ubuntu:/healthpixel $ pip install -r requirement.txt
 ```
 
 __Set up the database:__
-- You need to have a MySQL server running in your terminal to store the db, If you don't have it you can follow this article to install it.
-https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
+- You need to have a MySQL server running in your terminal to store the db, If you don't have it you can follow this article to install it. [How to install mysql on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04)
 (change the distribution or Ubuntu version to the one you're running)
 - Once your MySQL server is installed and running, you need to make sure `root` authenticates with a password by using either the `mysql_native_password` or `caching_sha2_password` authentication plugin (the article explains how to do that)
 
 __Create a MySQL database and configure the connection settings in the set_env_var file:__
 ```
-sudo mysql -u root -p < setup_mysql_db.sql
-source set_env_var
+ubuntu@ubuntu:/healthpixel $ sudo mysql -u root -p < setup_mysql_db.sql
+ubuntu@ubuntu:/healthpixel $ source env_setup
 ```
 __Start the application:__
 ```
-python3 -m api.app 
+ubuntu@ubuntu:/healthpixel $ python3 -m api.v1.app
 ```
 
 ## Usage
 Once the application is up and running, healthcare professionals can log in using their credentials to access patient records, update information, and manage patient data. Patients can view their records using secure links provided by their healthcare providers.
 
-### Dependencies
-
-You need to have a MySQL server running in your terminal to store the db, If you don't have it you can follow this article to install it (change the distribution or Ubuntu version to the one you're running)
-https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
-
-### Below are other dependencies you'd need to run the flask application;
-- pip install flask
-- pip install flask-login
-- pip install sqlalchemy
-- pip install flask_sqlalchemy
-- sudo apt-get install pkg-config libmysqlclient-dev
-- pip install mysqlclient
-
-### Run App
-```
-ubuntu@ubuntu:/healthpixel $ source set_env_var
-
-ubuntu@ubuntu:/healthpixel $ sudo mysql -u root -p < setup_mysql_db.sql
-
-ubuntu@ubuntu:/healthpixel $ python3 -m api.app
-```
 
 ## Authors
 - Samuel Odumu [Github](https://github.com/samuelodumu) / [Email](themainsamuel@gmail.com) - Frontend Development and API Testing
-- Keith Juma [Github](https://github.com/TaiKeith) / [Email](keithsteve.ks@hotmail.com) - Database and Backend Development
+- Keith Juma [Github](https://github.com/TaiKeith) / [Email](keithsteve.ks@hotmail.com) - Backend and API Development
 - Fortune Iheanacho [Github](https://github.com/na-cho-dev) / [Email](fortuneihean0314@gmail.com) - Backend and Frontend Development
 
 ## Contributing

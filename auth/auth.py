@@ -12,9 +12,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+import requests
 
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -71,6 +72,7 @@ def register():
                            error_ef = error_empty_fields,
                            error_pm = error_pwd_mismatch)
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     errors = []
@@ -100,11 +102,13 @@ def login():
 
     return render_template('login.html')
 
+
 @auth.route('/logout')
 def logout():
     logout_user()
     logout_success = "You have successfully logged out!"
     return render_template('login.html', logout_success=logout_success)
+
 
 @auth.route('/dashboard/<id>')
 @login_required
@@ -115,8 +119,20 @@ def dashboard(id):
 
     return render_template('dashboard.html', user=user_data, user_id=id)
 
+
 @auth.route('/dashboard')
 @login_required
 def dashboard_redirect():
     # Redirect to the current user's dashboard using their ID
     return redirect(url_for('auth.dashboard', id=current_user.id))
+
+
+@auth.route('/delete-doctor', methods=['GET'])
+def delete_doctor():
+    doctor = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
+    doctor_id = doctor.id
+
+    delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{doctor_id}"
+    response = requests.delete(delete_doc_api_url)
+    del_success = "You account has been deleted successfully!"
+    return render_template('login.html', del_success=del_success)
