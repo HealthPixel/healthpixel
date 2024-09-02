@@ -7,6 +7,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
 from models.doctor import Doctor
+from models.patient import Patient
 
 
 @app_views.route('/doctors', methods=['GET'], strict_slashes=False)
@@ -60,7 +61,7 @@ def update_a_doctor(doctor_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_key = ['id', 'created_at', 'updated_at']
+    ignored_keys = ['id', 'created_at', 'updated_at']
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(doctor, key, value)
