@@ -48,9 +48,14 @@
                         MEDICAL
                         DATA AT
                         YOUR FINGERTIPS</h2>
-                    <a href="#"
-                        class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">TRY
-                        A DEMO</a>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.dashboard_redirect') }}"
+                    class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">Dashboard</a>
+                    {% else %}
+                    <a href="{{ url_for('auth.register') }}"
+                    class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">TRY A DEMO
+                    </a>
+                    {% endif %}
                 </div>
 
                 <div class="col-sm-5">
