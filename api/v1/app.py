@@ -5,11 +5,11 @@ User Profile route for the Flask Application
 from models import storage
 from os import getenv
 from flask import Flask, request, render_template, redirect, url_for
-from auth.auth import auth
-from api.v1.views import app_views
 import secrets
 from flask_login import LoginManager
 from models.doctor import Doctor
+from auth.auth import auth
+from api.v1.views import app_views
 
 
 app = Flask(__name__)
@@ -23,8 +23,10 @@ login_manager.login_view = 'auth.login'
 def load_user(id):
     return storage._DBStorage__session.query(Doctor).get(id)
 
+
 app.register_blueprint(auth)
 app.register_blueprint(app_views)
+
 
 @app.route('/')
 def healthpixel():

@@ -50,6 +50,9 @@
         {% if logout_success %}
         <p id="success-lo" class="success">{{ logout_success }}</p>
         {% endif %}
+        {% if del_success %}
+        <p id="del-success" class="success">{{ del_success }}</p>
+        {% endif %}
         <form class="d-grid mt-4" method="POST"
           action="{{ url_for('auth.login') }}">
           <h3 class="text-secondary-emphasis mb-3">
@@ -105,6 +108,7 @@
     hideElementAfterDelay('error-l', 3000);
     hideElementAfterDelay('error-ef', 3000);
     hideElementAfterDelay('success-lo', 3000);
+    hideElementAfterDelay('del-success', 3000);
   </script>
 </body>
 

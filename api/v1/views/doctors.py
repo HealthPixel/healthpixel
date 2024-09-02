@@ -19,7 +19,7 @@ def get_doctors():
     return jsonify([doctor.to_dict() for doctor in doctors])
 
 
-@app_views.route('/doctors/<doctor_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/doctor/<doctor_id>', methods=['GET'], strict_slashes=False)
 def get_a_doctor(doctor_id):
     """Retrieves a Doctor object based on its ID"""
     doctor = storage.get(Doctor, doctor_id)
@@ -28,7 +28,26 @@ def get_a_doctor(doctor_id):
     return jsonify(doctor.to_dict())
 
 
-@app_views.route('/doctors/<doctor_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/doctor/<doctor_id>', methods=['PUT'], strict_slashes=False)
+def update_a_doctor(doctor_id):
+    """Updates a Doctor object based on its ID"""
+    doctor = storage.get(Doctor, doctor_id)
+    if not doctor:
+        abort(404, "Doctor does not exist!")
+
+    data = request.get_json()
+    if not data:
+        abort(400, "Not a JSON")
+
+    ignored_keys = ['id', 'created_at', 'updated_at']
+    for key, value in data.items():
+        if key not in ignored_keys:
+            setattr(doctor, key, value)
+    storage.save()
+    return jsonify(doctor.to_dict()), 200
+
+
+@app_views.route('/doctor/<doctor_id>', methods=['DELETE'], strict_slashes=False)
 def delete_a_doctor(doctor_id):
     """Deletes a Doctor object based on its ID"""
     doctor = storage.get(Doctor, doctor_id)
@@ -39,7 +58,7 @@ def delete_a_doctor(doctor_id):
     return jsonify({}), 200
 
 
-@app_views.route('/doctors/add_patient', methods=['POST'], strict_slashes=False)
+@app_views.route('/doctor/register-patient', methods=['POST'], strict_slashes=False)
 def create_a_patient():
     """Creates a Patient object"""
     data = request.get_json()
@@ -67,22 +86,3 @@ def create_a_patient():
         abort(500, f"An error occured while saving the Patient: {str(e)}")
 
     return jsonify(new_patient.to_dict()), 201
-
-
-@app_views.route('/doctors/<doctor_id>', methods=['PUT'], strict_slashes=False)
-def update_a_doctor(doctor_id):
-    """Updates a Doctor object based on its ID"""
-    doctor = storage.get(Doctor, doctor_id)
-    if not doctor:
-        abort(404)
-
-    data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
-
-    ignored_keys = ['id', 'created_at', 'updated_at']
-    for key, value in data.items():
-        if key not in ignored_keys:
-            setattr(doctor, key, value)
-    storage.save()
-    return jsonify(doctor.to_dict()), 200
