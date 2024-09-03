@@ -8,3 +8,4 @@ from api.v1.views.access_logs import *
 from api.v1.views.medications import *
 from api.v1.views.medical_records import *
 from api.v1.views.vitals import *
+from api.v1.views.lab_results import *
