@@ -4,6 +4,7 @@ This module creates view for Doctor objects
 """
 
 from flask import jsonify, request, abort
+from sqlalchemy import text
 from api.v1.views import app_views
 from models import storage
 from models.doctor import Doctor
@@ -25,7 +26,7 @@ def get_a_doctor(doctor_id):
     """Retrieves a Doctor object based on its ID"""
     doctor = storage.get(Doctor, doctor_id)
     if not doctor:
-        abort(404)
+        abort(400, "Doctor does not exist!")
     return jsonify(doctor.to_dict())
 
 
@@ -55,11 +56,14 @@ def delete_a_doctor(doctor_id):
     if not doctor:
         abort(404)
 
-    # Set related access logs' of patient_id to NULL
-    storage._DBStorage__session.query(Access_Log).filter_by(user_id=doctor_id).update({"user_id": None})
+    # Disable foreign key checks before deleting
+    storage._DBStorage__session.execute(text('SET FOREIGN_KEY_CHECKS = 0'))
 
     storage.delete(doctor)
     storage.save()
+
+    # Enables foreign key checks after deleting
+    storage._DBStorage__session.execute(text('SET FOREIGN_KEY_CHECKS = 1'))
     return jsonify({}), 200
 
 
