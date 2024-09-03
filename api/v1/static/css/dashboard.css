@@ -1,3 +1,41 @@
 body {
     background-color: #F0DBBF;
 }
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    height: 100%;
+    background-color: #CDB699;
+    position: fixed;
+    left: 0;
+    overflow: auto;
+}
+.sidebar img {
+    width: 80px;
+    height: auto;
+}
+
+main {
+    position: relative; 
+    margin-left: 25%; 
+    width: 75%;
+}
+
+#search_patient {
+    width: 80%;
+}
+
+/* On screens that are less than 769px wide, make the sidebar into a topbar */
+@media screen and (max-width: 916px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    main {
+        margin-left: 10%;
+    }
+}
