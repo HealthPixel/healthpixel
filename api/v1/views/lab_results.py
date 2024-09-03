@@ -61,7 +61,7 @@ def create_patient_lab_result(doctor_id, patient_id):
 
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>/lab_result', methods=['PUT'], strict_slashes=False)
 def update_patient_lab_result(doctor_id, patient_id):
-    """Updates a Patient  Lab Result based on the medication_id"""
+    """Updates a Patient  Lab Result based on the patient_id"""
     doctor = storage.get(Doctor, doctor_id)
     if not doctor:
         abort(400, "Doctor does not exist")
