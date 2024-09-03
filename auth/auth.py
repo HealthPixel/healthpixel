@@ -75,6 +75,7 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    del_success = request.args.get('del_success')
     errors = []
     error_login = ''
     error_empty_fields = ''
@@ -100,7 +101,7 @@ def login():
             login_user(doctor, remember=remember)
             return redirect(url_for('auth.dashboard', id=doctor.id))
 
-    return render_template('login.html')
+    return render_template('login.html', del_success=del_success)
 
 
 @auth.route('/logout')
@@ -134,5 +135,5 @@ def delete_doctor():
 
     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{doctor_id}"
     response = requests.delete(delete_doc_api_url)
-    del_success = "You account has been deleted successfully!"
-    return render_template('login.html', del_success=del_success)
+    del_success = "Your account has been deleted successfully!"
+    return redirect(url_for('auth.login', del_success=del_success))

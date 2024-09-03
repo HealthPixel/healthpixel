@@ -18,4 +18,5 @@ class Access_Log(BaseModel, Base):
     __tablename__ = 'access_logs'
     user_id = Column(String(60), ForeignKey('doctors.id'), nullable=False)
     patient_id = Column(String(60), ForeignKey('patients.id'), nullable=False)
+    action_taken = Column(String(60), nullable=False)
     accessed_at = Column(DateTime, default=datetime.utcnow, nullable=False)

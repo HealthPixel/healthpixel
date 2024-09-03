@@ -8,6 +8,7 @@ from api.v1.views import app_views
 from models import storage
 from models.doctor import Doctor
 from models.patient import Patient
+from models.access_log import Access_Log
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 
@@ -39,7 +40,7 @@ def update_a_doctor(doctor_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at']
+    ignored_keys = ['id', 'created_at', 'updated_at'] # These keys can't be updated
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(doctor, key, value)
@@ -53,6 +54,10 @@ def delete_a_doctor(doctor_id):
     doctor = storage.get(Doctor, doctor_id)
     if not doctor:
         abort(404)
+
+    # Set related access logs' of patient_id to NULL
+    storage._DBStorage__session.query(Access_Log).filter_by(user_id=doctor_id).update({"user_id": None})
+
     storage.delete(doctor)
     storage.save()
     return jsonify({}), 200

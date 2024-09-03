@@ -43,7 +43,9 @@ __Patient Management__
 __Clone the repository:__
 ```
 git clone https://github.com/HealthPixel/healthpixel.git
-ubuntu@ubuntu:/ $cd healthpixel
+```
+```
+ubuntu@ubuntu:/ $ cd healthpixel
 ```
 
 __Install dependencies:__
