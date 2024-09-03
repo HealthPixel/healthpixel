@@ -128,12 +128,9 @@ def dashboard_redirect():
     return redirect(url_for('auth.dashboard', id=current_user.id))
 
 
-@auth.route('/delete-doctor', methods=['GET'])
+@auth.route('/delete_doctor', methods=['GET'])
 def delete_doctor():
-    doctor = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
-    doctor_id = doctor.id
-
-    delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{doctor_id}"
+    delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
     response = requests.delete(delete_doc_api_url)
     del_success = "Your account has been deleted successfully!"
     return redirect(url_for('auth.login', del_success=del_success))
