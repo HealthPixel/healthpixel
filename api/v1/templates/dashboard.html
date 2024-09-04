@@ -20,7 +20,8 @@
     <div class="navbar flex-column justify-content-center sidebar">
       <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
         class="mb-5 mt-4" alt="HealthPixel Logo">
-      <a href="#" class="btn btn-success btn-large py-3 my-4">Register a new
+      <a href="register_patient.html"
+        class="btn btn-success btn-large py-3 my-4">Register a new
         patient</a>
       <a href="#" class="btn btn-success btn-large py-3 mb-5">Update a patient's
         records</a>
@@ -42,7 +43,7 @@
           <a href="{{ url_for('healthpixel') }}"
             class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
         </header>
-        <h1 class="display-2 fw-semibold">Welcome, Dr. {{ user.first_name }} {{
+        <h1 class="display-4 fw-semibold">Welcome, Dr. {{ user.first_name }} {{
           user.last_name }}</h1>
         <p class="fw-semibold">Email: {{ user.email }}</p>
         <p class="fw-semibold">Specialization: {{ user.specialization }}</p>
@@ -54,9 +55,8 @@
       </div>
     </main>
   </div>
-  <footer class="text-center py-3">
-    <hr />
-    <p class="text-secondary-emphasis mb-0">&copy HealthPixel 2024</p>
+  <footer class="text-center text-light py-3">
+    <p class="mb-0">&copy HealthPixel 2024</p>
   </footer>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
