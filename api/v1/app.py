@@ -8,6 +8,7 @@ from flask import Flask, request, render_template, redirect, url_for
 import secrets
 from flask_login import LoginManager
 from models.doctor import Doctor
+from models.patient import Patient
 from auth.auth import auth
 from api.v1.views import app_views
 
@@ -21,7 +22,10 @@ login_manager.login_view = 'auth.login'
 
 @login_manager.user_loader
 def load_user(id):
-    return storage._DBStorage__session.query(Doctor).get(id)
+    user = storage._DBStorage__session.query(Doctor).get(id)
+    if not user:
+        user = storage._DBStorage__session.query(Patient).get(id)
+    return user
 
 
 app.register_blueprint(auth)
