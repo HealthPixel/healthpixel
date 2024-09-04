@@ -23,6 +23,10 @@ body {
     font-size: 16x;
 }
 
+footer {
+    background-color: #7e694f;
+}
+
 /* Media queries */
 @media screen and (max-width: 469px) {
     .logo {
