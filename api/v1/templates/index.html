@@ -50,10 +50,11 @@
                         YOUR FINGERTIPS</h2>
                     {% if current_user.is_authenticated %}
                     <a href="{{ url_for('auth.dashboard_redirect') }}"
-                    class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">Dashboard</a>
+                        class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">Dashboard</a>
                     {% else %}
                     <a href="{{ url_for('auth.register') }}"
-                    class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">TRY A DEMO
+                        class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">TRY
+                        A DEMO
                     </a>
                     {% endif %}
                 </div>
@@ -72,7 +73,7 @@
             </div>
         </main>
     </div>
-    <footer class="text-bg-dark py-3">
+    <footer class="text-light py-3">
         <p class="mb-0">&copy HealthPixel 2024</p>
     </footer>
     <script

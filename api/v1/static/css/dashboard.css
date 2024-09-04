@@ -32,12 +32,22 @@ main {
     width: 80%;
 }
 
+footer {
+    opacity: 85%;
+    background-color: #7e694f;
+    z-index: 1;
+}
+
 /* On screens that are less than 769px wide, make the sidebar into a topbar */
 @media screen and (max-width: 916px) {
     .sidebar {
         width: 100%;
         height: auto;
         position: relative;
+    }
+
+    footer {
+        opacity: 100%;
     }
 
     main {
