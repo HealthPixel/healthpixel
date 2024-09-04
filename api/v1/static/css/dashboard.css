@@ -1,5 +1,10 @@
 body {
     background-color: #F0DBBF;
+    font-family: "SUSE", sans-serif;
+}
+
+.card {
+    background-color: #ffe9cc;
 }
 
 .sidebar {

@@ -4,13 +4,8 @@ Creates a new User and Integrates with Backend Database
 """
 from models import storage
 from models.doctor import Doctor
-from models.base_model import Base, BaseModel
-from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy.orm import Session
-from sqlalchemy.ext.declarative import declarative_base
-from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 
