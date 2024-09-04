@@ -32,6 +32,10 @@ body {
     height: auto;
 }
 
+footer {
+    background-color: #7e694f;
+}
+
 /* Media queries */
 @media screen and (max-width: 469px) {
     .logo {

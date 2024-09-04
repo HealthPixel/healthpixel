@@ -4,13 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap cdn -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet" />
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- intl-tel-input cdn (for phone numbers) -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+  <!-- css file link -->
   <link rel="stylesheet"
     href="{{ url_for('static', filename='css/register.css') }}">
+  <!-- page favicon -->
   <link rel="shortcut icon"
     href="{{ url_for('static', filename='img/favicon.ico') }}" />
   <title>Create a HealthPixel account</title>
@@ -39,7 +43,7 @@
       </div>
     </header>
     <div class="row justify-content-center">
-      <div class="col-sm-7">
+      <div class="col-sm-8">
         <!-- Display errors -->
         {% if error_ef %}
         <p id="error-ef" class="error">{{ error_ef }}</p>
@@ -61,21 +65,20 @@
               <label for="lname">Last Name</label>
               <input type="text" name="lname" class="form-control" id="lname" />
             </div>
-            <div class="col-sm-7 mb-2">
+            <div class="col-sm-7 mb-3">
               <label for="email">Email</label>
-              <input type="email" name="email" class="form-control"
-                id="email" />
+              <input type="email" name="email" placeholder="example@email.com"
+                class="form-control" id="email" />
             </div>
             <div class="col-sm-5 mb-2">
-              <label for="tel">Telephone</label>
-              <input type="number" name="tel" class="form-control" id="tel" />
+              <label for="tel">Phone Number</label>
+              <input type="tel" name="phone" class="form-control" id="phone" />
             </div>
-          </div>
-          <div>
-            <label for="spec">Specialization</label>
-            <input type="text" name="spec" class="form-control mb-2" />
-          </div>
-          <div class="row">
+            <div class="col-sm-12">
+              <label for="spec">Specialization</label>
+              <input type="text" name="spec" placeholder="e.g. Cardiologist"
+                class="form-control mb-2" />
+            </div>
             <div class="col-sm-6 mb-2">
               <label for="password">Password</label>
               <input type="password" name="password" class="form-control"
@@ -100,7 +103,7 @@
       </div>
     </div>
   </div>
-  <footer class="text-center text-bg-dark py-3">
+  <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
   </footer>
   <script>
@@ -122,6 +125,20 @@
     hideElementAfterDelay('error-pm', 3000);
     hideElementAfterDelay('error-ru', 3000);
   </script>
+  <!-- For formatted phone numbers -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <script>
+    // Initialize intl-tel-input for phone number
+    var phoneInput = document.querySelector("#phone");
+    var itiPhone = window.intlTelInput(phoneInput, {
+      initialCountry: "ng", // Set default country
+      separateDialCode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
