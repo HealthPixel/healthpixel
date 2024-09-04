@@ -36,7 +36,7 @@
         <a href="{{ url_for('auth.logout_doctor') }}"
           class="bi bi-box-arrow-right custom-icon ms-4"></a>
         {% else %}
-        <a href="{{ url_for('auth.login_doctor') }}"
+        <a href="{{ url_for('auth.login_users') }}"
           class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign in
           &#x2192</a>
         {% endif %}
@@ -95,7 +95,7 @@
           </button>
           <p class="text-center text-secondary-emphasis mt-3">
             Already have an account?
-            <a href="{{ url_for('auth.login_doctor') }}"
+            <a href="{{ url_for('auth.login_users') }}"
               class="text-success fw-semibold text-decoration-none">Login
               here</a>
           </p>

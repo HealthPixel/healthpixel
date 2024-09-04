@@ -30,7 +30,7 @@
         <a href="{{ url_for('auth.logout_doctor') }}"
           class="bi bi-box-arrow-right custom-icon ms-4"></a>
         {% else %}
-        <a href="{{ url_for('auth.login_doctor') }}"
+        <a href="{{ url_for('auth.login_users') }}"
           class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign in
           &#x2192</a>
         {% endif %}
@@ -52,7 +52,7 @@
         <p id="del-success" class="success">{{ del_success }}</p>
         {% endif %}
         <form class="d-grid mt-4" method="POST"
-          action="{{ url_for('auth.login_doctor') }}">
+          action="{{ url_for('auth.login_users') }}">
           <h3 class="text-secondary-emphasis mb-3">
             Sign in to your account
           </h3>

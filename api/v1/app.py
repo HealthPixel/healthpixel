@@ -18,7 +18,7 @@ app.secret_key = secrets.token_hex(16)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'auth.login_doctor'
+login_manager.login_view = 'auth.login_users'
 
 @login_manager.user_loader
 def load_user(id):

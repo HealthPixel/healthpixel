@@ -42,24 +42,17 @@
             >
           </h1>
         </div>
-        <!-- <div class="d-flex justify-content-center align-items-center">
-                {% if current_user.is_authenticated %}
-                <a href="{{ url_for('auth.dashboard_redirect_doctor') }}"
-                    class="custom-icon bi bi-grid"></a>
-                <a href="{{ url_for('auth.logout_doctor') }}"
-                    class="bi bi-box-arrow-right custom-icon ms-4"></a>
-                {% else %}
-                <a href="{{ url_for('auth.login_doctor') }}"
-                    class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign
-                    in as Doctor &#x2192</a>
-                <a href="{{ url_for('auth.login_doctor') }}"
-                class="btn btn-outline-success btn-lg rounded-pill fw-bold ms-4">Sign
-                in as Patient &#x2192</a>
-                {% endif %}
-            </div> -->
       </header>
       <div class="row justify-content-center">
         <div class="col-sm-10">
+          <!-- Display errors -->
+          {% if error_ef %}
+          <p id="error-ef" class="error">{{ error_ef }}</p>
+          {% endif %} {% if error_pm %}
+          <p id="error-pm" class="error">{{ error_pm }}</p>
+          {% endif %} {% if err_reg_user %}
+          <p id="error-ru" class="error">{{ err_reg_user }}</p>
+          {% endif %}
           <form
             class="d-grid mt-4"
             method="POST"
@@ -70,42 +63,42 @@
                 Register a new patient
               </h3>
               <div class="col-sm-6 mb-2">
-                <label for="fname">First Name</label>
+                <label for="first_name">First Name</label>
                 <input
                   type="text"
-                  name="fname"
+                  name="first_name"
                   class="form-control"
-                  id="fname"
+                  id="first_name"
                 />
               </div>
               <div class="col-sm-6 mb-2">
-                <label for="lname">Last Name</label>
+                <label for="last_name">Last Name</label>
                 <input
                   type="text"
-                  name="lname"
+                  name="last_name"
                   class="form-control"
-                  id="lname"
+                  id="last_name"
                 />
               </div>
               <div class="col-sm-4 mb-2">
-                <label for="dob">Date of Birth</label>
-                <input type="date" name="dob" class="form-control" id="dob" />
+                <label for="date_of_birth">Date of Birth</label>
+                <input
+                  type="date"
+                  name="date_of_birth"
+                  class="form-control"
+                  id="date_of_birth"
+                />
               </div>
               <div class="col-sm-4 text-center mb-2">
                 <p class="mb-1">Gender</p>
-                <input type="radio" name="gender" id="male" />
+                <input type="radio" name="gender" id="male" value="Male" />
                 <label for="male">Male</label>
-                <input type="radio" name="gender" id="female" />
+                <input type="radio" name="gender" id="female" value="Female" />
                 <label for="female">Female</label>
               </div>
               <div class="col-sm-4 mb-2">
                 <label for="blood_group">Blood Group</label>
-                <select
-                  id="blood_group"
-                  name="blood_group"
-                  class="form-select"
-                  required
-                >
+                <select id="blood_group" name="blood_group" class="form-select">
                   <option value="" disabled selected>
                     Select your blood group
                   </option>
@@ -149,15 +142,33 @@
                 />
               </div>
               <div class="col-sm-4 mb-2">
-                <label for="tel">Phone Number</label>
+                <label for="phone_number">Phone Number</label>
                 <input
                   type="tel"
-                  name="phone"
+                  name="phone_number"
                   class="form-control"
-                  id="phone"
+                  id="phone_number"
                 />
               </div>
-              <div class="col-sm-7 mb-2">
+              <div class="col-sm-6 mb-2">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  id="password"
+                />
+              </div>
+              <div class="col-sm-6 mb-2">
+                <label for="conf_password">Confirm Password</label>
+                <input
+                  type="password"
+                  name="conf_password"
+                  class="form-control"
+                  id="conf_password"
+                />
+              </div>
+              <div class="col-sm-8 mb-2">
                 <label for="emg_contact_name">Emergency Contact Name</label>
                 <input
                   type="text"
@@ -166,7 +177,7 @@
                   id="emg_contact_name"
                 />
               </div>
-              <div class="col-sm-5 mb-2">
+              <div class="col-sm-4 mb-2">
                 <label for="emg_contact_phone"
                   >Emergency Contact Phone Number</label
                 >
@@ -174,7 +185,7 @@
                   type="tel"
                   name="emg_contact_phone"
                   class="form-control"
-                  id="emg_phone"
+                  id="emg_contact_phone"
                 />
               </div>
             </div>

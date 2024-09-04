@@ -12,29 +12,31 @@ from auth import auth
 
 
 @auth.route('/register-patient', methods=['GET', 'POST'])
+@login_required
 def register_patient():
     errors = []
     error_empty_fields = ''
     error_pwd_mismatch = ''
     if request.method == "POST":
-        first_name = request.form['fname']
-        last_name = request.form['lname']
-        dob = request.form['dob']
-        gender = request.form['gender']
-        blood_group = request.form['blood_group']
-        address = request.form['address']
-        zipcode = request.form['zipcode']
-        email = request.form['email']
-        phone = request.form['phone']
-        emg_contact_name = request.form['emg_contact_name']
-        emg_contact_phone = request.form['emg_contact_phone']
-        password = request.form['password']
-        conf_password = request.form['conf_password']
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        phone_number = request.form.get('phone_number')
+        date_of_birth = request.form.get('date_of_birth')
+        gender = request.form.get('gender')
+        address = request.form.get('address')
+        zipcode = request.form.get('zipcode')
+        password = request.form.get('password')
+        blood_group = request.form.get('blood_group')
+        emg_contact_name = request.form.get('emg_contact_name')
+        emg_contact_phone = request.form.get('emg_contact_phone')
+        password = request.form.get('password')
+        conf_password = request.form.get('conf_password')
 
         # Check if all fields are not empty
-        if (not first_name or not last_name or not dob or not gender
-            or not blood_group or not email or not phone or not emg_contact_name
-            or not emg_contact_phone or not password or not conf_password):
+        if (not first_name or not last_name or not date_of_birth or not gender
+            or not blood_group or not email or not phone_number or not emg_contact_name
+            or not emg_contact_phone):
             error_empty_fields = 'Required Fields are Empty'
             errors.append(error_empty_fields)
 
@@ -56,8 +58,8 @@ def register_patient():
             new_patient = Patient(first_name=first_name,
                             last_name=last_name,
                             email=email,
-                            phone_number=phone,
-                            date_of_birth = dob,
+                            phone_number=phone_number,
+                            date_of_birth = date_of_birth,
                             gender = gender,
                             address = address,
                             zipcode = zipcode,
@@ -69,10 +71,10 @@ def register_patient():
             try:
                 storage.new(new_patient)
                 storage.save()
-                # register_success = "You have successfully created an account. Please log in!"
-                # if not errors:
-                #     login_user(new_patient)
-                #     return redirect(url_for('healthpixel', id=new_patient.id))
+                register_success = "You have successfully created an account!"
+                if not errors:
+                    # login_user(new_patient)
+                    return redirect(url_for('auth.dashboard_doctor', id=new_patient.id))
             except Exception as e:
                 errors.append(f'Error: {str(e)}')
     return render_template('register_patient.html',
@@ -80,57 +82,26 @@ def register_patient():
                            error_pm = error_pwd_mismatch)
 
 
-# @auth.route('/login', methods=['GET', 'POST'])
-# def login():
-#     del_success = request.args.get('del_success')
-#     errors = []
-#     error_login = ''
-#     error_empty_fields = ''
-#     if request.method == 'POST':
-#         email = request.form['email']
-#         password = request.form['password']
-#         remember = 'remember' in request.form
-        
-#         # Check if all fields are not empty
-#         if not email or not password:
-#             error_empty_fields = 'All fields are required'
-#             errors.append(error_empty_fields)
-#             return render_template('login.html', err_ef=error_empty_fields)
-
-#         doctor = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
-
-#         if not (doctor and check_password_hash(doctor.password, password)):
-#             error_login = 'Invalid Login. Check Username or Password!'
-#             errors.append(error_login)
-#             return render_template('login.html', err_login=error_login)
-
-#         if not errors:
-#             login_user(doctor, remember=remember)
-#             return redirect(url_for('auth.dashboard', id=doctor.id))
-
-#     return render_template('login.html', del_success=del_success)
+@auth.route('/logout_patient')
+def logout_patient():
+    logout_user()
+    logout_success = "You have successfully logged out!"
+    return render_template('login.html', logout_success=logout_success)
 
 
-# @auth.route('/logout')
-# def logout():
-#     logout_user()
-#     logout_success = "You have successfully logged out!"
-#     return render_template('login.html', logout_success=logout_success)
+@auth.route('/patient_dashboard/<id>')
+@login_required
+def dashboard_patient(id):
+    user_data = storage._DBStorage__session.query(Patient).filter_by(id=current_user.id).first()
+    if current_user.id != id:
+        return render_template('error.html', message='Unauthorized access.')
 
-
-# @auth.route('/dashboard/<id>')
-# @login_required
-# def dashboard(id):
-#     user_data = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
-#     if current_user.id != id:
-#         return render_template('error.html', message='Unauthorized access.')
-
-#     return render_template('dashboard.html', user=user_data, user_id=id)
+    return render_template('patient_dashboard.html', user=user_data, user_id=id)
 
 
 # @auth.route('/dashboard')
 # @login_required
-# def dashboard_redirect():
+# def dashboard_redirect_patient():
 #     # Redirect to the current user's dashboard using their ID
 #     return redirect(url_for('auth.dashboard', id=current_user.id))
 

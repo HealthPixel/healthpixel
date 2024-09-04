@@ -74,7 +74,7 @@ def register_doctor():
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-def login_doctor():
+def login_users():
     del_success = request.args.get('del_success')
     errors = []
     error_login = ''
@@ -104,13 +104,13 @@ def login_doctor():
             return render_template('login.html', err_login=error_login)
 
         if not errors:
-            login_user(user, remember=remember)
+            login_user(user)
 
             # Redirect based on the user role(Doctor or Patient)
             if isinstance(user, Doctor):
-                return redirect(url_for('auth.dashboard', id=user.id))
+                return redirect(url_for('auth.dashboard_doctor', id=user.id))
             elif isinstance(user, Patient):
-                return redirect(url_for('auth.patient_dashboard', id=user.id))
+                return redirect(url_for('auth.dashboard_patient', id=user.id))
 
     return render_template('login.html', del_success=del_success)
 
@@ -132,15 +132,6 @@ def dashboard_doctor(id):
     return render_template('dashboard.html', user=user_data, user_id=id)
 
 
-@auth.route('/patient_dashboard/<id>')
-@login_required
-def patient_dashboard(id):
-    user_data = storage._DBStorage__session.query(Patient).filter_by(id=current_user.id).first()
-    if current_user.id != id:
-        return render_template('error.html', message='Unauthorized access.')
-
-    return render_template('patient_dashboard.html', user=user_data, user_id=id)
-
 @auth.route('/dashboard')
 @login_required
 def dashboard_redirect_doctor():
@@ -153,4 +144,4 @@ def delete_doctor():
     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
     response = requests.delete(delete_doc_api_url)
     del_success = "Your account has been deleted successfully!"
-    return redirect(url_for('auth.login_doctor', del_success=del_success))
+    return redirect(url_for('auth.login_users', del_success=del_success))
