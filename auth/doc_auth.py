@@ -8,13 +8,11 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
-
-
-auth = Blueprint('auth', __name__, url_prefix='/auth')
+from auth import auth
 
 
 @auth.route('/register', methods=['GET', 'POST'])
-def register():
+def register_doctor():
     errors = []
     error_empty_fields = ''
     error_pwd_mismatch = ''
@@ -22,13 +20,14 @@ def register():
         first_name = request.form['fname']
         last_name = request.form['lname']
         email = request.form['email']
-        tel = request.form['tel']
+        phone = request.form['phone']
         specialization = request.form['spec']
         password = request.form['password']
         conf_password = request.form['conf_password']
 
         # Check if all fields are not empty
-        if not first_name or not last_name or not email or not tel or not specialization or not password or not conf_password:
+        if (not first_name or not last_name or not email
+            or not phone or not specialization or not password or not conf_password):
             error_empty_fields = 'All fields are required'
             errors.append(error_empty_fields)
 
@@ -49,7 +48,7 @@ def register():
         if not errors:
             new_doc = Doctor(first_name=first_name,
                             last_name=last_name,
-                            phone_number=tel,
+                            phone_number=phone,
                             email=email,
                             specialization=specialization,
                             password=hashed_password)
@@ -60,7 +59,7 @@ def register():
                 # register_success = "You have successfully created an account. Please log in!"
                 if not errors:
                     login_user(new_doc)
-                    return redirect(url_for('auth.dashboard', id=new_doc.id))
+                    return redirect(url_for('auth.dashboard_doctor', id=new_doc.id))
             except Exception as e:
                 errors.append(f'Error: {str(e)}')
     return render_template('register.html',
@@ -69,7 +68,7 @@ def register():
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-def login():
+def login_doctor():
     del_success = request.args.get('del_success')
     errors = []
     error_login = ''
@@ -94,13 +93,13 @@ def login():
 
         if not errors:
             login_user(doctor, remember=remember)
-            return redirect(url_for('auth.dashboard', id=doctor.id))
+            return redirect(url_for('auth.dashboard_doctor', id=doctor.id))
 
     return render_template('login.html', del_success=del_success)
 
 
 @auth.route('/logout')
-def logout():
+def logout_doctor():
     logout_user()
     logout_success = "You have successfully logged out!"
     return render_template('login.html', logout_success=logout_success)
@@ -108,19 +107,19 @@ def logout():
 
 @auth.route('/dashboard/<id>')
 @login_required
-def dashboard(id):
+def dashboard_doctor(id):
     user_data = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
     if current_user.id != id:
-        return render_template('error.html', message='Unauthorized access.')
+        return render_template('error.html', message='Unauthorized Access.')
 
     return render_template('dashboard.html', user=user_data, user_id=id)
 
 
 @auth.route('/dashboard')
 @login_required
-def dashboard_redirect():
+def dashboard_redirect_doctor():
     # Redirect to the current user's dashboard using their ID
-    return redirect(url_for('auth.dashboard', id=current_user.id))
+    return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
 
 
 @auth.route('/delete_doctor', methods=['GET'])
@@ -128,4 +127,4 @@ def delete_doctor():
     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
     response = requests.delete(delete_doc_api_url)
     del_success = "Your account has been deleted successfully!"
-    return redirect(url_for('auth.login', del_success=del_success))
+    return redirect(url_for('auth.login_doctor', del_success=del_success))

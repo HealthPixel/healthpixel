@@ -2,6 +2,18 @@ body {
     background-color: #F0DBBF;
 }
 
+.logo {
+    width: 65px;
+    height: auto;
+}
+
+#abs-img {
+    top: 75px;
+    left: 50px;
+    z-index: 1;
+    width: 300px;
+}
+
 footer {
     background-color: #7e694f;
 }
