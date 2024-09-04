@@ -5,9 +5,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Date
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
 
 
-class Patient(BaseModel, Base):
+class Patient(BaseModel, Base, UserMixin):
     """
     Simple model of a Patient object
 

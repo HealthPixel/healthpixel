@@ -4,6 +4,12 @@ Creates a new User and Integrates with Backend Database
 """
 from models import storage
 from models.doctor import Doctor
+from models.patient import Patient
+from models.base_model import Base, BaseModel
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import Session
+from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -84,16 +90,27 @@ def login_doctor():
             errors.append(error_empty_fields)
             return render_template('login.html', err_ef=error_empty_fields)
 
-        doctor = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
+        # Try to find the user in Doctor model
+        user = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
 
-        if not (doctor and check_password_hash(doctor.password, password)):
+        # If not found, try to find the user in Patient model
+        if not user:
+            user = storage._DBStorage__session.query(Patient).filter_by(email=email).first()
+
+        # Validate password
+        if not (user and check_password_hash(user.password, password)):
             error_login = 'Invalid Login. Check Username or Password!'
             errors.append(error_login)
             return render_template('login.html', err_login=error_login)
 
         if not errors:
-            login_user(doctor, remember=remember)
-            return redirect(url_for('auth.dashboard_doctor', id=doctor.id))
+            login_user(user, remember=remember)
+
+            # Redirect based on the user role(Doctor or Patient)
+            if isinstance(user, Doctor):
+                return redirect(url_for('auth.dashboard', id=user.id))
+            elif isinstance(user, Patient):
+                return redirect(url_for('auth.patient_dashboard', id=user.id))
 
     return render_template('login.html', del_success=del_success)
 
@@ -114,6 +131,15 @@ def dashboard_doctor(id):
 
     return render_template('dashboard.html', user=user_data, user_id=id)
 
+
+@auth.route('/patient_dashboard/<id>')
+@login_required
+def patient_dashboard(id):
+    user_data = storage._DBStorage__session.query(Patient).filter_by(id=current_user.id).first()
+    if current_user.id != id:
+        return render_template('error.html', message='Unauthorized access.')
+
+    return render_template('patient_dashboard.html', user=user_data, user_id=id)
 
 @auth.route('/dashboard')
 @login_required

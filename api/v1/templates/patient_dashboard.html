@@ -15,15 +15,16 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}"
+      href="{{ url_for('static', filename='css/patient_dashboard.css') }}"
     />
     <link
       rel="shortcut icon"
       href="{{ url_for('static', filename='img/favicon.ico') }}"
     />
 
-    <title>HealthPixel Dashboard</title>
+    <title>HealthPixel Patient Dashboard</title>
   </head>
+
   <body class="d-flex flex-column min-vh-100">
     <div class="flex-grow-1">
       <div class="navbar flex-column justify-content-start sidebar py-2">
@@ -32,26 +33,13 @@
           class="mb-5 mt-4"
           alt="HealthPixel Logo"
         />
-        <a href="{{ url_for('auth.register_patient') }}" class="btn btn-success btn-large py-2 mb-5"
-          >Register Patient</a
-        >
-        <a href="#" class="btn btn-success btn-large py-2 mb-5"
-          >Update Patient's Record</a
-        >
         <a href="#" class="btn btn-primary py-2 mb-5">Edit profile</a>
         <div class="row">
           <div class="col-sm-4 text-center">
             <a
-              href="{{ url_for('auth.logout_doctor') }}"
+              href="{{ url_for('auth.logout') }}"
               class="btn btn-outline-danger mb-3"
               >Logout</a
-            >
-          </div>
-          <div class="col-sm-8 text-center">
-            <a
-              href="{{ url_for('auth.delete_doctor') }}"
-              class="btn btn-danger mb-3"
-              >Delete account</a
             >
           </div>
         </div>
@@ -67,20 +55,9 @@
           </header>
           <div class="card p-3 mb-5">
             <h1 class="display-6 fw-semibold mb-4">
-              Welcome, Dr. {{ user.first_name }} {{ user.last_name }}
+              Welcome, {{ user.first_name }} {{ user.last_name }}
             </h1>
             <p class="fw-semibold">Email: {{ user.email }}</p>
-            <p class="fw-semibold">Specialization: {{ user.specialization }}</p>
-          </div>
-          <div class="search_input p-3">
-            <h4 class="text-success">Search a patient:</h4>
-            <input
-              type="search"
-              name="search_patient"
-              class="form-control rounded-pill border border-secondary border-3"
-              placeholder="email or ID"
-              id="search_patient"
-            />
           </div>
           <!-- <button type="submit" class="btn btn-success px-5 mt-2 mx-5">View</button> -->
       </div>
