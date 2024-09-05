@@ -41,7 +41,7 @@ def page_not_found(e):
     return render_template('error404.html'), 404
 
 @app.errorhandler(403)
-def page_not_found(e):
+def unauthorzed_access(e):
     return render_template('error403.html'), 403
 
 if __name__ == "__main__":
