@@ -128,7 +128,7 @@ def logout_doctor():
 def dashboard_doctor(id):
     user_data = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
     if current_user.id != id:
-        return render_template('error.html')
+        return render_template('error403.html')
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login_users'))
     logging.info(f"User authenticated: {current_user.is_authenticated}")
