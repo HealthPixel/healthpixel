@@ -28,14 +28,24 @@
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 {% if current_user.is_authenticated %}
-                <a href="{{ url_for('auth.dashboard_redirect') }}"
-                    class="custom-icon bi bi-grid"></a>
-                <a href="{{ url_for('auth.logout') }}"
-                    class="bi bi-box-arrow-right custom-icon ms-4"></a>
+                    {% if current_user.__class__.__name__ == 'Doctor' %}
+                    <a href="{{ url_for('auth.dashboard_redirect_doctor') }}"
+                        class="custom-icon bi bi-grid"></a>
+                    <a href="{{ url_for('auth.logout_doctor') }}"
+                        class="bi bi-box-arrow-right custom-icon ms-4"></a>
+                    {% else %}
+                    <a href="{{ url_for('auth.dashboard_patient', id=current_user.id) }}"
+                        class="custom-icon bi bi-grid"></a>
+                    <a href="{{ url_for('auth.logout_patient') }}"
+                        class="bi bi-box-arrow-right custom-icon ms-4"></a>
+                    {% endif %}
                 {% else %}
-                <a href="{{ url_for('auth.login') }}"
+                <a href="{{ url_for('auth.login_users') }}"
                     class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign
                     in &#x2192</a>
+                <!-- <a href="{{ url_for('auth.login_users') }}"
+                class="btn btn-outline-success btn-lg rounded-pill fw-bold ms-4">Sign
+                in as Patient &#x2192</a> -->
                 {% endif %}
             </div>
         </header>
@@ -48,11 +58,11 @@
                         MEDICAL
                         DATA AT
                         YOUR FINGERTIPS</h2>
-                    {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('auth.dashboard_redirect') }}"
+                    {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Doctor' %}
+                    <a href="{{ url_for('auth.dashboard_redirect_doctor') }}"
                         class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">Dashboard</a>
                     {% else %}
-                    <a href="{{ url_for('auth.register') }}"
+                    <a href="{{ url_for('auth.register_doctor') }}"
                         class="btn btn-outline-success btn-lg px-5 rounded-pill fw-bolder mb-5">TRY
                         A DEMO
                     </a>

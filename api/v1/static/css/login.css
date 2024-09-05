@@ -2,22 +2,48 @@ body {
     background-color: #F0DBBF;
 }
 
-.error {
+.show-error {
     background-color: #b40000;
     color: #eaeaea;
-    padding: 0.5em 1em;
+    padding: 0.8em;
     border-radius: 10px;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: visible;
 }
 
-.success {
+.show-success {
     background-color: #008638;
     color: #eaeaea;
-    padding: 0.5em 1em;
+    padding: 0.8em;
     border-radius: 10px;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: visible;
+}
+
+.show-error p {
+    margin-bottom: 0px;
+}
+
+.show-success p {
+    margin-bottom: 0px;
+}
+
+.hide-message {
+    background-color: #b40000;
+    color: #eaeaea;
+    padding: 0.8em;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: hidden;
 }
 
 #abs-img {
