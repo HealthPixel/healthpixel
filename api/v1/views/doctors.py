@@ -86,7 +86,6 @@ def register_patient():
         gender = request.form.get('gender')
         address = request.form.get('address')
         zipcode = request.form.get('zipcode')
-        password = request.form.get('password')
         blood_group = request.form.get('blood_group')
         emg_contact_name = request.form.get('emg_contact_name')
         emg_contact_phone = request.form.get('emg_contact_phone')
