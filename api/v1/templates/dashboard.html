@@ -32,7 +32,9 @@
           class="mb-5 mt-4"
           alt="HealthPixel Logo"
         />
-        <a href="{{ url_for('auth.register_patient') }}" class="btn btn-success btn-large py-2 mb-5"
+        <a
+          href="{{ url_for('auth.register_patient') }}"
+          class="btn btn-success btn-large py-2 mb-5"
           >Register Patient</a
         >
         <a href="#" class="btn btn-success btn-large py-2 mb-5"
@@ -56,7 +58,7 @@
           </div>
         </div>
       </div>
-      <main class="px-4 py-5">
+      <main class="px-4 mt-5 mb-4">
         <div class="container">
           <header class="d-flex text-center">
             <a
@@ -65,7 +67,17 @@
               >HealthPixel</a
             >
           </header>
-          <div class="card p-3 mb-5">
+          <!--Alert Messages-->
+          {% with messages = get_flashed_messages() %}
+          <div
+            id="success-reg"
+            class="{{ 'show-success' if messages else 'hide-success' }}"
+            role="alert"
+          >
+            {% if messages %} {{ messages[0] }} {% endif %}
+          </div>
+          {% endwith %}
+          <div class="card p-4 mt-4 mb-5">
             <h1 class="display-6 fw-semibold mb-4">
               Welcome, Dr. {{ user.first_name }} {{ user.last_name }}
             </h1>
@@ -82,15 +94,32 @@
               id="search_patient"
             />
           </div>
+          <div class="patient_list"></div>
           <!-- <button type="submit" class="btn btn-success px-5 mt-2 mx-5">View</button> -->
-      </div>
-    </main>
-  </div>
-  <footer class="text-center text-light py-3">
-    <p class="mb-0">&copy HealthPixel 2024</p>
-  </footer>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        </div>
+        <!--Container End-->
+      </main>
+    </div>
+    <footer class="text-center text-light py-3">
+      <p class="mb-0">&copy HealthPixel 2024</p>
+    </footer>
+    <script>
+      // Function to hide the element after a delay
+      function hideElementAfterDelay(elementId, delay) {
+        setTimeout(function () {
+          var element = document.getElementById(elementId);
+          if (element) {
+            element.style.transition = "opacity 1s ease-out";
+            element.style.visibility = "hidden";
+            setTimeout(function () {
+              // element.style.display = "none";
+            }, 1000);
+          }
+        }, delay);
+      }
 
+      hideElementAfterDelay("success-reg", 3000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

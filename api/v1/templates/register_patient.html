@@ -26,7 +26,7 @@
   <body class="d-flex flex-column min-vh-100">
     <div class="container flex-grow-1">
       <header
-        class="d-flex justify-content-between align-items-center mt-4 mb-5"
+        class="d-flex justify-content-between align-items-center mt-4 mb-3"
       >
         <div class="d-flex">
           <img
@@ -46,15 +46,20 @@
       <div class="row justify-content-center">
         <div class="col-sm-10">
           <!-- Display errors -->
-          {% if error_ef %}
-          <p id="error-ef" class="error">{{ error_ef }}</p>
-          {% endif %} {% if error_pm %}
-          <p id="error-pm" class="error">{{ error_pm }}</p>
-          {% endif %} {% if err_reg_user %}
-          <p id="error-ru" class="error">{{ err_reg_user }}</p>
-          {% endif %}
+          <div
+            id="errors"
+            class="{{ 'show-error' if error_ef or error_pm or err_reg_user else 'hide-error' }}"
+          >
+            {% if error_ef %}
+              <p id="error-ef">{{ error_ef }}</p>
+            {% elif error_pm %}
+              <p id="error-pm">{{ error_pm }}</p>
+            {% elif err_reg_user %}
+              <p id="err-reg-user">{{ err_reg_user }}</p>
+            {% endif %}
+          </div>
           <form
-            class="d-grid mt-4"
+            class="d-grid mt-3"
             method="POST"
             action="{{ url_for('auth.register_patient') }}"
           >
@@ -206,15 +211,16 @@
           var element = document.getElementById(elementId);
           if (element) {
             element.style.transition = "opacity 1s ease-out";
-            element.style.opacity = "0";
+            element.style.visibility = "hidden";
             setTimeout(function () {
-              element.style.display = "none";
+              // element.style.display = "none";
             }, 1000);
           }
         }, delay);
       }
 
-      hideElementAfterDelay("error-l", 3000);
+      hideElementAfterDelay("errors", 3000);
+      hideElementAfterDelay("err-reg-user", 3000);
       hideElementAfterDelay("error-ef", 3000);
       hideElementAfterDelay("success-lo", 3000);
       hideElementAfterDelay("del-success", 3000);
@@ -224,7 +230,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>
       // Initialize intl-tel-input for the first phone number
-      var phoneInput = document.querySelector("#phone");
+      var phoneInput = document.querySelector("#phone_number");
       var itiPhone = window.intlTelInput(phoneInput, {
         initialCountry: "ke", // Set default country (Nigeria in this example)
         separateDialCode: true,
@@ -233,7 +239,7 @@
       });
 
       // Initialize intl-tel-input for the emergency contact's phone number
-      var emergencyPhoneInput = document.querySelector("#emg_phone");
+      var emergencyPhoneInput = document.querySelector("#emg_contact_phone");
       var itiEmergencyPhone = window.intlTelInput(emergencyPhoneInput, {
         initialCountry: "ng", // Set default country
         separateDialCode: true,

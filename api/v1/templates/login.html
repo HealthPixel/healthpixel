@@ -16,7 +16,7 @@
 
 <body class="d-flex flex-column min-vh-100">
   <div class="container flex-grow-1">
-    <header class="d-flex justify-content-between align-items-center py-3">
+    <header class="d-flex justify-content-between align-items-center mt-4 mb-3">
       <div class="d-flex">
         <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
           alt="HealthPixel Logo" class="logo">
@@ -39,19 +39,31 @@
     <div class="row justify-content-center">
       <div class="col-sm-7">
         <!-- Display errors -->
-        {% if err_login %}
-        <p id="error-l" class="error">{{ err_login }}</p>
-        {% endif %}
-        {% if err_ef %}
-        <p id="error-ef" class="error">{{ err_ef }}</p>
-        {% endif %}
-        {% if logout_success %}
-        <p id="success-lo" class="success">{{ logout_success }}</p>
-        {% endif %}
-        {% if del_success %}
-        <p id="del-success" class="success">{{ del_success }}</p>
-        {% endif %}
-        <form class="d-grid mt-4" method="POST"
+        <div
+        id="errors"
+        class="{% if err_login or err_ef %}show-error{% elif logout_success or del_success %}show-success{% else %}hide-message{% endif %}">
+          {% if err_login %}
+            <p id="error-login">
+              {{ err_login }}
+            </p>
+          {% endif %}
+          {% if err_ef %}
+            <p id="error-ef">
+              {{ err_ef }}
+            </p>
+          {% endif %}
+          {% if logout_success %}
+            <p id="success-logout">
+              {{ logout_success }}
+            </p>
+          {% endif %}
+          {% if del_success %}
+            <p id="del-success">
+              {{ del_success }}
+            </p>
+          {% endif %}
+        </div>
+        <form class="d-grid mt-3" method="POST"
           action="{{ url_for('auth.login_users') }}">
           <h3 class="text-secondary-emphasis mb-3">
             Sign in to your account
@@ -95,17 +107,18 @@
         var element = document.getElementById(elementId);
         if (element) {
           element.style.transition = "opacity 1s ease-out";
-          element.style.opacity = "0";
+          element.style.visibility = "hidden";
           setTimeout(function () {
-            element.style.display = "none";
+            // element.style.display = "none";
           }, 1000);
         }
       }, delay);
     }
 
-    hideElementAfterDelay('error-l', 3000);
+    hideElementAfterDelay("errors", 3000);
+    hideElementAfterDelay('error-login', 3000);
     hideElementAfterDelay('error-ef', 3000);
-    hideElementAfterDelay('success-lo', 3000);
+    hideElementAfterDelay('success-logout', 3000);
     hideElementAfterDelay('del-success', 3000);
   </script>
   <script

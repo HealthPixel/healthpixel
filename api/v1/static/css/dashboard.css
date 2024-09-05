@@ -3,6 +3,53 @@ body {
     font-family: "SUSE", sans-serif;
 }
 
+.show-success {
+    background-color: #008638;
+    color: #eaeaea;
+    padding: 0.8em;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: visible;
+    /* width: 60%;
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%); 
+    z-index: 9999;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-out; */
+}
+
+.hide-success {
+    background-color: #008638;
+    color: #eaeaea;
+    padding: 0.8em;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: hidden;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* .show-success {
+    animation: slideDown 0.5s ease-out;
+} */
+
 .card {
     background-color: #ffe9cc;
 }

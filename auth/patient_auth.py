@@ -71,10 +71,10 @@ def register_patient():
             try:
                 storage.new(new_patient)
                 storage.save()
-                register_success = "You have successfully created an account!"
+                register_success = "You have successfully created a Patient account!"
                 if not errors:
-                    # login_user(new_patient)
-                    return redirect(url_for('auth.dashboard_doctor', id=new_patient.id))
+                    flash(register_success)
+                    return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
             except Exception as e:
                 errors.append(f'Error: {str(e)}')
     return render_template('register_patient.html',

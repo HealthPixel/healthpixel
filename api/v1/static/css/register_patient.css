@@ -14,13 +14,32 @@ body {
     width: 300px;
 }
 
-.error {
+.show-error {
     background-color: #b40000;
     color: #eaeaea;
-    padding: 0.5em 1em;
+    padding: 0.8em;
     border-radius: 10px;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: visible;
+}
+
+.hide-error {
+    background-color: #b40000;
+    color: #eaeaea;
+    padding: 0.8em;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16x;
+    min-height: 40px;
+    text-align: center;
+    visibility: hidden;
+}
+
+.show-error p {
+    margin-bottom: 0px;
 }
 
 footer {
