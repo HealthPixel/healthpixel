@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
-from flask import Blueprint, request, get_flashed_messages, render_template, redirect, url_for
+from flask import Blueprint, request, get_flashed_messages, render_template, redirect, url_for, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
@@ -128,14 +128,14 @@ def logout_doctor():
 def dashboard_doctor(id):
     user_data = storage._DBStorage__session.query(Doctor).filter_by(id=current_user.id).first()
     if current_user.id != id:
-        return render_template('error403.html')
+        abort(403, "Unauthorized Access")
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login_users'))
     logging.info(f"User authenticated: {current_user.is_authenticated}")
     return render_template('dashboard.html', user=user_data, user_id=id)
 
 
-@auth.route('/dashboard')
+@auth.route('/doctor_dashboard')
 @login_required
 def dashboard_redirect_doctor():
     # Redirect to the current user's dashboard using their ID
