@@ -28,11 +28,11 @@ def dashboard_patient(id):
     return render_template('patient_dashboard.html', user=user_data, user_id=id)
 
 
-# @auth.route('/dashboard')
-# @login_required
-# def dashboard_redirect_patient():
-#     # Redirect to the current user's dashboard using their ID
-#     return redirect(url_for('auth.dashboard', id=current_user.id))
+@auth.route('/patient_dashboard')
+@login_required
+def dashboard_redirect_patient():
+    # Redirect to the current user's dashboard using their ID
+    return redirect(url_for('auth.dashboard_patient', id=current_user.id))
 
 
 # @auth.route('/delete_doctor', methods=['GET'])
