@@ -3,7 +3,7 @@
 This module creates view for Doctor objects
 """
 
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, render_template, flash, redirect, url_for
 from sqlalchemy import text
 from api.v1.views import app_views
 from models import storage
@@ -12,6 +12,7 @@ from models.patient import Patient
 from models.access_log import Access_Log
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
+from flask_login import login_required, current_user
 
 
 @app_views.route('/doctors', methods=['GET'], strict_slashes=False)
@@ -67,31 +68,70 @@ def delete_a_doctor(doctor_id):
     return jsonify({}), 200
 
 
-@app_views.route('/doctor/register-patient', methods=['POST'], strict_slashes=False)
-def create_a_patient():
+@app_views.route('/doctor/register-patient', methods=['GET', 'POST'],
+                 strict_slashes=False)
+@login_required
+def register_patient():
     """Creates a Patient object"""
-    data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
+    # Ensure the user is a Doctor
+    if not isinstance(current_user, Doctor):
+        abort(403, "You are not authorized to perform this function!")
 
-    required_fields = ['first_name', 'last_name', 'date_of_birth', 'gender',
-                       'blood_group', 'phone_number', 'email',
-                       'emergency_contact_name', 'emergency_contact_phone',
-                       'password']
-    for field in required_fields:
-        if field not in data:
-            abort(400, f"Missing {field}")
+    if request.method == "POST":
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        phone_number = request.form.get('phone_number')
+        date_of_birth = request.form.get('date_of_birth')
+        gender = request.form.get('gender')
+        address = request.form.get('address')
+        zipcode = request.form.get('zipcode')
+        blood_group = request.form.get('blood_group')
+        emg_contact_name = request.form.get('emg_contact_name')
+        emg_contact_phone = request.form.get('emg_contact_phone')
+        password = request.form.get('password')
+        conf_password = request.form.get('conf_password')
 
-    try:
-        data['password'] = generate_password_hash(data['password'],
-                                                  method='pbkdf2:sha256')
+        # Check if all fields are not empty
+        if (not first_name or not last_name or not date_of_birth or not gender
+            or not blood_group or not email or not phone_number or not emg_contact_name
+            or not emg_contact_phone):
+            flash('Required Fields are Empty!')
+            return redirect(url_for('app_views.register_patient'))
 
-        new_patient = Patient(**data)
-        storage.new(new_patient)
-        storage.save()
-    except IntegrityError:
-        abort(400, "A patient with the same email already exists!")
-    except Exception as e:
-        abort(500, f"An error occured while saving the Patient: {str(e)}")
+        patient = storage._DBStorage__session.query(Patient).filter_by(email=email).first()
 
-    return jsonify(new_patient.to_dict()), 201
+        if patient:
+            flash('Patient already exist, use a different email!')
+            return redirect(url_for('app_views.register_patient'))
+
+        # Check if passwords match before hashing
+        if password != conf_password:
+            flash('Passwords do not match')
+            return redirect(url_for('app_views.register_patient'))
+        else:
+            hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+        new_patient = Patient(first_name=first_name,
+                              last_name=last_name,
+                              email=email,
+                              phone_number=phone_number,
+                              date_of_birth = date_of_birth,
+                              gender = gender,
+                              address = address,
+                              zipcode = zipcode,
+                              blood_group = blood_group,
+                              emergency_contact_name = emg_contact_name,
+                              emergency_contact_phone = emg_contact_phone,
+                              password=hashed_password)
+
+        try:
+            storage.new(new_patient)
+            storage.save()
+            flash("You have successfully created a Patient account!")
+            return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
+        except Exception as e:
+            flash(f'Error: {str(e)}')
+            return redirect(url_for('app_views.register_patient'))
+
+    return render_template('register_patient.html')
