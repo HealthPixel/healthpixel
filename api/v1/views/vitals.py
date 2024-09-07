@@ -9,6 +9,7 @@ from models import storage
 from models.vitals import Vitals
 from models.patient import Patient
 from models.doctor import Doctor
+from datetime import datetime
 
 
 @app_views.route('/patient/<patient_id>/vitals', methods=['GET'],
@@ -19,7 +20,7 @@ def get_patient_vitals(patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    vitals = storage._DBStorage__session.query(Vitals).filter_by(patient_id=patient_id).first()
+    vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
     if not vitals:
         abort(404, "No vitals found for the specified Patient")
     return jsonify(vitals.to_dict())
@@ -48,7 +49,7 @@ def add_patient_vitals(doctor_id, patient_id):
         if field not in data:
             abort(400, f"Missing required field {field}")
 
-    existing_vitals = storage._DBStorage__session.query(Vitals).filter_by(patient_id=patient_id).first()
+    existing_vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
     if existing_vitals:
         abort(400, "Patient already has a vitals")
 
@@ -75,7 +76,7 @@ def update_patient_vitals(doctor_id, patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    vitals = storage._DBStorage__session.query(Vitals).filter_by(patient_id=patient_id).first()
+    vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
     if not vitals:
         abort(404, "Vitals not found for the specified Patient")
 
@@ -83,10 +84,12 @@ def update_patient_vitals(doctor_id, patient_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at']
+    ignored_keys = ['id', 'created_at']
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(vitals, key, value)
+
+    vitals.updated_at = datetime.utcnow()
     storage.save()
     return jsonify(vitals.to_dict()), 200
 
@@ -103,7 +106,7 @@ def delete_patient_vitals(doctor_id, patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    vitals = storage._DBStorage__session.query(Vitals).filter_by(patient_id=patient_id).first()
+    vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
     if not vitals:
         abort(404, "Vitals not found for the specified Patient")
 

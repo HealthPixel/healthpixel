@@ -8,6 +8,7 @@ from models import storage
 from models.doctor import Doctor
 from models.patient import Patient
 from models.lab_result import Lab_Results
+from datetime import datetime
 
 
 @app_views.route('/patient/<patient_id>/lab_result', methods=['GET'], strict_slashes=False)
@@ -17,7 +18,7 @@ def get_lab_result(patient_id):
     if not patient:
         abort(400, "Patient does not exist")
 
-    lab_result = storage._DBStorage__session.query(Lab_Results).filter_by(patient_id=patient_id).first()
+    lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
     if not lab_result:
         abort(400, "No Lab Result found for the specified Patient")
 
@@ -43,7 +44,7 @@ def create_patient_lab_result(doctor_id, patient_id):
         if field not in data:
             abort(400, f"Missing {field}")
 
-    existing_record = storage._DBStorage__session.query(Lab_Results).filter_by(patient_id=patient_id).first()
+    existing_record = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
     if existing_record:
         abort(400, "Patient already has a lab result")
 
@@ -70,7 +71,7 @@ def update_patient_lab_result(doctor_id, patient_id):
     if not patient:
         abort(400, "Patient does not exist")
 
-    lab_result = storage._DBStorage__session.query(Lab_Results).filter_by(patient_id=patient_id).first()
+    lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
     if not lab_result:
         abort(400, " Lab Result record not found for the specified Patient")
 
@@ -78,13 +79,14 @@ def update_patient_lab_result(doctor_id, patient_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at'] # These keys can't be updated
+    ignored_keys = ['id', 'created_at'] # These keys can't be updated
     for key, value in data.items():
             if key not in ignored_keys:
                 if hasattr(lab_result, key):
                     setattr(lab_result, key, value)
 
     try:
+        lab_result.updated_at = datetime.utcnow()
         storage.save()
     except Exception as e:
         abort(500, f"An error occured while saving the Patient Lab Result: {str(e)}")
@@ -103,7 +105,7 @@ def delete_patient_lab_result(doctor_id, patient_id):
     if not patient:
         abort(400, "Patient does not exist")
 
-    lab_result = storage._DBStorage__session.query(Lab_Results).filter_by(patient_id=patient_id).first()
+    lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
     if not lab_result:
         abort(400, "Lab Result not found for the specified Patient")
 

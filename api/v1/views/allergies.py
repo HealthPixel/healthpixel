@@ -9,6 +9,7 @@ from models import storage
 from models.allergies import Allergies
 from models.patient import Patient
 from models.doctor import Doctor
+from datetime import datetime
 
 
 @app_views.route('/patient/<patient_id>/allergies', methods=['GET'],
@@ -19,7 +20,7 @@ def get_patient_allergies(patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    allergies = storage._DBStorage__session.query(Allergies).filter_by(patient_id=patient_id).first()
+    allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
     if not allergies:
         abort(404, "No allergies found for the specified Patient")
     return jsonify(allergies.to_dict())
@@ -48,7 +49,7 @@ def add_patient_allergies(doctor_id, patient_id):
         if field not in data:
             abort(400, f"Missing required field {field}")
 
-    existing_allergies = storage._DBStorage__session.query(Allergies).filter_by(patient_id=patient_id).first()
+    existing_allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
     if existing_allergies:
         abort(400, "Patient already has a allergies")
 
@@ -75,7 +76,7 @@ def update_patient_allergies(doctor_id, patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    allergies = storage._DBStorage__session.query(Allergies).filter_by(patient_id=patient_id).first()
+    allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
     if not allergies:
         abort(404, "Allergies not found for the specified Patient")
 
@@ -87,6 +88,8 @@ def update_patient_allergies(doctor_id, patient_id):
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(allergies, key, value)
+
+    allergies.updated_at = datetime.utcnow()
     storage.save()
     return jsonify(allergies.to_dict()), 200
 
@@ -103,7 +106,7 @@ def delete_patient_allergies(doctor_id, patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    allergies = storage._DBStorage__session.query(Allergies).filter_by(patient_id=patient_id).first()
+    allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
     if not allergies:
         abort(404, "Allergies not found for the specified Patient")
 
