@@ -45,36 +45,38 @@
     <div class="row justify-content-center">
       <div class="col-sm-8">
         <!-- Display errors -->
-        <div
-        id="errors"
-        class="{{ 'show-message' if error_ef or error_pm or err_reg_user else 'hide-message' }}">
+        <div id="errors"
+          class="{{ 'show-message' if error_ef or error_pm or err_reg_user else 'hide-message' }}">
           {% if error_ef %}
-            <p id="error-login">
-              {{ error_ef }}
-            </p>
+          <p id="error-login">
+            {{ error_ef }}
+          </p>
           {% endif %}
           {% if error_pm %}
-            <p id="error-pm">
-              {{ error_pm }}
-            </p>
+          <p id="error-pm">
+            {{ error_pm }}
+          </p>
           {% endif %}
           {% if err_reg_user %}
-            <p id="err-reg-user">
-              {{ err_reg_user }}
-            </p>
+          <p id="err-reg-user">
+            {{ err_reg_user }}
+          </p>
           {% endif %}
         </div>
         <form class="d-grid mt-4" method="POST"
           action="{{ url_for('auth.register_doctor') }}">
           <div class="row">
-            <h3 class="text-secondary-emphasis mb-3">Create a Doctor Account</h3>
+            <h3 class="text-secondary-emphasis mb-3">Create a Doctor Account
+            </h3>
             <div class="col-sm-6 mb-2">
               <label for="fname">First Name</label>
-              <input type="text" name="fname" class="form-control" id="fname" />
+              <input type="text" name="fname" class="form-control" id="fname"
+                maxlength="50" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="lname">Last Name</label>
-              <input type="text" name="lname" class="form-control" id="lname" />
+              <input type="text" name="lname" class="form-control" id="lname"
+                maxlength="50" />
             </div>
             <div class="col-sm-7 mb-3">
               <label for="email">Email</label>
@@ -88,17 +90,17 @@
             <div class="col-sm-12">
               <label for="spec">Specialization</label>
               <input type="text" name="spec" placeholder="e.g. Cardiologist"
-                class="form-control mb-2" />
+                class="form-control mb-2" maxlength="100" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="password">Password</label>
               <input type="password" name="password" class="form-control"
-                id="password" />
+                id="password" minlength="8" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="conf_password">Confirm Password</label>
               <input type="password" name="conf_password" class="form-control"
-                id="conf_password" />
+                id="conf_password" minlength="8" />
             </div>
           </div>
           <button type="submit" class="btn btn-lg btn-success mt-3">
