@@ -9,6 +9,7 @@ from models import storage
 from models.medical_record import Medical_Record
 from models.patient import Patient
 from models.doctor import Doctor
+from datetime import datetime
 
 
 @app_views.route('/patient/<patient_id>/medical_record', methods=['GET'],
@@ -19,7 +20,7 @@ def get_patient_medical_record(patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    medical_record = storage._DBStorage__session.query(Medical_Record).filter_by(patient_id=patient_id).first()
+    medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
     if not medical_record:
         abort(404, "No medical record found for the specified Patient")
     return jsonify(medical_record.to_dict())
@@ -46,7 +47,7 @@ def add_patient_medical_record(doctor_id, patient_id):
         if field not in data:
             abort(400, f"Missing required field {field}")
 
-    existing_record = storage._DBStorage__session.query(Medical_Record).filter_by(patient_id=patient_id).first()
+    existing_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
     if existing_record:
         abort(400, "Patient already has a medical record")
 
@@ -74,7 +75,7 @@ def update_patient_medical_record(doctor_id, patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    medical_record = storage._DBStorage__session.query(Medical_Record).filter_by(patient_id=patient_id).first()
+    medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
     if not medical_record:
         abort(404, "Medical record not found for the specified Patient")
 
@@ -82,10 +83,12 @@ def update_patient_medical_record(doctor_id, patient_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at']
+    ignored_keys = ['id', 'created_at']
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(medical_record, key, value)
+
+    medical_record.updated_at = datetime.utcnow()
     storage.save()
     return jsonify(medical_record.to_dict()), 200
 
@@ -102,7 +105,7 @@ def delete_patient_medical_record(doctor_id, patient_id):
     if not patient:
         abort(404, "Patient does not exist")
 
-    medical_record = storage._DBStorage__session.query(Medical_Record).filter_by(patient_id=patient_id).first()
+    medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
     if not medical_record:
         abort(404, "Medical record not found for the specified Patient")
 
