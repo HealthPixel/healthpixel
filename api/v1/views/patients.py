@@ -10,6 +10,7 @@ from models import storage
 from models.doctor import Doctor
 from models.patient import Patient
 from models.access_log import Access_Log
+from datetime import datetime
 
 
 @app_views.route('/doctor/patients', methods=['GET'], strict_slashes=False)
@@ -54,7 +55,7 @@ def update_a_patient(doctor_id, patient_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at'] # These keys can't be updated
+    ignored_keys = ['id', 'created_at'] # These keys can't be updated
     for key, value in data.items():
             if key not in ignored_keys:
                 if hasattr(patient, key):
@@ -69,7 +70,8 @@ def update_a_patient(doctor_id, patient_id):
         access_log = Access_Log(user_id=doctor_id, patient_id=patient_id, action_taken=action_taken)
         storage.new(access_log)
 
-        # Ssave all chnages to database
+        # Save all chnages to database
+        patient.updated_at = datetime.utcnow()
         storage.save()
     except Exception as e:
         abort(500, f"An error occured while saving the Patient: {str(e)}")
