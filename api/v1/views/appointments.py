@@ -8,6 +8,7 @@ from models import storage
 from models.doctor import Doctor
 from models.patient import Patient
 from models.appointment import Appointment
+from datetime import datetime
 
 
 @app_views.route('/patient/appointment/<appointment_id>', methods=['GET'], strict_slashes=False)
@@ -27,7 +28,7 @@ def get_appointments(patient_id):
     if not patient:
         abort(400, "Patient does not exist")
 
-    appointments = storage._DBStorage__session.query(Appointment).filter_by(patient_id=patient_id).all()
+    appointments = storage.query(Appointment).filter_by(patient_id=patient_id).all()
     if not appointments:
         abort(400, "No Appointment found for the specified Patient")
 
@@ -82,13 +83,14 @@ def update_appointment(appointment_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at'] # These keys can't be updated
+    ignored_keys = ['id', 'created_at'] # These keys can't be updated
     for key, value in data.items():
             if key not in ignored_keys:
                 if hasattr(appointment, key):
                     setattr(appointment, key, value)
 
     try:
+        appointment.updated_at = datetime.utcnow()
         storage.save()
     except Exception as e:
         abort(500, f"An error occured while saving the Patient Lab Result: {str(e)}")
