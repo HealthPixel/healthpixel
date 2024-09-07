@@ -88,6 +88,10 @@ class DBStorage():
         """Closes the session"""
         self.__session.remove()
 
+    def query(self, cls):
+        """Helper method for querying the database"""
+        return self.__session.query(cls)
+
     def get(self, cls, id):
         """
         A method to retrieve one object
