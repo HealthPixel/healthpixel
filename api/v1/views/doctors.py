@@ -131,7 +131,7 @@ def register_patient():
         try:
             storage.new(new_patient)
             storage.save()
-            flash("You have successfully created a Patient account!")
+            # flash("You have successfully created a Patient account!")
 
             # Redirect to vitals entry page after creating the patient
             return redirect(url_for('app_views.add_patient_vitals', patient_id=new_patient.id))

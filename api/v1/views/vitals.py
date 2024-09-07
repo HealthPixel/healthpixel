@@ -72,7 +72,7 @@ def add_patient_vitals(patient_id):
             return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
         except Exception as e:
             abort(500, f"An error occured while saving the vitals: {str(e)}")
-            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient_id))
+            # return redirect(url_for('app_views.add_patient_vitals', patient_id=patient_id))
 
     return render_template('register_vitals.html', patient=patient)
 
