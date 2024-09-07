@@ -132,7 +132,9 @@ def register_patient():
             storage.new(new_patient)
             storage.save()
             flash("You have successfully created a Patient account!")
-            return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
+
+            # Redirect to vitals entry page after creating the patient
+            return redirect(url_for('app_views.add_patient_vitals', patient_id=new_patient.id))
         except Exception as e:
             flash(f'Error: {str(e)}')
             return redirect(url_for('app_views.register_patient'))

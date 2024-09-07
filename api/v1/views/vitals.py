@@ -3,13 +3,14 @@
 This module creates view for Vitals objects
 """
 
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, render_template, redirect, url_for, flash
 from api.v1.views import app_views
 from models import storage
 from models.vitals import Vitals
 from models.patient import Patient
 from models.doctor import Doctor
 from datetime import datetime
+from flask_login import login_required, current_user
 
 
 @app_views.route('/patient/<patient_id>/vitals', methods=['GET'],
@@ -26,42 +27,54 @@ def get_patient_vitals(patient_id):
     return jsonify(vitals.to_dict())
 
 
-@app_views.route('/doctor/<doctor_id>/patient/<patient_id>/add_vitals',
-                 methods=['POST'], strict_slashes=False)
-def add_patient_vitals(doctor_id, patient_id):
+@app_views.route('/doctor/patient/<patient_id>/add_vitals',
+                 methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def add_patient_vitals(patient_id):
     """Creates a Patient's vitals based on his/her ID"""
-    doctor = storage.get(Doctor, doctor_id)
-    if not doctor:
-        abort(404, "Doctor does not exist")
+    if not isinstance(current_user, Doctor):
+        abort(403, "You are not authorized to perform this function!")
 
     patient = storage.get(Patient, patient_id)
     if not patient:
         abort(404, "Patient does not exist")
 
-    data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
+    if request.method == "POST":
+        blood_pressure = request.form.get('blood_pressure')
+        heart_rate = request.form.get('heart_rate')
+        body_temperature = request.form.get('temperature')
+        respiratory_rate = request.form.get('resp_rate')
+        oxygen_saturation = request.form.get('oxygen_sat')
+        weight = request.form.get('weight')
+        height = request.form.get('height')
 
-    required_fields = ['blood_pressure', 'heart_rate', 'body_temperature',
-                       'respiratory_rate', 'oxygen_saturation', 'weight',
-                       'height']
-    for field in required_fields:
-        if field not in data:
-            abort(400, f"Missing required field {field}")
+        if not all([blood_pressure, heart_rate, body_temperature, respiratory_rate,
+                    oxygen_saturation, weight, height]):
+            flash('Required Fields are Empty!')
+            return redirect(url_for('app_views.add_patient_vitals'))
 
-    existing_vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
-    if existing_vitals:
-        abort(400, "Patient already has a vitals")
+        existing_vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
+        if existing_vitals:
+            abort(400, "Patient already has a vitals")
 
-    try:
-        data['patient_id'] = patient_id
-        new_vitals = Vitals(**data)
-        storage.new(new_vitals)
-        storage.save()
-    except Exception as e:
-        abort(500, f"An error occured while saving the vitals: {str(e)}")
+        new_vitals = Vitals(blood_pressure=blood_pressure,
+                            heart_rate=heart_rate,
+                            body_temperature=body_temperature,
+                            respiratory_rate=respiratory_rate,
+                            oxygen_saturation=oxygen_saturation,
+                            weight=weight,
+                            height=height)
 
-    return jsonify(new_vitals.to_dict()), 201
+        try:
+            storage.new(new_vitals)
+            storage.save()
+            flash('Patient Vitals Successfully added')
+            return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
+        except Exception as e:
+            abort(500, f"An error occured while saving the vitals: {str(e)}")
+            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient_id))
+
+    return render_template('register_vitals.html', patient=patient)
 
 
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>/update_vitals',
