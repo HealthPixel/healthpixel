@@ -13,6 +13,7 @@ from models.access_log import Access_Log
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 from flask_login import login_required, current_user
+from datetime import datetime
 
 
 @app_views.route('/doctors', methods=['GET'], strict_slashes=False)
@@ -42,10 +43,12 @@ def update_a_doctor(doctor_id):
     if not data:
         abort(400, "Not a JSON")
 
-    ignored_keys = ['id', 'created_at', 'updated_at'] # These keys can't be updated
+    ignored_keys = ['id', 'created_at'] # These keys can't be updated
     for key, value in data.items():
         if key not in ignored_keys:
             setattr(doctor, key, value)
+
+    doctor.updated_at = datetime.utcnow()
     storage.save()
     return jsonify(doctor.to_dict()), 200
 
@@ -99,7 +102,7 @@ def register_patient():
             flash('Required Fields are Empty!')
             return redirect(url_for('app_views.register_patient'))
 
-        patient = storage._DBStorage__session.query(Patient).filter_by(email=email).first()
+        patient = storage.query(Patient).filter_by(email=email).first()
 
         if patient:
             flash('Patient already exist, use a different email!')
