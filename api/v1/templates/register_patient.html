@@ -36,13 +36,10 @@
       <div class="col-sm-10">
         <!-- Display errors -->
         {% with messages = get_flashed_messages() %}
-          <div
-            id="errors"
-            class="{{ 'show-error' if messages else 'hide-error' }}"
-            role="alert"
-          >
-            {% if messages %} {{ messages[0] }} {% endif %}
-          </div>
+        <div id="errors"
+          class="{{ 'show-error' if messages else 'hide-error' }}" role="alert">
+          {% if messages %} {{ messages[0] }} {% endif %}
+        </div>
         {% endwith %}
         <form class="d-grid mt-3" method="POST"
           action="{{ url_for('app_views.register_patient') }}">
@@ -111,7 +108,7 @@
             <div class="col-sm-6 mb-2">
               <label for="password">Password</label>
               <input type="password" name="password" class="form-control"
-                id="password" minlength="8"/>
+                id="password" minlength="8" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="conf_password">Confirm Password</label>
