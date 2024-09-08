@@ -32,11 +32,11 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-sm-8">
-                <!-- Display errors -->
+                <!-- Display Messages -->
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     {% for category, message in messages %}
                         <div
-                            id="success-reg"
+                            id="message"
                             class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
                             role="alert"
                         >
@@ -45,38 +45,39 @@
                     {% endfor %}
                 {% endwith %}
                 <form class="d-grid mt-3" method="POST"
-                    action="{{ url_for('app_views.register_patient', patient_id=patient_id) }}">
+                    action="{{ url_for('app_views.add_patient_allergies', patient_id=patient_id) }}">
                     <div class="row">
                         <h3 class="text-secondary-emphasis mb-3">
                             Allergy
                         </h3>
-                        <div class="col-md-6 mb-2">
-                            <label for="allergen">Allergen</label>
-                            <input type="text" name="allergen"
+                        <div class="col-md-12 mb-2">
+                            <label for="allergy">Allergy</label>
+                            <input type="text" name="allergy"
                                 class="form-control" maxlength="100"
-                                id="allergen" />
+                                id="allergy" />
                         </div>
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-12 mb-2">
                             <label for="reaction">Reaction</label>
                             <input type="text" name="reaction"
                                 class="form-control" maxlength="255"
                                 id="reaction" />
                         </div>
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-12 mb-2">
                             <label for="severity">Severity</label>
                             <select name="severity" class="form-select"
                                 id="severity">
                                 <option value="" disabled selected>Select the
                                     severity of the allergy</option>
-                                <option value="mild">Mild</option>
-                                <option value="moderate">Moderate</option>
-                                <option value="severe">Severe</option>
+                                <option value="Mild">Mild</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Severe">Severe</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <label for="date_recorded">Date Recorded</label>
-                            <input type="date" name="date_recorded"
-                                class="form-control" id="date_recorded" />
+                        <div class="col-md-12 mb-2">
+                            <label for="notes">Notes</label>
+                            <input type="text" name="notes"
+                                class="form-control" maxlength="255"
+                                id="notes" />
                         </div>
                         <div class="col-md-6 d-grid">
                             <button type="submit" value="skip" name="action"
@@ -113,7 +114,7 @@
             }, delay);
         }
 
-        hideElementAfterDelay("success-reg", 5000);
+        hideElementAfterDelay("message", 5000);
         hideElementAfterDelay("errors", 5000);
         hideElementAfterDelay("err-reg-user", 5000);
         hideElementAfterDelay("error-ef", 5000);

@@ -43,37 +43,42 @@ def add_patient_medical_record(patient_id):
         diagnosis = request.form.get('diagnosis')
         treatment = request.form.get('treatment')
         prescription = request.form.get('prescription')
-        visit_date = request.form.get('visit_date')
         notes = request.form.get('notes')
+        action = request.form.get('action')
 
-        # Check for Empty Fields
-        if not all([diagnosis, treatment, prescription, visit_date, notes]):
-            flash('Required Fields are Empty!', 'error')
-            return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+        if action == 'skip':
+            flash('Patient registered successfully!', 'success')
+            # Redirect to Doctor's Dashboard
+            return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
 
-        # Check if Patient has a stored allergy
-        existing_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
-        if existing_record:
-            flash('Patient already has a registered allergy rocord!', 'error')
-            return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
-        
-        new_medical_record = Medical_Record(diagnosis=diagnosis, treatment=treatment,
-                                            prescription=prescription, visit_date=visit_date,
-                                            notes=notes)
+        if action == 'submit':
+            # Check for Empty Fields
+            if not all([diagnosis, treatment, prescription, notes]):
+                flash('Required Fields are Empty!', 'error')
+                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
 
-        try:
-            new_medical_record.patient_id = patient.id
-            new_medical_record.doctor_id = current_user.id
-            storage.new(new_medical_record)
-            storage.save()
-            flash('Patient Medical Records added successfully!', 'success')
+            # Check if Patient has a stored medical record
+            existing_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
+            if existing_record:
+                flash('Patient already has a registered medical rocord!', 'error')
+                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+            
+            new_medical_record = Medical_Record(diagnosis=diagnosis, treatment=treatment,
+                                                prescription=prescription, notes=notes)
 
-            # Redirect to Allergy entry page after creating the patient
-            return redirect(url_for('auth.dashboard_doctor'))
-        except Exception as e:
-            # abort(500, f"An error occured while saving the Medical Record: {str(e)}")
-            flash(f'Error: {str(e)}')
-            return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+            try:
+                new_medical_record.patient_id = patient.id
+                new_medical_record.doctor_id = current_user.id
+                storage.new(new_medical_record)
+                storage.save()
+                flash('Patient has been registered successfully!', 'success')
+
+                # Redirect to Doctor's Dashboard
+                return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
+            except Exception as e:
+                # abort(500, f"An error occured while saving the Medical Record: {str(e)}")
+                flash(f'Error: {str(e)}')
+                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
 
     return render_template('register_medical_record.html', patient_id=patient_id)
 
