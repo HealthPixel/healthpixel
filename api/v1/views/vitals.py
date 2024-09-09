@@ -42,20 +42,23 @@ def add_patient_vitals(patient_id):
     if request.method == "POST":
         blood_pressure = request.form.get('blood_pressure')
         heart_rate = request.form.get('heart_rate')
-        body_temperature = request.form.get('temperature')
-        respiratory_rate = request.form.get('resp_rate')
-        oxygen_saturation = request.form.get('oxygen_sat')
+        body_temperature = request.form.get('body_temperature')
+        respiratory_rate = request.form.get('respiratory_rate')
+        oxygen_saturation = request.form.get('oxygen_saturation')
         weight = request.form.get('weight')
         height = request.form.get('height')
 
+        # Check for Empty Fields
         if not all([blood_pressure, heart_rate, body_temperature, respiratory_rate,
                     oxygen_saturation, weight, height]):
-            flash('Required Fields are Empty!')
-            return redirect(url_for('app_views.add_patient_vitals'))
+            flash('Required Fields are Empty!', 'error')
+            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient.id))
 
+        # Check if Patient has a stored vitals
         existing_vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
         if existing_vitals:
-            abort(400, "Patient already has a vitals")
+            flash('Patient already hass a registered Vital rocord!', 'error')
+            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient.id))
 
         new_vitals = Vitals(blood_pressure=blood_pressure,
                             heart_rate=heart_rate,
@@ -66,15 +69,18 @@ def add_patient_vitals(patient_id):
                             height=height)
 
         try:
+            new_vitals.patient_id = patient.id
             storage.new(new_vitals)
             storage.save()
-            flash('Patient Vitals Successfully added')
-            return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
-        except Exception as e:
-            abort(500, f"An error occured while saving the vitals: {str(e)}")
-            # return redirect(url_for('app_views.add_patient_vitals', patient_id=patient_id))
+            flash('Patient Vitals added successfully!', 'success')
 
-    return render_template('register_vitals.html', patient=patient)
+            # Redirect to Allergy entry page after creating the patient
+            return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'error')
+            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient.id))
+
+    return render_template('register_vitals.html', patient_id=patient_id)
 
 
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>/update_vitals',
