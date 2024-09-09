@@ -33,32 +33,28 @@
         <div class="row justify-content-center">
             <div class="col-sm-8">
                 <!-- Display errors -->
-                <div id="errors"
-                    class="{{ 'show-error' if error_ef or error_pm or err_reg_user else 'hide-error' }}">
-                    {% if error_ef %}
-                    <p id="error-ef">{{ error_ef }}</p>
-                    {% elif error_pm %}
-                    <p id="error-pm">{{ error_pm }}</p>
-                    {% elif err_reg_user %}
-                    <p id="err-reg-user">{{ err_reg_user }}</p>
-                    {% endif %}
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% for category, message in messages %}
+                <div id="success-reg"
+                    class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                    role="alert">
+                    {% if message %} {{ message }} {% endif %}
                 </div>
+                {% endfor %}
+                {% endwith %}
                 <form class="d-grid mt-3" method="POST"
-                    action="{{ url_for('app_views.register_patient') }}">
+                    action="{{ url_for('app_views.add_patient_vitals', patient_id=patient_id) }}">
                     <div class="row">
                         <h3 class="text-secondary-emphasis mb-3">
                             Vitals
                         </h3>
                         <div class="col-md-4 mb-2">
-                            <label for="date_recorded">Date Recorded</label>
-                            <input type="date" name="date_recorded"
-                                class="form-control" id="date_recorded" />
-                        </div>
-                        <div class="col-md-4 mb-2">
                             <label for="blood_pressure">Bood Pressure
                                 (mmHg)</label>
                             <input type="text" name="blood_pressure"
-                                class="form-control" id="blood_pressure" />
+                                class="form-control" id="blood_pressure"
+                                pattern="\d{2,3}/\d{2,3}"
+                                title="Please enter a valid blood pressure, e.g., 120/80" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="heart_rate">Heart rate</label>
@@ -67,20 +63,20 @@
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="temperature">Temperature (&degC)</label>
-                            <input type="number" name="temperature"
+                            <input type="number" name="body_temperature"
                                 class="form-control" id="temperature" min="15"
                                 max="45" step="0.1" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="resp_rate">Respiratory Rate</label>
-                            <input type="number" name="resp_rate"
+                            <input type="number" name="respiratory_rate"
                                 class="form-control" id="resp_rate">
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="oxygen_sat">Oxygen Saturation
                                 (%)</label>
-                            <input type="number" name="oxygen_sat"
-                                class="form-control" id="oxygen_sat"
+                            <input type="number" name="oxygen_saturation"
+                                class="form-control" id="oxygen_saturation"
                                 step="0.1" />
                         </div>
                         <div class="row text-center justify-content-center">
@@ -124,11 +120,12 @@
             }, delay);
         }
 
-        hideElementAfterDelay("errors", 3000);
-        hideElementAfterDelay("err-reg-user", 3000);
-        hideElementAfterDelay("error-ef", 3000);
-        hideElementAfterDelay("success-lo", 3000);
-        hideElementAfterDelay("del-success", 3000);
+        hideElementAfterDelay("success-reg", 5000);
+        hideElementAfterDelay("errors", 5000);
+        hideElementAfterDelay("err-reg-user", 5000);
+        hideElementAfterDelay("error-ef", 5000);
+        hideElementAfterDelay("success-lo", 5000);
+        hideElementAfterDelay("del-success", 5000);
     </script>
     <!-- JS Bootstrap cdn -->
     <script

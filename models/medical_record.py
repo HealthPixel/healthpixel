@@ -26,5 +26,4 @@ class Medical_Record(BaseModel, Base):
     diagnosis = Column(Text, nullable=False)
     treatment = Column(Text, nullable=False)
     prescription = Column(Text, nullable=False)
-    visit_date = Column(DateTime, nullable=False)
     notes = Column(Text, nullable=True)

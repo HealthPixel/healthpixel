@@ -131,9 +131,9 @@ def register_patient():
         try:
             storage.new(new_patient)
             storage.save()
-            # flash("You have successfully created a Patient account!")
+            flash("You have successfully created a Patient account!", 'success')
 
-            # Redirect to vitals entry page after creating the patient
+            # Redirect to Vitals entry page after creating the patient
             return redirect(url_for('app_views.add_patient_vitals', patient_id=new_patient.id))
         except Exception as e:
             flash(f'Error: {str(e)}')

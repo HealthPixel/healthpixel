@@ -3,13 +3,14 @@
 This module creates view for Allergies objects
 """
 
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, flash, redirect, url_for, render_template
 from api.v1.views import app_views
 from models import storage
 from models.allergies import Allergies
 from models.patient import Patient
 from models.doctor import Doctor
 from datetime import datetime
+from flask_login import login_required, current_user
 
 
 @app_views.route('/patient/<patient_id>/allergies', methods=['GET'],
@@ -26,42 +27,59 @@ def get_patient_allergies(patient_id):
     return jsonify(allergies.to_dict())
 
 
-@app_views.route('/doctor/<doctor_id>/patient/<patient_id>/add_allergies',
-                 methods=['POST'], strict_slashes=False)
-def add_patient_allergies(doctor_id, patient_id):
+@app_views.route('/doctor/patient/<patient_id>/add_allergies',
+                 methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def add_patient_allergies(patient_id):
     """Creates a Patient's allergies based on his/her ID"""
-    doctor = storage.get(Doctor, doctor_id)
-    if not doctor:
-        abort(404, "Doctor does not exist")
+    if not isinstance(current_user, Doctor):
+        abort(403, "You are not authorized to perform this function!")
 
     patient = storage.get(Patient, patient_id)
     if not patient:
         abort(404, "Patient does not exist")
 
-    data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
+    if request.method == 'POST':
+        allergy = request.form.get('allergy')
+        reaction = request.form.get('reaction')
+        severity = request.form.get('severity')
+        notes = request.form.get('notes')
+        action = request.form.get('action')
 
-    required_fields = ['blood_pressure', 'heart_rate', 'body_temperature',
-                       'respiratory_rate', 'oxygen_saturation', 'weight',
-                       'height']
-    for field in required_fields:
-        if field not in data:
-            abort(400, f"Missing required field {field}")
+        if action == "skip":
+            flash('You skipped Patient Allergies', 'success')
+            # Redirect to Allergy entry page after creating the patient
+            return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
 
-    existing_allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
-    if existing_allergies:
-        abort(400, "Patient already has a allergies")
+        if action == "submit":
+            # Check for Empty Fields
+            if not all([allergy, reaction, severity, notes]):
+                flash('Required Fields are Empty!', 'error')
+                return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
 
-    try:
-        data['patient_id'] = patient_id
-        new_allergies = Allergies(**data)
-        storage.new(new_allergies)
-        storage.save()
-    except Exception as e:
-        abort(500, f"An error occured while saving the allergies: {str(e)}")
+            # Check if Patient has a stored allergy
+            existing_allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
+            if existing_allergies:
+                flash('Patient already has a registered allergy rocord!', 'error')
+                return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
+            
+            new_allergies = Allergies(allergy=allergy, reaction=reaction,
+                                    severity=severity, notes=notes)
 
-    return jsonify(new_allergies.to_dict()), 201
+            try:
+                new_allergies.patient_id = patient.id
+                storage.new(new_allergies)
+                storage.save()
+                flash('Patient Allergies added successfully!', 'success')
+
+                # Redirect to Allergy entry page after creating the patient
+                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+            except Exception as e:
+                # abort(500, f"An error occured while saving the allergies: {str(e)}")
+                flash(f'Error: {str(e)}')
+                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+
+    return render_template('register_allergy.html', patient_id=patient_id)
 
 
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>/update_allergies',
