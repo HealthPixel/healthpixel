@@ -45,13 +45,13 @@ __Clone the repository:__
 git clone https://github.com/HealthPixel/healthpixel.git
 ```
 ```
-ubuntu@ubuntu:/ $ cd healthpixel
+cd healthpixel
 ```
 
 __Install dependencies:__
-All dependencies that would be needed by the application are all in the **requirement.txt**. Use the command below to install them all.
+All dependencies that would be needed by the application are all in the **requirement.txt**. Use the command below to install them.
 ```
-ubuntu@ubuntu:/healthpixel $ pip install -r requirement.txt
+pip install -r requirement.txt
 ```
 
 __Set up the database:__
@@ -61,12 +61,12 @@ __Set up the database:__
 
 __Create a MySQL database and configure the connection settings in the set_env_var file:__
 ```
-ubuntu@ubuntu:/healthpixel $ sudo mysql -u root -p < setup_mysql_db.sql
-ubuntu@ubuntu:/healthpixel $ source env_setup
+sudo mysql -u root -p < setup_mysql_db.sql
+source env_setup
 ```
 __Start the application:__
 ```
-ubuntu@ubuntu:/healthpixel $ python3 -m api.v1.app
+python3 -m api.v1.app
 ```
 
 ## Usage

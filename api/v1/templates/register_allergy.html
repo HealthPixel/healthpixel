@@ -9,8 +9,8 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet" />
     <!-- css file link -->
-    <!-- css file link -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_patient.css') }}" />
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/register_patient.css') }}" />
     <!-- page favicon -->
     <link rel="shortcut icon"
         href="{{ url_for('static', filename='img/favicon.ico') }}" />
@@ -34,15 +34,13 @@
             <div class="col-sm-8">
                 <!-- Display Messages -->
                 {% with messages = get_flashed_messages(with_categories=True) %}
-                    {% for category, message in messages %}
-                        <div
-                            id="message"
-                            class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-                            role="alert"
-                        >
-                            {% if message %} {{ message }} {% endif %}
-                        </div>
-                    {% endfor %}
+                {% for category, message in messages %}
+                <div id="message"
+                    class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                    role="alert">
+                    {% if message %} {{ message }} {% endif %}
+                </div>
+                {% endfor %}
                 {% endwith %}
                 <form class="d-grid mt-3" method="POST"
                     action="{{ url_for('app_views.add_patient_allergies', patient_id=patient_id) }}">
@@ -51,10 +49,10 @@
                             Allergy
                         </h3>
                         <div class="col-md-12 mb-2">
-                            <label for="allergy">Allergy</label>
-                            <input type="text" name="allergy"
+                            <label for="allergy">Allergen (Cause of the allergy)</label>
+                            <input type="text" name="allergen"
                                 class="form-control" maxlength="100"
-                                id="allergy" />
+                                id="allergen" />
                         </div>
                         <div class="col-md-12 mb-2">
                             <label for="reaction">Reaction</label>
@@ -75,9 +73,8 @@
                         </div>
                         <div class="col-md-12 mb-2">
                             <label for="notes">Notes</label>
-                            <input type="text" name="notes"
-                                class="form-control" maxlength="255"
-                                id="notes" />
+                            <input type="text" name="notes" class="form-control"
+                                maxlength="255" id="notes" />
                         </div>
                         <div class="col-md-6 d-grid">
                             <button type="submit" value="skip" name="action"
