@@ -66,7 +66,7 @@ source env_setup
 ```
 __Start the application:__
 ```
-ubuntu@ubuntu:/healthpixel $ python3 -m api.v1.app
+python3 -m api.v1.app
 ```
 
 ## Usage
