@@ -53,6 +53,7 @@
                                 (mmHg)</label>
                             <input type="text" name="blood_pressure"
                                 class="form-control" id="blood_pressure"
+                                placeholder="e.g 120/80"
                                 pattern="\d{2,3}/\d{2,3}"
                                 title="Please enter a valid blood pressure, e.g., 120/80" />
                         </div>
@@ -70,7 +71,8 @@
                         <div class="col-md-4 mb-2">
                             <label for="resp_rate">Respiratory Rate</label>
                             <input type="number" name="respiratory_rate"
-                                class="form-control" id="resp_rate">
+                                class="form-control" id="resp_rate" min="12"
+                                max="25">
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="oxygen_sat">Oxygen Saturation
@@ -84,13 +86,13 @@
                                 <label for="weight">Weight (kg)</label>
                                 <input type="number" name="weight"
                                     class="form-control" step="0.01"
-                                    id="weight" />
+                                    id="weight" max="300" />
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label for="height">Height (m)</label>
                                 <input type="number" name="height"
                                     class="form-control" step="0.01"
-                                    id="height" />
+                                    id="height" max="2.5"/>
                             </div>
                         </div>
                         <button type="submit"

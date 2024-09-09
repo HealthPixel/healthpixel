@@ -40,7 +40,7 @@ def add_patient_allergies(patient_id):
         abort(404, "Patient does not exist")
 
     if request.method == 'POST':
-        allergy = request.form.get('allergy')
+        allergen = request.form.get('allergen')
         reaction = request.form.get('reaction')
         severity = request.form.get('severity')
         notes = request.form.get('notes')
@@ -53,7 +53,7 @@ def add_patient_allergies(patient_id):
 
         if action == "submit":
             # Check for Empty Fields
-            if not all([allergy, reaction, severity, notes]):
+            if not all([allergen, reaction, severity, notes]):
                 flash('Required Fields are Empty!', 'error')
                 return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
 
@@ -63,7 +63,7 @@ def add_patient_allergies(patient_id):
                 flash('Patient already has a registered allergy rocord!', 'error')
                 return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
             
-            new_allergies = Allergies(allergy=allergy, reaction=reaction,
+            new_allergies = Allergies(allergen=allergen, reaction=reaction,
                                     severity=severity, notes=notes)
 
             try:

@@ -63,7 +63,7 @@ def register_doctor():
             try:
                 storage.new(new_doc)
                 storage.save()
-                # register_success = "You have successfully created an account. Please log in!"
+                # register_success = "You have successfully created an account. Please login!"
                 if not errors:
                     login_user(new_doc)
                     return redirect(url_for('auth.dashboard_doctor', id=new_doc.id))
