@@ -41,6 +41,22 @@ def get_a_patient(doctor_id, patient_id):
     return jsonify(patient.to_dict()), 201
 
 
+@app_views.route('/doctor/patients/search', methods=['GET'], strict_slashes=False)
+def search_patients():
+    """Searches for patients by email or ID"""
+    query = request.args.get('query', '').strip()
+    if not query:
+        abort(400, "Query parameter required")
+
+    patients = storage.all(Patient).values()
+    matching_patients = [patient for patient in patients if query in patient.email or query == patient.id]
+
+    if not matching_patients:
+        return jsonify([]), 200
+
+    return jsonify([patient.to_dict() for patient in matching_patients]), 200
+
+
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>', methods=['PUT'], strict_slashes=False)
 def update_a_patient(doctor_id, patient_id):
     """Updates a Patient object based on its ID"""
