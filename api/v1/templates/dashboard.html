@@ -40,7 +40,7 @@
         <a href="#" class="btn btn-success btn-large py-2 mb-5"
           >Update Patient's Record</a
         >
-        <a href="#" class="btn btn-primary py-2 mb-5">Edit profile</a>
+        <a href="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}" class="btn btn-primary py-2 mb-5">Edit profile</a>
         <div class="row">
           <div class="col-sm-4 text-center">
             <a
