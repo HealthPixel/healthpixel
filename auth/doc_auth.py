@@ -74,6 +74,7 @@ def register_doctor():
             return redirect(url_for('auth.dashboard_doctor', id=new_doc.id))
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
+
     return render_template('register.html')
 
 

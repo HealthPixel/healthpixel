@@ -32,25 +32,65 @@ def get_a_doctor(doctor_id):
     return jsonify(doctor.to_dict())
 
 
-@app_views.route('/doctor/<doctor_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/doctor/<doctor_id>/update_doctor', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
 def update_a_doctor(doctor_id):
     """Updates a Doctor object based on its ID"""
+    # Ensure the user is a Doctor
+    if not isinstance(current_user, Doctor):
+        abort(403, "You are not authorized to perform this function!")
+    
+    # Checks if Doctor exists
     doctor = storage.get(Doctor, doctor_id)
     if not doctor:
+        flash('Doctor does not exist!', 'error')
         abort(400, "Doctor does not exist!")
 
-    data = request.get_json()
-    if not data:
-        abort(400, "Not a JSON")
+    if request.method == "POST":
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        specialization = request.form['specialization']
+        password = request.form['password']
+        conf_password = request.form['conf_password']
 
-    ignored_keys = ['id', 'created_at'] # These keys can't be updated
-    for key, value in data.items():
-        if key not in ignored_keys:
-            setattr(doctor, key, value)
+        # Check if passwords match before hashing
+        if password and conf_password:
+            if password != conf_password:
+                flash('Passwords do not match', 'error')
+                return render_template('update_doctor.html',
+                            first_name=doctor.first_name, last_name=doctor.last_name,
+                            email=doctor.email, phone_number=doctor.phone_number,
+                            specialization=doctor.specialization)
+            else:
+                hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
-    doctor.updated_at = datetime.utcnow()
-    storage.save()
-    return jsonify(doctor.to_dict()), 200
+        try:
+            doctor.first_name = first_name
+            doctor.last_name = last_name
+            doctor.email = email
+            doctor.phone_number = phone_number
+            doctor.specialization = specialization
+
+            # Time and Date of Update
+            doctor.updated_at = datetime.utcnow()
+
+            # Only update the password if it's provided
+            if password and conf_password:
+                doctor.password = hashed_password
+
+            storage.new(doctor)
+            storage.save()
+            flash('Doctors Profile Updated Successfully!', 'success')
+            return redirect(url_for('auth.dashboard_doctor', id=doctor.id))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'error')
+
+    return render_template('update_doctor.html',
+                           first_name=doctor.first_name, last_name=doctor.last_name,
+                           email=doctor.email, phone_number=doctor.phone_number,
+                           specialization=doctor.specialization)
 
 
 @app_views.route('/doctor/<doctor_id>', methods=['DELETE'], strict_slashes=False)
