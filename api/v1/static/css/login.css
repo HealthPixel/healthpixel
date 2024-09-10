@@ -2,16 +2,24 @@ body {
     background-color: #F0DBBF;
 }
 
+.message-box {
+    min-height: 40px;
+    text-align: center;
+}
+
 .show-error {
     background-color: #b40000;
     color: #eaeaea;
     padding: 0.8em;
     border-radius: 10px;
     font-weight: 400;
-    font-size: 16x;
-    min-height: 40px;
+    font-size: 16px;
     text-align: center;
     visibility: visible;
+}
+
+.hide-error {
+    visibility: hidden;
 }
 
 .show-success {
@@ -20,29 +28,12 @@ body {
     padding: 0.8em;
     border-radius: 10px;
     font-weight: 400;
-    font-size: 16x;
-    min-height: 40px;
+    font-size: 16px;
     text-align: center;
     visibility: visible;
 }
 
-.show-error p {
-    margin-bottom: 0px;
-}
-
-.show-success p {
-    margin-bottom: 0px;
-}
-
-.hide-message {
-    background-color: #b40000;
-    color: #eaeaea;
-    padding: 0.8em;
-    border-radius: 10px;
-    font-weight: 400;
-    font-size: 16x;
-    min-height: 40px;
-    text-align: center;
+.hide-success {
     visibility: hidden;
 }
 

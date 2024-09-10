@@ -35,6 +35,7 @@ def add_patient_vitals(patient_id):
     if not isinstance(current_user, Doctor):
         abort(403, "You are not authorized to perform this function!")
 
+    # Checks if Patient exist
     patient = storage.get(Patient, patient_id)
     if not patient:
         abort(404, "Patient does not exist")
@@ -52,13 +53,19 @@ def add_patient_vitals(patient_id):
         if not all([blood_pressure, heart_rate, body_temperature, respiratory_rate,
                     oxygen_saturation, weight, height]):
             flash('Required Fields are Empty!', 'error')
-            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient.id))
+            return render_template('register_vitals.html', patient_id=patient_id,
+                                   blood_pressure=blood_pressure, heart_rate=heart_rate,
+                                   body_temperature=body_temperature, respiratory_rate=respiratory_rate,
+                                   oxygen_saturation=oxygen_saturation, weight=weight, height=height)
 
         # Check if Patient has a stored vitals
         existing_vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
         if existing_vitals:
             flash('Patient already hass a registered Vital rocord!', 'error')
-            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient.id))
+            return render_template('register_vitals.html', patient_id=patient_id,
+                                   blood_pressure=blood_pressure, heart_rate=heart_rate,
+                                   body_temperature=body_temperature, respiratory_rate=respiratory_rate,
+                                   oxygen_saturation=oxygen_saturation, weight=weight, height=height)
 
         new_vitals = Vitals(blood_pressure=blood_pressure,
                             heart_rate=heart_rate,
@@ -78,7 +85,10 @@ def add_patient_vitals(patient_id):
             return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
-            return redirect(url_for('app_views.add_patient_vitals', patient_id=patient.id))
+            return render_template('register_vitals.html', patient_id=patient_id,
+                                   blood_pressure=blood_pressure, heart_rate=heart_rate,
+                                   body_temperature=body_temperature, respiratory_rate=respiratory_rate,
+                                   oxygen_saturation=oxygen_saturation, weight=weight, height=height)
 
     return render_template('register_vitals.html', patient_id=patient_id)
 

@@ -32,16 +32,16 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-sm-10">
-                <!-- Display errors -->
-                <div id="errors"
-                    class="{{ 'show-error' if error_ef or error_pm or err_reg_user else 'hide-error' }}">
-                    {% if error_ef %}
-                    <p id="error-ef">{{ error_ef }}</p>
-                    {% elif error_pm %}
-                    <p id="error-pm">{{ error_pm }}</p>
-                    {% elif err_reg_user %}
-                    <p id="err-reg-user">{{ err_reg_user }}</p>
-                    {% endif %}
+                <!-- Display messages -->
+                <div class="message-box">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                            id="msg" role="alert">
+                            {% if message %} {{ message }} {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
                 </div>
                 <form class="d-grid mt-3" method="POST"
                     action="{{ url_for('app_views.register_patient') }}">
@@ -53,51 +53,51 @@
                             <label for="med_name">Medication Name</label>
                             <input type="text" name="med_name"
                                 class="form-control" maxlength="100"
-                                id="med_name" />
+                                id="med_name" value="{{ med_name or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="dosage">Dosage</label>
                             <input type="text" name="dosage"
                                 class="form-control" maxlength="50"
-                                id="dosage" />
+                                id="dosage" value="{{ dosage or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="frequency">Frequency</label>
                             <input type="text" name="frequency"
                                 class="form-control"
                                 placeholder="e.g. Twice daily" id="frequency"
-                                maxlength="50">
+                                maxlength="50" value="{{ frequency or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="start_date">Start Date</label>
                             <input type="date" name="start_date"
-                                class="form-control" id="start_date" />
+                                class="form-control" id="start_date" value="{{ start_date or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="end_date">End Date</label>
                             <input type="date" name="end_date"
-                                class="form-control" id="end_date" />
+                                class="form-control" id="end_date" value="{{ end_date or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="prescribing_doctor">Prescribing
                                 Doctor</label>
                             <input type="text" name="prescribing_doctor"
                                 class="form-control" id="prescribing_doctor"
-                                maxlength="100" />
+                                maxlength="100" value="{{ prescribing_doctor or '' }}" />
                         </div>
                         <div class="col-md-8 mb-2">
                             <label for="notes">Notes</label>
                             <input type="text" name="notes" class="form-control"
-                                id="notes" />
+                                id="notes" value="{{ notes or '' }}" />
                         </div>
                         <div class="col-md-6 d-grid">
-                            <button type="submit"
+                            <button type="submit" name="action" value="skip"
                                 class="btn btn-lg btn-primary mt-3 mb-5">
                                 Skip (Not applicable)
                             </button>
                         </div>
                         <div class="col-md-6 d-grid">
-                            <button type="submit"
+                            <button type="submit" name="action" value="submit"
                                 class="btn btn-lg btn-success mt-3 mb-5">
                                 Next &#8594
                             </button>
@@ -125,11 +125,7 @@
             }, delay);
         }
 
-        hideElementAfterDelay("errors", 5000);
-        hideElementAfterDelay("err-reg-user", 5000);
-        hideElementAfterDelay("error-ef", 5000);
-        hideElementAfterDelay("success-lo", 5000);
-        hideElementAfterDelay("del-success", 5000);
+        hideElementAfterDelay("msg", 5000);
     </script>
     <!-- JS Bootstrap cdn -->
     <script

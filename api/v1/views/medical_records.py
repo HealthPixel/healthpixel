@@ -35,6 +35,7 @@ def add_patient_medical_record(patient_id):
     if not isinstance(current_user, Doctor):
         abort(403, "You are not authorized to perform this function!")
 
+    # Check if Patient exists
     patient = storage.get(Patient, patient_id)
     if not patient:
         abort(404, "Patient does not exist")
@@ -55,13 +56,17 @@ def add_patient_medical_record(patient_id):
             # Check for Empty Fields
             if not all([diagnosis, treatment, prescription, notes]):
                 flash('Required Fields are Empty!', 'error')
-                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+                return render_template('register_medical_record.html', patient_id=patient_id,
+                                       diagnosis=diagnosis, treatment=treatment, notes=notes,
+                                       prescription=prescription)
 
             # Check if Patient has a stored medical record
             existing_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
             if existing_record:
                 flash('Patient already has a registered medical rocord!', 'error')
-                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+                return render_template('register_medical_record.html', patient_id=patient_id,
+                                       diagnosis=diagnosis, treatment=treatment, notes=notes,
+                                       prescription=prescription)
             
             new_medical_record = Medical_Record(diagnosis=diagnosis, treatment=treatment,
                                                 prescription=prescription, notes=notes)
@@ -77,8 +82,10 @@ def add_patient_medical_record(patient_id):
                 return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
             except Exception as e:
                 # abort(500, f"An error occured while saving the Medical Record: {str(e)}")
-                flash(f'Error: {str(e)}')
-                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+                flash(f'Error: {str(e)}', 'error')
+                return render_template('register_medical_record.html', patient_id=patient_id,
+                                       diagnosis=diagnosis, treatment=treatment, notes=notes,
+                                       prescription=prescription)
 
     return render_template('register_medical_record.html', patient_id=patient_id)
 

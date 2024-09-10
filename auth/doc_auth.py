@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
-from flask import Blueprint, request, get_flashed_messages, render_template, redirect, url_for, abort
+from flask import Blueprint, request, flash, get_flashed_messages, render_template, redirect, url_for, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
@@ -20,76 +20,74 @@ import logging
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register_doctor():
-    errors = []
-    error_empty_fields = ''
-    error_pwd_mismatch = ''
     if request.method == "POST":
-        first_name = request.form['fname']
-        last_name = request.form['lname']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
         email = request.form['email']
         phone = request.form['phone']
-        specialization = request.form['spec']
+        specialization = request.form['specialization']
         password = request.form['password']
         conf_password = request.form['conf_password']
 
         # Check if all fields are not empty
         if (not first_name or not last_name or not email
             or not phone or not specialization or not password or not conf_password):
-            error_empty_fields = 'All fields are required'
-            errors.append(error_empty_fields)
+            flash('All fields are required', 'error')
+            return render_template('register.html', first_name=first_name, last_name=last_name,
+                                   email=email, phone=phone, specialization=specialization,
+                                   password=password, conf_password=conf_password)
 
+        # Check if user exist using eamil as a unique identifier
         doctor = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
-
         if doctor:
-            error_reg_user = 'User already exist, use a different email!'
-            errors.append(error_reg_user)
-            return render_template('register.html', err_reg_user=error_reg_user)
+            flash('User already exist, use a different email!', 'error')
+            return render_template('register.html', first_name=first_name, last_name=last_name,
+                                   phone=phone, specialization=specialization,
+                                   password=password, conf_password=conf_password)
 
         # Check if passwords match before hashing
         if password != conf_password:
-            error_pwd_mismatch = 'Passwords do not match'
-            errors.append(error_pwd_mismatch)
+            flash('Passwords do not match', 'error')
+            return render_template('register.html', first_name=first_name, last_name=last_name,
+                                   email=email, phone=phone, specialization=specialization)
         else:
             hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+        
+        # # Retrieve flashed messages
+        # flashed_messages = get_flashed_messages(with_categories=True)
 
-        if not errors:
+        # # Check if any errors were raised
+        # errors = any(category == 'error' for category, message in flashed_messages)
+
+        try:
             new_doc = Doctor(first_name=first_name,
-                            last_name=last_name,
-                            phone_number=phone,
-                            email=email,
-                            specialization=specialization,
-                            password=hashed_password)
+                        last_name=last_name,
+                        phone_number=phone,
+                        email=email,
+                        specialization=specialization,
+                        password=hashed_password)
 
-            try:
-                storage.new(new_doc)
-                storage.save()
-                # register_success = "You have successfully created an account. Please login!"
-                if not errors:
-                    login_user(new_doc)
-                    return redirect(url_for('auth.dashboard_doctor', id=new_doc.id))
-            except Exception as e:
-                errors.append(f'Error: {str(e)}')
-    return render_template('register.html',
-                           error_ef = error_empty_fields,
-                           error_pm = error_pwd_mismatch)
+            storage.new(new_doc)
+            storage.save()
+            # register_success = "You have successfully created an account. Please login!"
+            login_user(new_doc)
+            return redirect(url_for('auth.dashboard_doctor', id=new_doc.id))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'error')
+    return render_template('register.html')
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_users():
-    del_success = request.args.get('del_success')
-    errors = []
-    error_login = ''
-    error_empty_fields = ''
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        remember = 'remember' in request.form
+        remember = True if request.form.get('remember') else False
         
         # Check if all fields are not empty
         if not email or not password:
-            error_empty_fields = 'All fields are required'
-            errors.append(error_empty_fields)
-            return render_template('login.html', err_ef=error_empty_fields)
+            flash('All fields are required', 'error')
+            return render_template('login.html', email=email, password=password)
 
         # Try to find the user in Doctor model
         user = storage._DBStorage__session.query(Doctor).filter_by(email=email).first()
@@ -100,27 +98,26 @@ def login_users():
 
         # Validate password
         if not (user and check_password_hash(user.password, password)):
-            error_login = 'Invalid Login. Check Username or Password!'
-            errors.append(error_login)
-            return render_template('login.html', err_login=error_login)
+            flash('Invalid Login. Use a different email or password and try again!', 'error')
+            return render_template('login.html', email=email, password=password)
 
-        if not errors:
-            login_user(user)
+        login_user(user, remember=remember)
+        flash('Logged in successfully!', 'success')
 
-            # Redirect based on the user role(Doctor or Patient)
-            if isinstance(user, Doctor):
-                return redirect(url_for('auth.dashboard_doctor', id=user.id))
-            elif isinstance(user, Patient):
-                return redirect(url_for('auth.dashboard_patient', id=user.id))
+        # Redirect based on the user role(Doctor or Patient)
+        if isinstance(user, Doctor):
+            return redirect(url_for('auth.dashboard_doctor', id=user.id))
+        elif isinstance(user, Patient):
+            return redirect(url_for('auth.dashboard_patient', id=user.id))
 
-    return render_template('login.html', del_success=del_success)
+    return render_template('login.html')
 
 
 @auth.route('/logout')
 def logout_doctor():
     logout_user()
-    logout_success = "You have successfully logged out!"
-    return render_template('login.html', logout_success=logout_success)
+    flash("You have successfully logged out!", 'success')
+    return render_template('login.html')
 
 
 @auth.route('/dashboard/<id>')

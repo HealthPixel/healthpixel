@@ -99,22 +99,34 @@ def register_patient():
         if (not first_name or not last_name or not date_of_birth or not gender
             or not blood_group or not email or not phone_number or not emg_contact_name
             or not emg_contact_phone):
-            flash('Required Fields are Empty!')
-            return redirect(url_for('app_views.register_patient'))
+            flash('Required Fields are Empty!', 'error')
+            return render_template('register_patient.html', first_name=first_name, last_name=last_name,
+                                   date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
+                                   email=email, phone_number=phone_number, address=address,
+                                   zipcode=zipcode, emg_contact_name=emg_contact_name,
+                                   emg_contact_phone=emg_contact_phone)
 
+        # Check if Patient exist using eamil as a unique identifier
         patient = storage.query(Patient).filter_by(email=email).first()
-
         if patient:
-            flash('Patient already exist, use a different email!')
-            return redirect(url_for('app_views.register_patient'))
+            flash('Patient already exist, use a different email!', 'error')
+            return render_template('register_patient.html', first_name=first_name, last_name=last_name,
+                                   date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
+                                   phone_number=phone_number, address=address, zipcode=zipcode,
+                                   emg_contact_name=emg_contact_name, emg_contact_phone=emg_contact_phone)
 
         # Check if passwords match before hashing
         if password != conf_password:
-            flash('Passwords do not match')
-            return redirect(url_for('app_views.register_patient'))
+            flash('Passwords do not match', 'error')
+            return render_template('register_patient.html', first_name=first_name, last_name=last_name,
+                                   date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
+                                   email=email, phone_number=phone_number, address=address,
+                                   zipcode=zipcode, emg_contact_name=emg_contact_name,
+                                   emg_contact_phone=emg_contact_phone)
         else:
             hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
+        # Creates a new Patient 
         new_patient = Patient(first_name=first_name,
                               last_name=last_name,
                               email=email,
@@ -136,7 +148,10 @@ def register_patient():
             # Redirect to Vitals entry page after creating the patient
             return redirect(url_for('app_views.add_patient_vitals', patient_id=new_patient.id))
         except Exception as e:
-            flash(f'Error: {str(e)}')
-            return redirect(url_for('app_views.register_patient'))
+            flash(f'Error: {str(e)}', 'error')
+            return render_template('register_patient.html', first_name=first_name, last_name=last_name,
+                                   date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
+                                   email=email, phone_number=phone_number,
+                                   emg_contact_name=emg_contact_name, emg_contact_phone=emg_contact_phone)
 
     return render_template('register_patient.html')
