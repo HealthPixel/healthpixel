@@ -32,16 +32,17 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-sm-8">
-                <!-- Display errors -->
-                {% with messages = get_flashed_messages(with_categories=True) %}
-                {% for category, message in messages %}
-                <div id="success-reg"
-                    class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-                    role="alert">
-                    {% if message %} {{ message }} {% endif %}
+                <!-- Display messages -->
+                <div class="message-box">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                            id="msg" role="alert">
+                            {% if message %} {{ message }} {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
                 </div>
-                {% endfor %}
-                {% endwith %}
                 <form class="d-grid mt-3" method="POST"
                     action="{{ url_for('app_views.add_patient_vitals', patient_id=patient_id) }}">
                     <div class="row">
@@ -55,44 +56,46 @@
                                 class="form-control" id="blood_pressure"
                                 placeholder="e.g 120/80"
                                 pattern="\d{2,3}/\d{2,3}"
-                                title="Please enter a valid blood pressure, e.g., 120/80" />
+                                title="Please enter a valid blood pressure, e.g., 120/80"
+                                value="{{ blood_pressure or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="heart_rate">Heart rate</label>
                             <input type="number" name="heart_rate"
-                                class="form-control" id="heart_rate" />
+                                class="form-control" id="heart_rate" 
+                                value="{{ heart_rate or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="temperature">Temperature (&degC)</label>
                             <input type="number" name="body_temperature"
                                 class="form-control" id="temperature" min="15"
-                                max="45" step="0.1" />
+                                max="45" step="0.1" value="{{ body_temperature or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="resp_rate">Respiratory Rate</label>
                             <input type="number" name="respiratory_rate"
                                 class="form-control" id="resp_rate" min="12"
-                                max="25">
+                                max="25" value="{{ respiratory_rate or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="oxygen_sat">Oxygen Saturation
                                 (%)</label>
                             <input type="number" name="oxygen_saturation"
                                 class="form-control" id="oxygen_saturation"
-                                step="0.1" />
+                                step="0.1" value="{{ oxygen_saturation or '' }}" />
                         </div>
                         <div class="row text-center justify-content-center">
                             <div class="col-md-4 mb-2">
                                 <label for="weight">Weight (kg)</label>
                                 <input type="number" name="weight"
                                     class="form-control" step="0.01"
-                                    id="weight" max="300" />
+                                    id="weight" max="300" value="{{ weight or '' }}" />
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label for="height">Height (m)</label>
                                 <input type="number" name="height"
                                     class="form-control" step="0.01"
-                                    id="height" max="2.5"/>
+                                    id="height" max="2.5" value="{{ height or '' }}" />
                             </div>
                         </div>
                         <button type="submit"
@@ -122,12 +125,7 @@
             }, delay);
         }
 
-        hideElementAfterDelay("success-reg", 5000);
-        hideElementAfterDelay("errors", 5000);
-        hideElementAfterDelay("err-reg-user", 5000);
-        hideElementAfterDelay("error-ef", 5000);
-        hideElementAfterDelay("success-lo", 5000);
-        hideElementAfterDelay("del-success", 5000);
+        hideElementAfterDelay("msg", 5000);
     </script>
     <!-- JS Bootstrap cdn -->
     <script

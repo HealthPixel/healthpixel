@@ -32,16 +32,17 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-sm-8">
-                <!-- Display Messages -->
-                {% with messages = get_flashed_messages(with_categories=True) %}
-                {% for category, message in messages %}
-                <div id="message"
-                    class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-                    role="alert">
-                    {% if message %} {{ message }} {% endif %}
+                <!-- Display messages -->
+                <div class="message-box">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                            id="msg" role="alert">
+                            {% if message %} {{ message }} {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
                 </div>
-                {% endfor %}
-                {% endwith %}
                 <form class="d-grid mt-3" method="POST"
                     action="{{ url_for('app_views.add_patient_medical_record', patient_id=patient_id) }}">
                     <div class="row">
@@ -52,23 +53,23 @@
                             <label for="diagnosis">Diagnosis</label>
                             <input type="text" name="diagnosis"
                                 class="form-control" maxlength="255"
-                                id="diagnosis" />
+                                id="diagnosis" value="{{ diagnosis or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="treatment">Treatment</label>
                             <input type="text" name="treatment"
-                                class="form-control" id="treatment" />
+                                class="form-control" id="treatment" value="{{ treatment or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="prescription">Prescription</label>
                             <input type="text" name="prescription"
                                 class="form-control" placeholder=""
-                                maxlength="50" id="prescription" />
+                                maxlength="50" id="prescription" value="{{ prescription or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="notes">Notes</label>
                             <input type="text" name="notes" class="form-control"
-                                id="notes" />
+                                id="notes" value="{{ notes or '' }}" />
                         </div>
                         <div class="col-md-6 d-grid">
                             <button type="submit" name="action" value="skip"
@@ -105,11 +106,7 @@
             }, delay);
         }
 
-        hideElementAfterDelay("message", 5000);
-        hideElementAfterDelay("err-reg-user", 5000);
-        hideElementAfterDelay("error-ef", 5000);
-        hideElementAfterDelay("success-lo", 5000);
-        hideElementAfterDelay("del-success", 5000);
+        hideElementAfterDelay("msg", 5000);
     </script>
     <!-- JS Bootstrap cdn -->
     <script

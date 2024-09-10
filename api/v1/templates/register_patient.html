@@ -34,13 +34,17 @@
     </header>
     <div class="row justify-content-center">
       <div class="col-sm-10">
-        <!-- Display errors -->
-        {% with messages = get_flashed_messages() %}
-        <div id="errors"
-          class="{{ 'show-error' if messages else 'hide-error' }}" role="alert">
-          {% if messages %} {{ messages[0] }} {% endif %}
+        <!-- Display messages -->
+        <div class="message-box">
+          {% with messages = get_flashed_messages(with_categories=True) %}
+              {% for category, message in messages %}
+                  <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                  id="msg" role="alert">
+                    {% if message %} {{ message }} {% endif %}
+                  </div>
+              {% endfor %}
+          {% endwith %}
         </div>
-        {% endwith %}
         <form class="d-grid mt-3" method="POST"
           action="{{ url_for('app_views.register_patient') }}">
           <div class="row">
@@ -50,29 +54,29 @@
             <div class="col-sm-6 mb-2">
               <label for="first_name">First Name</label>
               <input type="text" name="first_name" class="form-control"
-                id="first_name" />
+                id="first_name" value="{{ first_name or '' }}" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="last_name">Last Name</label>
               <input type="text" name="last_name" class="form-control"
-                id="last_name" />
+                id="last_name" value="{{ last_name or '' }}" />
             </div>
             <div class="col-sm-4 mb-2">
               <label for="date_of_birth">Date of Birth</label>
               <input type="date" name="date_of_birth" class="form-control"
-                id="date_of_birth" />
+                id="date_of_birth" value="{{ date_of_birth or '' }}" />
             </div>
             <div class="col-sm-4 text-center mb-2">
               <p class="mb-1">Gender</p>
-              <input type="radio" name="gender" id="male" value="Male" />
+              <input type="radio" name="gender" id="male" value="{{ gender or 'Male' }}" />
               <label for="male">Male</label>
-              <input type="radio" name="gender" id="female" value="Female" />
+              <input type="radio" name="gender" id="female" value="{{ gender or 'Female' }}" />
               <label for="female">Female</label>
             </div>
             <div class="col-sm-4 mb-2">
               <label for="blood_group">Blood Group</label>
               <select id="blood_group" name="blood_group" class="form-select">
-                <option value="" disabled selected>
+                <option value="{{ blood_group or '' }}" disabled selected>
                   Select your blood group
                 </option>
                 <option value="A+">A+</option>
@@ -88,43 +92,43 @@
             <div class="col-sm-8 mb-2">
               <label for="address">Address</label>
               <input type="text" name="address" class="form-control"
-                id="address" />
+                id="address"  value="{{ address or '' }}" />
             </div>
             <div class="col-sm-4 mb-2">
               <label for="zipcode">Zipcode</label>
               <input type="number" name="zipcode" class="form-control"
-                maxlength="6" id="zipcode" />
+                maxlength="6" id="zipcode"  value="{{ zipcode or '' }}" />
             </div>
             <div class="col-sm-8 mb-2">
               <label for="email">Contact Email</label>
               <input type="email" name="email" class="form-control"
-                placeholder="example@email.com" id="email" />
+                placeholder="example@email.com" id="email" value="{{ email or '' }}" />
             </div>
             <div class="col-sm-4 mb-2">
               <label for="phone_number">Phone Number</label>
               <input type="tel" name="phone_number" class="form-control"
-                id="phone_number" />
+                id="phone_number" value="{{ phone_number or '' }}" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="password">Password</label>
               <input type="password" name="password" class="form-control"
-                id="password" minlength="8" />
+                id="password" minlength="8" value="{{ password or '' }}" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="conf_password">Confirm Password</label>
               <input type="password" name="conf_password" class="form-control"
-                id="conf_password" minlength="8" />
+                id="conf_password" minlength="8" value="{{ conf_password or '' }}" />
             </div>
             <div class="col-sm-8 mb-2">
               <label for="emg_contact_name">Emergency Contact Name</label>
-              <input type="text" name="emg_contact_name"
-                class="form-control phone" id="emg_contact_name" />
+              <input type="text" name="emg_contact_name" class="form-control phone"
+                id="emg_contact_name" value="{{ emg_contact_name or '' }}" />
             </div>
             <div class="col-sm-4 mb-2">
               <label for="emg_contact_phone">Emergency Contact Phone
                 Number</label>
               <input type="tel" name="emg_contact_phone" class="form-control"
-                id="emg_contact_phone" />
+                id="emg_contact_phone" value="{{ emg_contact_phone or '' }}" />
             </div>
           </div>
           <button type="submit" class="btn btn-lg btn-success mt-3 mb-5">
@@ -153,11 +157,7 @@
       }, delay);
     }
 
-    hideElementAfterDelay("errors", 5000);
-    hideElementAfterDelay("err-reg-user", 5000);
-    hideElementAfterDelay("error-ef", 5000);
-    hideElementAfterDelay("success-lo", 5000);
-    hideElementAfterDelay("del-success", 5000);
+    hideElementAfterDelay("msg", 5000);
   </script>
 
   <!-- For formatted phone numbers -->

@@ -16,7 +16,7 @@
 
 <body class="d-flex flex-column min-vh-100">
   <div class="container flex-grow-1">
-    <header class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <header class="d-flex justify-content-between align-items-center mt-4 mb-4">
       <div class="d-flex">
         <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
           alt="HealthPixel Logo" class="logo">
@@ -38,44 +38,29 @@
     </header>
     <div class="row justify-content-center">
       <div class="col-sm-7">
-        <!-- Display errors -->
-        <div
-        id="errors"
-        class="{% if err_login or err_ef %}show-error{% elif logout_success or del_success %}show-success{% else %}hide-message{% endif %}">
-          {% if err_login %}
-            <p id="error-login">
-              {{ err_login }}
-            </p>
-          {% endif %}
-          {% if err_ef %}
-            <p id="error-ef">
-              {{ err_ef }}
-            </p>
-          {% endif %}
-          {% if logout_success %}
-            <p id="success-logout">
-              {{ logout_success }}
-            </p>
-          {% endif %}
-          {% if del_success %}
-            <p id="del-success">
-              {{ del_success }}
-            </p>
-          {% endif %}
+        <!-- Display messages -->
+        <div class="message-box">
+          {% with messages = get_flashed_messages(with_categories=True) %}
+              {% for category, message in messages %}
+                  <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                  id="msg" role="alert">
+                    {% if message %} {{ message }} {% endif %}
+                  </div>
+              {% endfor %}
+          {% endwith %}
         </div>
-        <form class="d-grid mt-3" method="POST"
+        <form class="d-grid mt-4" method="POST"
           action="{{ url_for('auth.login_users') }}">
           <h3 class="text-secondary-emphasis mb-3">
             Sign in to your account
           </h3>
           <div class="col-sm-12 mb-2">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" />
+            <input type="email" name="email" class="form-control" id="email" value="{{ email or '' }}" />
           </div>
           <div class="col-sm-12 mb-2">
             <label for="password">Password</label>
-            <input type="password" name="password" class="form-control"
-              id="password" />
+            <input type="password" name="password" class="form-control" id="password" value="{{ password or '' }}" />
           </div>
           <div class="form-check">
             <label class="form-check-label">
@@ -115,11 +100,7 @@
       }, delay);
     }
 
-    hideElementAfterDelay("errors", 5000);
-    hideElementAfterDelay('error-login', 5000);
-    hideElementAfterDelay('error-ef', 5000);
-    hideElementAfterDelay('success-logout', 5000);
-    hideElementAfterDelay('del-success', 5000);
+    hideElementAfterDelay("msg", 5000);
   </script>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

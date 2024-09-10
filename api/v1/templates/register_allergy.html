@@ -32,16 +32,17 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-sm-8">
-                <!-- Display Messages -->
-                {% with messages = get_flashed_messages(with_categories=True) %}
-                {% for category, message in messages %}
-                <div id="message"
-                    class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-                    role="alert">
-                    {% if message %} {{ message }} {% endif %}
+                <!-- Display messages -->
+                <div class="message-box">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                            id="msg" role="alert">
+                            {% if message %} {{ message }} {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
                 </div>
-                {% endfor %}
-                {% endwith %}
                 <form class="d-grid mt-3" method="POST"
                     action="{{ url_for('app_views.add_patient_allergies', patient_id=patient_id) }}">
                     <div class="row">
@@ -52,19 +53,19 @@
                             <label for="allergy">Allergen (Cause of the allergy)</label>
                             <input type="text" name="allergen"
                                 class="form-control" maxlength="100"
-                                id="allergen" />
+                                id="allergen" value="{{ allergen or '' }}" />
                         </div>
                         <div class="col-md-12 mb-2">
                             <label for="reaction">Reaction</label>
                             <input type="text" name="reaction"
                                 class="form-control" maxlength="255"
-                                id="reaction" />
+                                id="reaction" value="{{ reaction or '' }}" />
                         </div>
                         <div class="col-md-12 mb-2">
                             <label for="severity">Severity</label>
                             <select name="severity" class="form-select"
                                 id="severity">
-                                <option value="" disabled selected>Select the
+                                <option value="{{ severity or '' }}" disabled selected>Select the
                                     severity of the allergy</option>
                                 <option value="Mild">Mild</option>
                                 <option value="Moderate">Moderate</option>
@@ -74,7 +75,7 @@
                         <div class="col-md-12 mb-2">
                             <label for="notes">Notes</label>
                             <input type="text" name="notes" class="form-control"
-                                maxlength="255" id="notes" />
+                                maxlength="255" id="notes" value="{{ notes or '' }}" />
                         </div>
                         <div class="col-md-6 d-grid">
                             <button type="submit" value="skip" name="action"
@@ -111,12 +112,7 @@
             }, delay);
         }
 
-        hideElementAfterDelay("message", 5000);
-        hideElementAfterDelay("errors", 5000);
-        hideElementAfterDelay("err-reg-user", 5000);
-        hideElementAfterDelay("error-ef", 5000);
-        hideElementAfterDelay("success-lo", 5000);
-        hideElementAfterDelay("del-success", 5000);
+        hideElementAfterDelay("msg", 5000);
     </script>
     <!-- JS Bootstrap cdn -->
     <script

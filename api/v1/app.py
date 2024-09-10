@@ -11,6 +11,7 @@ from models.doctor import Doctor
 from models.patient import Patient
 from auth import auth
 from api.v1.views import app_views
+from datetime import timedelta
 
 
 app = Flask(__name__)
@@ -19,6 +20,9 @@ app.secret_key = secrets.token_hex(16)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'auth.login_users'
+
+# Set the duration for the "Remember Me" cookie
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=7)
 
 @login_manager.user_loader
 def load_user(id):

@@ -32,16 +32,16 @@
         </header>
         <div class="row justify-content-center">
             <div class="col-sm-8">
-                <!-- Display errors -->
-                <div id="errors"
-                    class="{{ 'show-error' if error_ef or error_pm or err_reg_user else 'hide-error' }}">
-                    {% if error_ef %}
-                    <p id="error-ef">{{ error_ef }}</p>
-                    {% elif error_pm %}
-                    <p id="error-pm">{{ error_pm }}</p>
-                    {% elif err_reg_user %}
-                    <p id="err-reg-user">{{ err_reg_user }}</p>
-                    {% endif %}
+                <!-- Display messages -->
+                <div class="message-box">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                            id="msg" role="alert">
+                            {% if message %} {{ message }} {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
                 </div>
                 <form class="d-grid mt-3" method="POST"
                     action="{{ url_for('app_views.register_patient') }}">
@@ -52,38 +52,33 @@
                         <div class="col-md-4 mb-2">
                             <label for="test">Test Name</label>
                             <input type="text" name="test" class="form-control"
-                                maxlength="100" id="test" />
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <label for="dot">Date of Test</label>
-                            <input type="date" name="dot" class="form-control"
-                                id="dot" />
+                                maxlength="100" id="test" value="{{ test or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="result">Result</label>
                             <input type="text" name="result"
                                 class="form-control"
                                 placeholder="e.g. Normal or High" maxlength="50"
-                                id="result" />
+                                id="result" value="{{ result or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="values">Values</label>
                             <input type="text" name="values"
-                                class="form-control" id="values" />
+                                class="form-control" id="values" value="{{ values or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="notes">Notes</label>
                             <input type="text" name="notes" class="form-control"
-                                id="notes" />
+                                id="notes" value="{{ notes or '' }}" />
                         </div>
                         <div class="col-md-6 d-grid">
-                            <button type="submit"
+                            <button type="submit" name="action" value="skip"
                                 class="btn btn-lg btn-primary mt-3 mb-5">
                                 Skip (Not applicable)
                             </button>
                         </div>
                         <div class="col-md-6 d-grid">
-                            <button type="submit"
+                            <button type="submit" name="action" value="submit"
                                 class="btn btn-lg btn-success mt-3 mb-5">
                                 Next &#8594
                             </button>
@@ -111,11 +106,7 @@
             }, delay);
         }
 
-        hideElementAfterDelay("errors", 5000);
-        hideElementAfterDelay("err-reg-user", 5000);
-        hideElementAfterDelay("error-ef", 5000);
-        hideElementAfterDelay("success-lo", 5000);
-        hideElementAfterDelay("del-success", 5000);
+        hideElementAfterDelay("msg", 5000);
     </script>
     <!-- JS Bootstrap cdn -->
     <script

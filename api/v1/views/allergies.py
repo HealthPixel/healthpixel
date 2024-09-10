@@ -35,6 +35,7 @@ def add_patient_allergies(patient_id):
     if not isinstance(current_user, Doctor):
         abort(403, "You are not authorized to perform this function!")
 
+    # Cchecks if Paatient exist
     patient = storage.get(Patient, patient_id)
     if not patient:
         abort(404, "Patient does not exist")
@@ -55,14 +56,17 @@ def add_patient_allergies(patient_id):
             # Check for Empty Fields
             if not all([allergen, reaction, severity, notes]):
                 flash('Required Fields are Empty!', 'error')
-                return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
+                return render_template('register_allergy.html', patient_id=patient_id, notes=notes,
+                                       allergen=allergen, reaction=reaction, severity=severity)
 
             # Check if Patient has a stored allergy
             existing_allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
             if existing_allergies:
                 flash('Patient already has a registered allergy rocord!', 'error')
-                return redirect(url_for('app_views.add_patient_allergies', patient_id=patient.id))
+                return render_template('register_allergy.html', patient_id=patient_id, notes=notes,
+                                       allergen=allergen, reaction=reaction, severity=severity)
             
+            # Creates a new allergy record
             new_allergies = Allergies(allergen=allergen, reaction=reaction,
                                     severity=severity, notes=notes)
 
@@ -76,8 +80,9 @@ def add_patient_allergies(patient_id):
                 return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
             except Exception as e:
                 # abort(500, f"An error occured while saving the allergies: {str(e)}")
-                flash(f'Error: {str(e)}')
-                return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
+                flash(f'Error: {str(e)}', 'error')
+                return render_template('register_allergy.html', patient_id=patient_id, notes=notes,
+                                       allergen=allergen, reaction=reaction, severity=severity)
 
     return render_template('register_allergy.html', patient_id=patient_id)
 
