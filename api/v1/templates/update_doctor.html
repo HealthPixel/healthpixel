@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap cdn -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet" />
+  <!-- intl-tel-input cdn (for phone numbers) -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+  <!-- css file link -->
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/register.css') }}">
+  <!-- page favicon -->
+  <link rel="shortcut icon"
+    href="{{ url_for('static', filename='img/favicon.ico') }}" />
+  <title>Create a HealthPixel account</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <div class="container flex-grow-1">
+    <header class="d-flex justify-content-between align-items-center py-3">
+      <div class="d-flex">
+        <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
+          alt="HealthPixel Logo" class="logo">
+        <h1 class="fw-bold px-4 pt-2"><a href="{{ url_for('healthpixel') }}"
+            class="text-success text-decoration-none">HealthPixel</a></h1>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.dashboard_redirect_doctor') }}"
+          class="custom-icon bi bi-grid"></a>
+        <a href="{{ url_for('auth.logout_doctor') }}"
+          class="bi bi-box-arrow-right custom-icon ms-4"></a>
+        {% else %}
+        <a href="{{ url_for('auth.login_users') }}"
+          class="btn btn-outline-success btn-lg rounded-pill fw-bold">Sign in
+          &#x2192</a>
+        {% endif %}
+      </div>
+    </header>
+    <div class="row justify-content-center">
+      <div class="col-sm-8">
+        <!-- Display messages -->
+        <div class="message-box">
+          {% with messages = get_flashed_messages(with_categories=True) %}
+              {% for category, message in messages %}
+                  <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+                  id="msg" role="alert">
+                    {% if message %} {{ message }} {% endif %}
+                  </div>
+              {% endfor %}
+          {% endwith %}
+        </div>
+        <form class="d-grid mt-4" method="POST"
+          action="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}">
+          <div class="row">
+            <h3 class="text-secondary-emphasis mb-3">Edit Doctor Profile
+            </h3>
+            <div class="col-sm-6 mb-2">
+              <label for="first_name">First Name</label>
+              <input type="text" name="first_name" class="form-control"
+              id="first_name" maxlength="50" value="{{ first_name or '' }}" />
+            </div>
+            <div class="col-sm-6 mb-2">
+              <label for="last_name">Last Name</label>
+              <input type="text" name="last_name" class="form-control"
+              id="last_name" maxlength="50" value="{{ last_name or '' }}" />
+            </div>
+            <div class="col-sm-7 mb-3">
+              <label for="email">Email</label>
+              <input type="email" name="email" placeholder="example@email.com"
+              class="form-control" id="email" value="{{ email or '' }}" />
+            </div>
+            <div class="col-sm-5 mb-2">
+              <label for="tel">Phone Number</label>
+              <input type="tel" name="phone_number" class="form-control"
+              id="phone" value="{{ phone_number or '' }}" />
+            </div>
+            <div class="col-sm-12">
+              <label for="specialization">Specialization</label>
+              <input type="text" name="specialization" placeholder="e.g. Cardiologist"
+              class="form-control mb-2" maxlength="100" value="{{ specialization or '' }}" />
+            </div>
+            <div class="col-sm-6 mb-2">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control"
+                id="password" minlength="8" value="{{ password or '' }}" />
+            </div>
+            <div class="col-sm-6 mb-2">
+              <label for="conf_password">Confirm Password</label>
+              <input type="password" name="conf_password" class="form-control"
+                id="conf_password" minlength="8" value="{{ conf_password or '' }}" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-lg btn-success mt-3">
+            Edit Profile
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center text-light py-3">
+    <p class="mb-0">&copy HealthPixel 2024</p>
+  </footer>
+  <script>
+    // Function to hide the element after a delay
+    function hideElementAfterDelay(elementId, delay) {
+      setTimeout(function () {
+        var element = document.getElementById(elementId);
+        if (element) {
+          element.style.transition = "opacity 1s ease-out";
+          element.style.visibility = "hidden";
+          setTimeout(function () {
+            // element.style.display = "none";
+          }, 1000);
+        }
+      }, delay);
+    }
+
+    hideElementAfterDelay("msg", 5000);
+  </script>
+  <!-- For formatted phone numbers -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <script>
+    // Initialize intl-tel-input for phone number
+    var phoneInput = document.querySelector("#phone");
+    var itiPhone = window.intlTelInput(phoneInput, {
+      initialCountry: "ng", // Set default country
+      separateDialCode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
