@@ -141,6 +141,7 @@ def update_patient_records(patient_id):
             vitals.oxygen_saturation = data.get('oxygen_saturation', vitals.oxygen_saturation)
             vitals.weight = data.get('weight', vitals.weight)
             vitals.height = data.get('height', vitals.height)
+            vitals.updated_at = datetime.utcnow()
             vitals.save()
 
         if medical_record:
@@ -148,6 +149,7 @@ def update_patient_records(patient_id):
             medical_record.treatment = data.get('treatment', medical_record.treatment)
             medical_record.prescription = data.get('prescription', medical_record.prescription)
             medical_record.notes = data.get('notes', medical_record.notes)
+            medical_record.updated_at = datetime.utcnow()
             medical_record.save()
 
         if allergies:
@@ -155,6 +157,7 @@ def update_patient_records(patient_id):
             allergies.reaction = data.get('reaction', allergies.reaction)
             allergies.severity = data.get('severity', allergies.severity)
             allergies.notes = data.get('notes', allergies.notes)
+            allergies.updated_at = datetime.utcnow()
             allergies.save()
 
         if appointment:
@@ -163,6 +166,15 @@ def update_patient_records(patient_id):
             pass
         if medication:
             pass
+
+        # Log the access action
+        action_taken = (
+                f"{patient.first_name} {patient.last_name}'s records were updated by "
+                f"Doctor {current_user.first_name} {current_user.last_name}"
+                )
+        access_log = Access_Log(user_id=current_user.id, patient_id=patient_id, action_taken=action_taken)
+        storage.new(access_log)
+        storage.save()
 
         flash('Patient records updated successfully', 'success')
         return redirect(url_for('app_views.update_patient_records', patient_id=patient_id))
@@ -189,7 +201,7 @@ def view_patient_records(patient_id):
     # Log the access action
     action_taken = (
             f"{patient.first_name} {patient.last_name}'s records were viewed by "
-            f"Doctor {doctor.first_name} {doctor.last_name}"
+            f"Doctor {current_user.first_name} {current_user.last_name}"
             )
     access_log = Access_Log(user_id=current_user.id, patient_id=patient_id, action_taken=action_taken)
     storage.new(access_log)
