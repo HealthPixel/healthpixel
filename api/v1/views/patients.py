@@ -116,9 +116,10 @@ def update_patient_records(patient_id):
         allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
 
         return render_template('update_patient_records.html',
-                               patient=patient,vitals=vitals,
-                               medical_record=medical_record,
-                               allergies=allergies)
+                               patient=patient, vitals=vitals,
+                               medical_record=medical_record, allergies=allergies,
+                               appointment=appointment,lab_result=lab_result,
+                               medication=medication)
 
     elif request.method == 'POST':
         data = request.form
@@ -129,15 +130,46 @@ def update_patient_records(patient_id):
         if vitals:
             vitals.blood_pressure = data.get('blood_pressure', vitals.blood_pressure)
             vitals.heart_rate = data.get('heart_rate', vitals.heart_rate)
+            vitals.body_temperature = data.get('body_temperature', vitals.body_temperature)
+            vitals.respiratory_rate = data.get('respiratory_rate', vitals.respiratory_rate)
+            vitals.oxygen_saturation = data.get('oxygen_saturation', vitals.oxygen_saturation)
+            vitals.weight = data.get('weight', vitals.weight)
+            vitals.height = data.get('height', vitals.height)
             vitals.save()
 
         if medical_record:
             medical_record.diagnosis = data.get('diagnosis', medical_record.diagnosis)
             medical_record.treatment = data.get('treatment', medical_record.treatment)
+            medical_record.prescription = data.get('prescription', medical_record.prescription)
+            medical_record.notes = data.get('notes', medical_record.notes)
             medical_record.save()
+
+        if allergies:
+            allergies.allergen = data.get('allergen', allergies.allergen)
+            allergies.reaction = data.get('reaction', allergies.reaction)
+            allergies.severity = data.get('severity', allergies.severity)
+            allergies.notes = data.get('notes', allergies.notes)
 
         flash('Patient records updated successfully', 'success')
         return redirect(url_for('app_views.update_patient_records', patient_id=patient_id))
+
+
+@app_views.route('/doctor/patients/<patient_id>/view_patient_records',
+                 methods=['GET'], strict_slashes=False)
+@login_required
+def view_patient_records(patient_id):
+    if not isinstance(current_user, Doctor):
+        abort(403, "You are not authorized to perform this function")
+
+    patient = storage.get(Patient, patient_id)
+    if not patient:
+        abort(400, "Patient not found")
+
+    return render_template('view_patient_records.html',
+                           patient=patient, vitals=vitals,
+                           medical_record=medical_record, allergies=allergies,
+                           appointment=appointment,lab_result=lab_result,
+                           medication=medication)
 
 
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>', methods=['DELETE'], strict_slashes=False)
