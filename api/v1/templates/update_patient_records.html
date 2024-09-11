@@ -34,8 +34,21 @@
             <label>Heart Rate: 
               <input type="text" name="heart_rate" value="{{ vitals.heart_rate }}">
             </label><br>
-            <!-- Add more vitals fields as necessary -->
-
+            <label>Body Temperature:
+              <input type="text" name="body_temperature" value="{{ vitals.body_temperature }}">
+            </label><br>
+            <label>Respiratory Rate: 
+              <input type="text" name="respiratory_rate" value="{{ vitals.respiratory_rate }}">
+            </label><br>
+            <label>Oxygen Saturation:
+              <input type="text" name="oxygen_saturation" value="{{ vitals.oxygen_saturation }}">
+            </label><br>
+            <label>Weight:
+              <input type="text" name="weight" value="{{ vitals.weight }}">
+            </label><br>
+            <label>Height:
+              <input type="text" name="height" value="{{ vitals.height }}">
+            </label><br>
             <button type="submit" class="btn btn-primary mt-3">Update Vitals</button>
           </form>
         </div>
@@ -52,17 +65,41 @@
             <label>Treatment: 
               <input type="text" name="treatment" value="{{ medical_record.treatment }}">
             </label><br>
-            <!-- Add more medical record fields as necessary -->
-
+            <label>Prescription:
+              <input type="text" name="prescription" value="{{ medical_record.prescription }}">
+            </label><br>
+            <label>Notes:
+              <input type="text" name="notes" value="{{ medical_record.notes }}">
+            </label><br>
             <button type="submit" class="btn btn-primary mt-3">Update Medical Records</button>
           </form>
         </div>
       </div>
 
-      <!-- Add sections for medications, lab results, allergies, etc. -->
+      <!-- Update Allergies -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Update Allergies</h5>
+          <form id="update-medical-record-form" method="POST">
+            <label>Allergen:
+              <input type="text" name="allergen" value="{{ allergies.allergen }}">
+            </label><br>
+            <label>Reaction:
+              <input type="text" name="reaction" value="{{ allergies.reaction }}">
+            </label><br>
+            <label>Severity:
+              <input type="text" name="severity" value="{{ allergies.severity }}">
+            </label><br>
+            <label>Notes:
+              <input type="text" name="notes" value="{{ allergies.notes }}">
+            </label><br>
+            <button type="submit" class="btn btn-primary mt-3">Update Allergies</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Add sections for medications, lab results and appointment -->
 
     </div>
-
-    <script src="{{ url_for('static', filename='js/update_patient.js') }}"></script>
   </body>
 </html>
