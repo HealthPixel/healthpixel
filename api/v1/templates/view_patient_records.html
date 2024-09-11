@@ -16,12 +16,12 @@
     rel="stylesheet" />
   <!-- css file link -->
   <link rel="stylesheet"
-    href="{{ url_for('static', filename='css/dashboard.css') }}" />
+    href="{{ url_for('static', filename='css/view_update_patient.css') }}" />
   <!-- page favicon -->
   <link rel="shortcut icon"
     href="{{ url_for('static', filename='img/favicon.ico') }}" />
 
-  <title>HealthPixel Doctor Dashboard</title>
+  <title>HealthPixel Patient Profile</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -29,26 +29,15 @@
     <div class="navbar flex-column justify-content-start sidebar py-2">
       <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
         class="mb-5 mt-4" alt="HealthPixel Logo" />
-      <a href="{{ url_for('app_views.register_patient') }}"
-        class="btn btn-success btn-large py-2 mb-5">Register Patient</a>
-      <a href="#" class="btn btn-success btn-large py-2 mb-5"
-        id="btn_view_patient_records">View Patient's Record</a>
-      <a href="#" class="btn btn-success btn-large py-2 mb-5"
-        id="btn_update_patient_records">Update Patient's Record</a>
-      <a href="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}"
-        class="btn btn-primary py-2 mb-5">Edit profile</a>
+      <a href="#" class="btn btn-primary py-2 mb-5">Edit profile</a>
       <div class="row">
         <div class="col-sm-4 text-center">
-          <a href="{{ url_for('auth.logout_doctor') }}"
+          <a href="{{ url_for('auth.logout_patient') }}"
             class="btn btn-outline-danger mb-3">Logout</a>
-        </div>
-        <div class="col-sm-8 text-center">
-          <a href="{{ url_for('auth.delete_doctor') }}"
-            class="btn btn-danger mb-3">Delete account</a>
         </div>
       </div>
     </div>
-    <main class="px-4 mt-5 mb-4">
+    <main class="px-4 py-5">
       <div class="container">
         <header class="d-flex text-center">
           <a href="{{ url_for('healthpixel') }}"
@@ -66,28 +55,18 @@
           {% endfor %}
           {% endwith %}
         </div>
-        <div class="card p-4 mt-4 mb-5">
+        <div class="card p-3 mb-5 mt-4">
           <h1 class="display-6 fw-semibold mb-4">
-            Welcome, Dr. {{ user.first_name }} {{ user.last_name }}
+            Welcome, {{ user.first_name }} {{ user.last_name }}
           </h1>
           <p class="fw-semibold">Email: {{ user.email }}</p>
-          <p class="fw-semibold">Specialization: {{ user.specialization }}</p>
         </div>
-        <div class="search_input p-3">
-          <h4 class="text-success">Search a patient:</h4>
-          <input type="search" name="search_patient"
-            class="form-control rounded-pill border border-secondary border-3"
-            placeholder="email or ID" id="search_patient" />
-        </div>
-        <div class="patient_list"></div>
       </div>
-      <!--Container End-->
     </main>
   </div>
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
   </footer>
-  <script src="{{ url_for('static', filename='js/search.js') }}"></script>
   <script>
     // Function to hide the element after a delay
     function hideElementAfterDelay(elementId, delay) {
