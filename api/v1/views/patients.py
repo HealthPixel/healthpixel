@@ -186,7 +186,14 @@ def view_patient_records(patient_id):
     lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
     medication = storage.query(Medication).filter_by(patient_id=patient_id).first()
 
-
+    # Log the access action
+    action_taken = (
+            f"{patient.first_name} {patient.last_name}'s records were viewed by "
+            f"Doctor {doctor.first_name} {doctor.last_name}"
+            )
+    access_log = Access_Log(user_id=current_user.id, patient_id=patient_id, action_taken=action_taken)
+    storage.new(access_log)
+    storage.save()
 
     return render_template('view_patient_records.html',
                            patient=patient, vitals=vitals,
