@@ -14,8 +14,8 @@ from auth import auth
 @auth.route('/logout_patient')
 def logout_patient():
     logout_user()
-    logout_success = "You have successfully logged out!"
-    return render_template('login.html', logout_success=logout_success)
+    flash("You have successfully logged out!", 'success')
+    return render_template('login.html')
 
 
 @auth.route('/patient_dashboard/<id>')

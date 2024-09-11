@@ -20,6 +20,14 @@ import logging
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register_doctor():
+    if current_user.is_authenticated:
+            flash('You are already logged in.', 'success')
+            # Redirect based on the user role(Doctor or Patient)
+            if isinstance(current_user, Doctor):
+                return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
+            elif isinstance(current_user, Patient):
+                return redirect(url_for('auth.dashboard_patient', id=current_user.id))
+
     if request.method == "POST":
         first_name = request.form['first_name']
         last_name = request.form['last_name']
@@ -80,6 +88,14 @@ def register_doctor():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_users():
+    if current_user.is_authenticated:
+            flash('You are already logged in.', 'success')
+            # Redirect based on the user role(Doctor or Patient)
+            if isinstance(current_user, Doctor):
+                return redirect(url_for('auth.dashboard_doctor', id=current_user.id))
+            elif isinstance(current_user, Patient):
+                return redirect(url_for('auth.dashboard_patient', id=current_user.id))
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
