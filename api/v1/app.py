@@ -4,7 +4,7 @@ User Profile route for the Flask Application
 """
 from models import storage
 from os import getenv
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash
 import secrets
 from flask_login import LoginManager
 from models.doctor import Doctor
@@ -17,12 +17,12 @@ from datetime import timedelta
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
+# Set the duration for the "Remember Me" cookie
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=7)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'auth.login_users'
-
-# Set the duration for the "Remember Me" cookie
-app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=7)
 
 @login_manager.user_loader
 def load_user(id):
@@ -31,6 +31,11 @@ def load_user(id):
         user = storage._DBStorage__session.query(Patient).get(id)
     return user
 
+@login_manager.unauthorized_handler
+def unauthorized():
+    flash('You need to log in before accessing this page.', 'error')
+    # Redirect to the login page
+    return redirect(url_for('auth.login_users'))
 
 app.register_blueprint(auth)
 app.register_blueprint(app_views)
