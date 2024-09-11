@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Bootstrap cdn -->
+  <!-- Bootstrap css cdn -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet" />
@@ -47,43 +47,45 @@
         <!-- Display messages -->
         <div class="message-box">
           {% with messages = get_flashed_messages(with_categories=True) %}
-              {% for category, message in messages %}
-                  <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-                  id="msg" role="alert">
-                    {% if message %} {{ message }} {% endif %}
-                  </div>
-              {% endfor %}
+          {% for category, message in messages %}
+          <div
+            class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+            id="msg" role="alert">
+            {% if message %} {{ message }} {% endif %}
+          </div>
+          {% endfor %}
           {% endwith %}
         </div>
         <form class="d-grid mt-4" method="POST"
           action="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}">
           <div class="row">
-            <h3 class="text-secondary-emphasis mb-3">Edit Doctor Profile
+            <h3 class="text-secondary-emphasis mb-3">Edit Your Profile
             </h3>
             <div class="col-sm-6 mb-2">
               <label for="first_name">First Name</label>
               <input type="text" name="first_name" class="form-control"
-              id="first_name" maxlength="50" value="{{ first_name or '' }}" />
+                id="first_name" maxlength="50" value="{{ first_name or '' }}" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="last_name">Last Name</label>
               <input type="text" name="last_name" class="form-control"
-              id="last_name" maxlength="50" value="{{ last_name or '' }}" />
+                id="last_name" maxlength="50" value="{{ last_name or '' }}" />
             </div>
             <div class="col-sm-7 mb-3">
               <label for="email">Email</label>
               <input type="email" name="email" placeholder="example@email.com"
-              class="form-control" id="email" value="{{ email or '' }}" />
+                class="form-control" id="email" value="{{ email or '' }}" />
             </div>
             <div class="col-sm-5 mb-2">
               <label for="tel">Phone Number</label>
               <input type="tel" name="phone_number" class="form-control"
-              id="phone" value="{{ phone_number or '' }}" />
+                id="phone" value="{{ phone_number or '' }}" />
             </div>
             <div class="col-sm-12">
               <label for="specialization">Specialization</label>
-              <input type="text" name="specialization" placeholder="e.g. Cardiologist"
-              class="form-control mb-2" maxlength="100" value="{{ specialization or '' }}" />
+              <input type="text" name="specialization"
+                placeholder="e.g. Cardiologist" class="form-control mb-2"
+                maxlength="100" value="{{ specialization or '' }}" />
             </div>
             <div class="col-sm-6 mb-2">
               <label for="password">Password</label>
@@ -93,7 +95,8 @@
             <div class="col-sm-6 mb-2">
               <label for="conf_password">Confirm Password</label>
               <input type="password" name="conf_password" class="form-control"
-                id="conf_password" minlength="8" value="{{ conf_password or '' }}" />
+                id="conf_password" minlength="8"
+                value="{{ conf_password or '' }}" />
             </div>
           </div>
           <button type="submit" class="btn btn-lg btn-success mt-3">
