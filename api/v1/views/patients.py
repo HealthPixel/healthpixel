@@ -153,7 +153,7 @@ def update_patient_records(patient_id):
             medical_record.save()
 
         if allergies:
-            allergies.allergen = data.get('allergen', allergies.allergen)
+            allergies.allergy = data.get('allergen', allergies.allergy)
             allergies.reaction = data.get('reaction', allergies.reaction)
             allergies.severity = data.get('severity', allergies.severity)
             allergies.notes = data.get('notes', allergies.notes)
