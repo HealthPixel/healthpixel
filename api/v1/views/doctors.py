@@ -144,7 +144,8 @@ def register_patient():
                                    date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
                                    email=email, phone_number=phone_number, address=address,
                                    zipcode=zipcode, emg_contact_name=emg_contact_name,
-                                   emg_contact_phone=emg_contact_phone)
+                                   emg_contact_phone=emg_contact_phone, password=password,
+                                   conf_password=conf_password)
 
         # Check if Patient exist using eamil as a unique identifier
         patient = storage.query(Patient).filter_by(email=email).first()
@@ -153,7 +154,8 @@ def register_patient():
             return render_template('register_patient.html', first_name=first_name, last_name=last_name,
                                    date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
                                    phone_number=phone_number, address=address, zipcode=zipcode,
-                                   emg_contact_name=emg_contact_name, emg_contact_phone=emg_contact_phone)
+                                   emg_contact_name=emg_contact_name, emg_contact_phone=emg_contact_phone,
+                                   password=password, conf_password=conf_password)
 
         # Check if passwords match before hashing
         if password != conf_password:

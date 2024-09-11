@@ -83,7 +83,7 @@ def login_users():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        remember = True if request.form.get('remember') else False
+        remember = 'remember' in request.form
         
         # Check if all fields are not empty
         if not email or not password:
@@ -97,10 +97,14 @@ def login_users():
         if not user:
             user = storage._DBStorage__session.query(Patient).filter_by(email=email).first()
 
-        # Validate password
+        # Validate password to login
         if not (user and check_password_hash(user.password, password)):
-            flash('Invalid Login. Use a different email or password and try again!', 'error')
-            return render_template('login.html', email=email, password=password)
+            if not user:
+                flash('Invalid Login. User does not exist.', 'error')
+                return render_template('login.html')
+            else:
+                flash('Invalid Login. You used a wrong password for this account.', 'error')
+                return render_template('login.html', email=email)
 
         login_user(user, remember=remember)
         flash('Logged in successfully!', 'success')
@@ -129,7 +133,6 @@ def dashboard_doctor(id):
         abort(403, "Unauthorized Access")
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login_users'))
-    logging.info(f"User authenticated: {current_user.is_authenticated}")
     return render_template('dashboard.html', user=user_data, user_id=id)
 
 
@@ -144,5 +147,5 @@ def dashboard_redirect_doctor():
 def delete_doctor():
     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
     response = requests.delete(delete_doc_api_url)
-    del_success = "Your account has been deleted successfully!"
-    return redirect(url_for('auth.login_users', del_success=del_success))
+    flash("Your account has been deleted successfully!", 'success')
+    return redirect(url_for('auth.login_users'))
