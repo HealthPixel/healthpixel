@@ -117,6 +117,9 @@ def update_patient_records(patient_id):
         vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
         medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
         allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
+        appointment = storage.query(Appointment).filter_by(patient_id=patient_id).first()
+        lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
+        medication = storage.query(Medication).filter_by(patient_id=patient_id).first()
 
         return render_template('update_patient_records.html',
                                patient=patient, vitals=vitals,
@@ -152,6 +155,14 @@ def update_patient_records(patient_id):
             allergies.reaction = data.get('reaction', allergies.reaction)
             allergies.severity = data.get('severity', allergies.severity)
             allergies.notes = data.get('notes', allergies.notes)
+            allergies.save()
+
+        if appointment:
+            pass
+        if lab_result:
+            pass
+        if medication:
+            pass
 
         flash('Patient records updated successfully', 'success')
         return redirect(url_for('app_views.update_patient_records', patient_id=patient_id))
@@ -167,6 +178,15 @@ def view_patient_records(patient_id):
     patient = storage.get(Patient, patient_id)
     if not patient:
         abort(400, "Patient not found")
+
+    vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
+    medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
+    allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
+    appointment = storage.query(Appointment).filter_by(patient_id=patient_id).first()
+    lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
+    medication = storage.query(Medication).filter_by(patient_id=patient_id).first()
+
+
 
     return render_template('view_patient_records.html',
                            patient=patient, vitals=vitals,
