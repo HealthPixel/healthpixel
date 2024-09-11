@@ -68,25 +68,27 @@
             </div>
             <div class="col-sm-4 text-center mb-2">
               <p class="mb-1">Gender</p>
-              <input type="radio" name="gender" id="male" value="{{ gender or 'Male' }}" />
+              <input type="radio" name="gender" id="male" value="Male" 
+                  {% if gender == 'Male' %}checked{% endif %} />
               <label for="male">Male</label>
-              <input type="radio" name="gender" id="female" value="{{ gender or 'Female' }}" />
+              <input type="radio" name="gender" id="female" value="Female" 
+                  {% if gender == 'Female' %}checked{% endif %} />
               <label for="female">Female</label>
             </div>
             <div class="col-sm-4 mb-2">
               <label for="blood_group">Blood Group</label>
               <select id="blood_group" name="blood_group" class="form-select">
-                <option value="{{ blood_group or '' }}" disabled selected>
-                  Select your blood group
-                </option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
+                  <option value="" disabled {% if not blood_group %}selected{% endif %}>
+                      Select your blood group
+                  </option>
+                  <option value="A+" {% if blood_group == 'A+' %}selected{% endif %}>A+</option>
+                  <option value="A-" {% if blood_group == 'A-' %}selected{% endif %}>A-</option>
+                  <option value="B+" {% if blood_group == 'B+' %}selected{% endif %}>B+</option>
+                  <option value="B-" {% if blood_group == 'B-' %}selected{% endif %}>B-</option>
+                  <option value="AB+" {% if blood_group == 'AB+' %}selected{% endif %}>AB+</option>
+                  <option value="AB-" {% if blood_group == 'AB-' %}selected{% endif %}>AB-</option>
+                  <option value="O+" {% if blood_group == 'O+' %}selected{% endif %}>O+</option>
+                  <option value="O-" {% if blood_group == 'O-' %}selected{% endif %}>O-</option>
               </select>
             </div>
             <div class="col-sm-8 mb-2">
