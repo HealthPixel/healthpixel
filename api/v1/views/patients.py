@@ -3,7 +3,7 @@
 This module creates view for Patient objects
 """
 
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, render_template, url_for, flash
 from sqlalchemy import text
 from api.v1.views import app_views
 from models import storage
@@ -11,6 +11,10 @@ from models.doctor import Doctor
 from models.patient import Patient
 from models.access_log import Access_Log
 from datetime import datetime
+from flask_login import current_user, login_user, login_required
+from models.vitals import Vitals
+from models.medical_record import Medical_Record
+from models.allergies import Allergies
 
 
 @app_views.route('/doctor/patients', methods=['GET'], strict_slashes=False)
@@ -93,6 +97,47 @@ def update_a_patient(doctor_id, patient_id):
         abort(500, f"An error occured while saving the Patient: {str(e)}")
 
     return jsonify(patient.to_dict()), 201
+
+
+@app_views.route('/doctor/patients/<patient_id>/update_patient_records',
+                 methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def update_patient_records(patient_id):
+    if not isinstance(current_user, Doctor):
+        abort(403, "You are not authorized to perform this function")
+
+    patient = storage.get(Patient, patient_id)
+    if not patient:
+        abort(400, "Patient not found")
+
+    if request.method == 'GET':
+        vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
+        medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
+        allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
+
+        return render_template('update_patient_records.html',
+                               patient=patient,vitals=vitals,
+                               medical_record=medical_record,
+                               allergies=allergies)
+
+    elif request.method == 'POST':
+        data = request.form
+        vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
+        medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
+        allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
+
+        if vitals:
+            vitals.blood_pressure = data.get('blood_pressure', vitals.blood_pressure)
+            vitals.heart_rate = data.get('heart_rate', vitals.heart_rate)
+            vitals.save()
+
+        if medical_record:
+            medical_record.diagnosis = data.get('diagnosis', medical_record.diagnosis)
+            medical_record.treatment = data.get('treatment', medical_record.treatment)
+            medical_record.save()
+
+        flash('Patient records updated successfully', 'success')
+        return redirect(url_for('app_views.update_patient_records', patient_id=patient_id))
 
 
 @app_views.route('/doctor/<doctor_id>/patient/<patient_id>', methods=['DELETE'], strict_slashes=False)
