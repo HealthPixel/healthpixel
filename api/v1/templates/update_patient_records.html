@@ -18,11 +18,15 @@
   <title>Update Patient Records</title>
 </head>
 
-<body>
-  <div class="container mt-5">
-    <h1 class="mb-4">Update Patient Records</h1>
+<body class="d-flex flex-column min-vh-100">
+  <div class="container flex-grow-1">
+    <header class="d-flex mt-5 text-center">
+      <a href="{{ url_for('healthpixel') }}"
+        class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+    </header>
 
     <div class="row">
+      <h2 class="mb-4 fw-semibold">Update Patient Records</h1>
       <!-- Patient Info -->
       <div class="card col-md-12 mb-4">
         <h5 class="pt-3">Patient Information</h5>
@@ -36,20 +40,25 @@
         <div class="card-body">
           <h5 class="card-title">Update Vitals</h5>
           <form id="update-vitals-form" method="POST">
-            <label>Blood Pressure: 
-              <input type="text" name="blood_pressure" value="{{ vitals.blood_pressure }}">
+            <label>Blood Pressure:
+              <input type="text" name="blood_pressure"
+                value="{{ vitals.blood_pressure }}">
             </label><br>
-            <label>Heart Rate: 
-              <input type="text" name="heart_rate" value="{{ vitals.heart_rate }}">
+            <label>Heart Rate:
+              <input type="text" name="heart_rate"
+                value="{{ vitals.heart_rate }}">
             </label><br>
             <label>Body Temperature:
-              <input type="text" name="body_temperature" value="{{ vitals.body_temperature }}">
+              <input type="text" name="body_temperature"
+                value="{{ vitals.body_temperature }}">
             </label><br>
-            <label>Respiratory Rate: 
-              <input type="text" name="respiratory_rate" value="{{ vitals.respiratory_rate }}">
+            <label>Respiratory Rate:
+              <input type="text" name="respiratory_rate"
+                value="{{ vitals.respiratory_rate }}">
             </label><br>
             <label>Oxygen Saturation:
-              <input type="text" name="oxygen_saturation" value="{{ vitals.oxygen_saturation }}">
+              <input type="text" name="oxygen_saturation"
+                value="{{ vitals.oxygen_saturation }}">
             </label><br>
             <label>Weight:
               <input type="text" name="weight" value="{{ vitals.weight }}">
@@ -57,7 +66,8 @@
             <label>Height:
               <input type="text" name="height" value="{{ vitals.height }}">
             </label><br>
-            <button type="submit" class="btn btn-primary mt-3">Update Vitals</button>
+            <button type="submit" class="btn btn-primary mt-3">Update
+              Vitals</button>
           </form>
         </div>
       </div>
@@ -76,12 +86,15 @@
                 value="{{ medical_record.treatment }}">
             </label><br>
             <label>Prescription:
-              <input type="text" name="prescription" value="{{ medical_record.prescription }}">
+              <input type="text" name="prescription"
+                value="{{ medical_record.prescription }}">
             </label><br>
             <label>Notes:
-              <input type="text" name="notes" value="{{ medical_record.notes }}">
+              <input type="text" name="notes"
+                value="{{ medical_record.notes }}">
             </label><br>
-            <button type="submit" class="btn btn-primary mt-3">Update Medical Records</button>
+            <button type="submit" class="btn btn-primary mt-3">Update Medical
+              Records</button>
           </form>
         </div>
       </div>
@@ -92,18 +105,22 @@
           <h5 class="card-title">Update Allergies</h5>
           <form id="update-medical-record-form" method="POST">
             <label>Allergen:
-              <input type="text" name="allergen" value="{{ allergies.allergen }}">
+              <input type="text" name="allergen"
+                value="{{ allergies.allergen }}">
             </label><br>
             <label>Reaction:
-              <input type="text" name="reaction" value="{{ allergies.reaction }}">
+              <input type="text" name="reaction"
+                value="{{ allergies.reaction }}">
             </label><br>
             <label>Severity:
-              <input type="text" name="severity" value="{{ allergies.severity }}">
+              <input type="text" name="severity"
+                value="{{ allergies.severity }}">
             </label><br>
             <label>Notes:
               <input type="text" name="notes" value="{{ allergies.notes }}">
             </label><br>
-            <button type="submit" class="btn btn-primary mt-3">Update Allergies</button>
+            <button type="submit" class="btn btn-primary mt-3">Update
+              Allergies</button>
           </form>
         </div>
       </div>
@@ -111,5 +128,10 @@
       <!-- Add sections for medications, lab results and appointment -->
 
     </div>
-  </body>
+  </div>
+  <footer class="text-center text-light py-3">
+    <p class="mb-0">&copy HealthPixel 2024</p>
+  </footer>
+</body>
+
 </html>

@@ -26,43 +26,30 @@
 
 <body class="d-flex flex-column min-vh-100">
   <div class="flex-grow-1">
-    <div class="navbar flex-column justify-content-start sidebar py-2">
-      <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
-        class="mb-5 mt-4" alt="HealthPixel Logo" />
-      <a href="#" class="btn btn-primary py-2 mb-5">Edit profile</a>
-      <div class="row">
-        <div class="col-sm-4 text-center">
-          <a href="{{ url_for('auth.logout_patient') }}"
-            class="btn btn-outline-danger mb-3">Logout</a>
+    <div class="container">
+      <header class="d-flex mt-5 text-center">
+        <a href="{{ url_for('healthpixel') }}"
+          class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+      </header>
+      <!-- Display messages -->
+      <div class="message-box">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% for category, message in messages %}
+        <div
+          class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+          id="msg" role="alert">
+          {% if message %} {{ message }} {% endif %}
         </div>
+        {% endfor %}
+        {% endwith %}
+      </div>
+      <div class="card p-3 mb-5 mt-4">
+        <h1 class="display-6 fw-semibold mb-4">
+          Welcome, {{ patient.first_name }} {{ patient.last_name }}
+        </h1>
+        <p class="fw-semibold">Email: {{ patient.email }}</p>
       </div>
     </div>
-    <main class="px-4 py-5">
-      <div class="container">
-        <header class="d-flex text-center">
-          <a href="{{ url_for('healthpixel') }}"
-            class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-        </header>
-        <!-- Display messages -->
-        <div class="message-box">
-          {% with messages = get_flashed_messages(with_categories=True) %}
-          {% for category, message in messages %}
-          <div
-            class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-            id="msg" role="alert">
-            {% if message %} {{ message }} {% endif %}
-          </div>
-          {% endfor %}
-          {% endwith %}
-        </div>
-        <div class="card p-3 mb-5 mt-4">
-          <h1 class="display-6 fw-semibold mb-4">
-            Welcome, {{ user.first_name }} {{ user.last_name }}
-          </h1>
-          <p class="fw-semibold">Email: {{ user.email }}</p>
-        </div>
-      </div>
-    </main>
   </div>
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>

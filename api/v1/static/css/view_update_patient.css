@@ -11,6 +11,11 @@ body {
     width: 50% !important;
 } */
 
+.message-box {
+    min-height: 40px;
+    text-align: center;
+}
+
 .show-error {
     background-color: #b40000;
     color: #eaeaea;
