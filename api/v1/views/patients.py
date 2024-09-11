@@ -157,7 +157,7 @@ def update_patient_records(patient_id):
 @app_views.route('/doctor/patients/<patient_id>/view_patient_records',
                  methods=['GET'], strict_slashes=False)
 @login_required
-def update_patient_records(patient_id):
+def view_patient_records(patient_id):
     if not isinstance(current_user, Doctor):
         abort(403, "You are not authorized to perform this function")
 
