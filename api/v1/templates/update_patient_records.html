@@ -1,105 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <title>Update Patient Records</title>
-  </head>
-  <body>
-    <div class="container mt-5">
-      <h1 class="mb-4">Update Patient Records</h1>
 
-      <!-- Patient Info -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Patient Information</h5>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap css cdn -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet" />
+  <!-- css file link -->
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/view_update_patient.css') }}" />
+  <!-- page favicon -->
+  <link rel="shortcut icon"
+    href="{{ url_for('static', filename='img/favicon.ico') }}" />
+
+  <title>Update Patient Records</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <div class="container flex-grow-1">
+    <header class="d-flex mt-5 text-center">
+      <a href="{{ url_for('healthpixel') }}"
+        class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+    </header>
+
+    <div class="row">
+      <h2 class="mb-4 fw-semibold">Update Patient Records</h1>
+        <!-- Patient Info -->
+        <div class="card col-md-12 mb-4">
+          <h5 class="pt-3">Patient Information</h5>
           <p>Name: {{ patient.first_name }} {{ patient.last_name }}</p>
           <p>Email: {{ patient.email }}</p>
           <p>Phone: {{ patient.phone_number }}</p>
         </div>
-      </div>
 
-      <!-- Update Vitals -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Update Vitals</h5>
-          <form id="update-vitals-form" method="POST">
-            <label>Blood Pressure: 
-              <input type="text" name="blood_pressure" value="{{ vitals.blood_pressure }}">
-            </label><br>
-            <label>Heart Rate: 
-              <input type="text" name="heart_rate" value="{{ vitals.heart_rate }}">
-            </label><br>
-            <label>Body Temperature:
-              <input type="text" name="body_temperature" value="{{ vitals.body_temperature }}">
-            </label><br>
-            <label>Respiratory Rate: 
-              <input type="text" name="respiratory_rate" value="{{ vitals.respiratory_rate }}">
-            </label><br>
-            <label>Oxygen Saturation:
-              <input type="text" name="oxygen_saturation" value="{{ vitals.oxygen_saturation }}">
-            </label><br>
-            <label>Weight:
-              <input type="text" name="weight" value="{{ vitals.weight }}">
-            </label><br>
-            <label>Height:
-              <input type="text" name="height" value="{{ vitals.height }}">
-            </label><br>
-            <button type="submit" class="btn btn-primary mt-3">Update Vitals</button>
-          </form>
+        <!-- Update Vitals -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Update Vitals</h5>
+            <form id="update-vitals-form" method="POST">
+              <label>Blood Pressure:
+                <input type="text" name="blood_pressure" class="form-control"
+                  value="{{ vitals.blood_pressure }}">
+              </label><br>
+              <label>Heart Rate:
+                <input type="text" name="heart_rate" class="form-control"
+                  value="{{ vitals.heart_rate }}">
+              </label><br>
+              <label>Body Temperature:
+                <input type="text" name="body_temperature" class="form-control"
+                  value="{{ vitals.body_temperature }}">
+              </label><br>
+              <label>Respiratory Rate:
+                <input type="text" name="respiratory_rate" class="form-control"
+                  value="{{ vitals.respiratory_rate }}">
+              </label><br>
+              <label>Oxygen Saturation:
+                <input type="text" name="oxygen_saturation" class="form-control"
+                  value="{{ vitals.oxygen_saturation }}">
+              </label><br>
+              <label>Weight:
+                <input type="text" name="weight" class="form-control"
+                  value="{{ vitals.weight }}">
+              </label><br>
+              <label>Height:
+                <input type="text" name="height" class="form-control"
+                  value="{{ vitals.height }}">
+              </label><br>
+              <button type="submit" class="btn btn-primary mt-3">Update
+                Vitals</button>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <!-- Update Medical Records -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Update Medical Records</h5>
-          <form id="update-medical-record-form" method="POST">
-            <label>Diagnosis: 
-              <input type="text" name="diagnosis" value="{{ medical_record.diagnosis }}">
-            </label><br>
-            <label>Treatment: 
-              <input type="text" name="treatment" value="{{ medical_record.treatment }}">
-            </label><br>
-            <label>Prescription:
-              <input type="text" name="prescription" value="{{ medical_record.prescription }}">
-            </label><br>
-            <label>Notes:
-              <input type="text" name="notes" value="{{ medical_record.notes }}">
-            </label><br>
-            <button type="submit" class="btn btn-primary mt-3">Update Medical Records</button>
-          </form>
+        <!-- Update Medical Records -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Update Medical Records</h5>
+            <form id="update-medical-record-form" method="POST">
+              <label>Diagnosis:
+                <input type="text" name="diagnosis" class="form-control"
+                  value="{{ medical_record.diagnosis }}">
+              </label><br>
+              <label>Treatment:
+                <input type="text" name="treatment" class="form-control"
+                  value="{{ medical_record.treatment }}">
+              </label><br>
+              <label>Prescription:
+                <input type="text" name="prescription" class="form-control"
+                  value="{{ medical_record.prescription }}">
+              </label><br>
+              <label>Notes:
+                <input type="text" name="notes" class="form-control"
+                  value="{{ medical_record.notes }}">
+              </label><br>
+              <button type="submit" class="btn btn-primary mt-3">Update Medical
+                Records</button>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <!-- Update Allergies -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Update Allergies</h5>
-          <form id="update-medical-record-form" method="POST">
-            <label>Allergen:
-              <input type="text" name="allergen" value="{{ allergies.allergy }}">
-            </label><br>
-            <label>Reaction:
-              <input type="text" name="reaction" value="{{ allergies.reaction }}">
-            </label><br>
-            <label>Severity:
-              <input type="text" name="severity" value="{{ allergies.severity }}">
-            </label><br>
-            <label>Notes:
-              <input type="text" name="notes" value="{{ allergies.notes }}">
-            </label><br>
-            <button type="submit" class="btn btn-primary mt-3">Update Allergies</button>
-          </form>
+        <!-- Update Allergies -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Update Allergies</h5>
+            <form id="update-allergies-form" method="POST">
+              <label>Allergen:
+                <input type="text" name="allergen" class="form-control"
+                  value="{{ allergies.allergy }}">
+              </label><br>
+              <label>Reaction:
+                <input type="text" name="reaction" class="form-control"
+                  value="{{ allergies.reaction }}">
+              </label><br>
+              <label>Severity:
+                <input type="text" name="severity" class="form-control"
+                  value="{{ allergies.severity }}">
+              </label><br>
+              <label>Notes:
+                <input type="text" name="notes" class="form-control"
+                  value="{{ allergies.notes }}">
+              </label><br>
+              <button type="submit" class="btn btn-primary mt-3">Update
+                Allergies</button>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <!-- Add sections for medications, lab results and appointment -->
+        <!-- Add sections for medications, lab results and appointment -->
 
     </div>
-  </body>
+  </div>
+  <footer class="text-center text-light py-3">
+    <p class="mb-0">&copy HealthPixel 2024</p>
+  </footer>
+</body>
+
 </html>

@@ -147,10 +147,10 @@ def register_patient():
                                    emg_contact_phone=emg_contact_phone, password=password,
                                    conf_password=conf_password)
 
-        # Check if Patient exist using eamil as a unique identifier
+        # Check if Patient exists using email as a unique identifier
         patient = storage.query(Patient).filter_by(email=email).first()
         if patient:
-            flash('Patient already exist, use a different email!', 'error')
+            flash('Patient already exists, use a different email!', 'error')
             return render_template('register_patient.html', first_name=first_name, last_name=last_name,
                                    date_of_birth=date_of_birth, gender=gender, blood_group=blood_group,
                                    phone_number=phone_number, address=address, zipcode=zipcode,
