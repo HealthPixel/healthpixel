@@ -15,6 +15,9 @@ from flask_login import current_user, login_user, login_required
 from models.vitals import Vitals
 from models.medical_record import Medical_Record
 from models.allergies import Allergies
+from models.appointment import Appointment
+from models.lab_result import Lab_Results
+from models.medication import Medication
 
 
 @app_views.route('/doctor/patients', methods=['GET'], strict_slashes=False)
