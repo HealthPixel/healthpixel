@@ -138,51 +138,50 @@ def update_patient_records(patient_id):
         medication = storage.query(Medication).filter_by(patient_id=patient_id).first()
 
         try:
-            with storage._DBStorage__session.begin():
-                if vitals:
-                    vitals.blood_pressure = data.get('blood_pressure', vitals.blood_pressure)
-                    vitals.heart_rate = data.get('heart_rate', vitals.heart_rate)
-                    vitals.body_temperature = data.get('body_temperature', vitals.body_temperature)
-                    vitals.respiratory_rate = data.get('respiratory_rate', vitals.respiratory_rate)
-                    vitals.oxygen_saturation = data.get('oxygen_saturation', vitals.oxygen_saturation)
-                    vitals.weight = data.get('weight', vitals.weight)
-                    vitals.height = data.get('height', vitals.height)
-                    vitals.updated_at = datetime.utcnow()
+            if vitals:
+                vitals.blood_pressure = data.get('blood_pressure', vitals.blood_pressure)
+                vitals.heart_rate = data.get('heart_rate', vitals.heart_rate)
+                vitals.body_temperature = data.get('body_temperature', vitals.body_temperature)
+                vitals.respiratory_rate = data.get('respiratory_rate', vitals.respiratory_rate)
+                vitals.oxygen_saturation = data.get('oxygen_saturation', vitals.oxygen_saturation)
+                vitals.weight = data.get('weight', vitals.weight)
+                vitals.height = data.get('height', vitals.height)
+                vitals.updated_at = datetime.utcnow()
 
-                if medical_record:
-                    medical_record.diagnosis = data.get('diagnosis', medical_record.diagnosis)
-                    medical_record.treatment = data.get('treatment', medical_record.treatment)
-                    medical_record.prescription = data.get('prescription', medical_record.prescription)
-                    medical_record.notes = data.get('notes', medical_record.notes)
-                    medical_record.updated_at = datetime.utcnow()
+            if medical_record:
+                medical_record.diagnosis = data.get('diagnosis', medical_record.diagnosis)
+                medical_record.treatment = data.get('treatment', medical_record.treatment)
+                medical_record.prescription = data.get('prescription', medical_record.prescription)
+                medical_record.notes = data.get('notes', medical_record.notes)
+                medical_record.updated_at = datetime.utcnow()
 
-                if allergies:
-                    allergies.allergy = data.get('allergen', allergies.allergy)
-                    allergies.reaction = data.get('reaction', allergies.reaction)
-                    allergies.severity = data.get('severity', allergies.severity)
-                    allergies.notes = data.get('notes', allergies.notes)
-                    allergies.updated_at = datetime.utcnow()
+            if allergies:
+                allergies.allergy = data.get('allergen', allergies.allergy)
+                allergies.reaction = data.get('reaction', allergies.reaction)
+                allergies.severity = data.get('severity', allergies.severity)
+                allergies.notes = data.get('notes', allergies.notes)
+                allergies.updated_at = datetime.utcnow()
 
-                if appointment:
-                    appointment.appointment_date = data.get('appointment_date', appointment.appointment_date)
-                    appointment.status = data.get('status', appointment.status)
-                    appointment.notes = data.get('notes', appointment.notes)
-                    appointment.updated_at = datetime.utcnow()
+            if appointment:
+                appointment.appointment_date = data.get('appointment_date', appointment.appointment_date)
+                appointment.status = data.get('status', appointment.status)
+                appointment.notes = data.get('notes', appointment.notes)
+                appointment.updated_at = datetime.utcnow()
 
-                if lab_result:
-                    lab_result.test_name = data.get('test_name', lab_result.test_name)
-                    lab_result.result = data.get('result', lab_result.result)
-                    lab_result.values = data.get('values', lab_result.values)
-                    lab_result.notes = data.get('notes', lab_result.notes)
-                    lab_result.updated_at = datetime.utcnow()
+            if lab_result:
+                lab_result.test_name = data.get('test_name', lab_result.test_name)
+                lab_result.result = data.get('result', lab_result.result)
+                lab_result.values = data.get('values', lab_result.values)
+                lab_result.notes = data.get('notes', lab_result.notes)
+                lab_result.updated_at = datetime.utcnow()
 
-                if medication:
-                    medication.medicine_name = data.get('medicine_name', medication.medicine_name)
-                    medication.dosage = data.get('dosage', medication.dosage)
-                    medication.frequency = data.get('frequency', medication.frequency)
-                    medication.duration = data.get('duration', medication.duration)
-                    medication.notes = data.get('notes', medication.notes)
-                    medication.updated_at = datetime.utcnow()
+            if medication:
+                medication.medicine_name = data.get('medicine_name', medication.medicine_name)
+                medication.dosage = data.get('dosage', medication.dosage)
+                medication.frequency = data.get('frequency', medication.frequency)
+                medication.duration = data.get('duration', medication.duration)
+                medication.notes = data.get('notes', medication.notes)
+                medication.updated_at = datetime.utcnow()
 
             # Log the access action
             action_taken = (
