@@ -3,7 +3,7 @@
 This module creates view for Patient objects
 """
 
-from flask import jsonify, request, abort, render_template, url_for, flash
+from flask import jsonify, request, abort, render_template, url_for, flash, redirect
 from sqlalchemy import text
 from api.v1.views import app_views
 from models import storage
