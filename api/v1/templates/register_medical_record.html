@@ -59,14 +59,14 @@
                         <div class="col-md-6 mb-2">
                             <label for="treatment">Treatment</label>
                             <input type="text" name="treatment"
-                                class="form-control" id="treatment"
-                                value="{{ treatment or '' }}" />
+                                class="form-control" maxlength="255"
+                                id="treatment" value="{{ treatment or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="prescription">Prescription</label>
                             <input type="text" name="prescription"
                                 class="form-control" placeholder=""
-                                maxlength="50" id="prescription"
+                                maxlength="255" id="prescription"
                                 value="{{ prescription or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">

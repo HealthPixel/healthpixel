@@ -41,49 +41,49 @@
             <h5 class="card-title">Update Vitals</h5>
             <form class="d-grid" id="update-vitals-form" method="POST">
               <div class="row">
-                <div class="col-md-6">
-                  <label>Blood Pressure:
+                <div class="col-md-6 mb-2">
+                  <label for="blood_pressure">Blood Pressure:
                     <input type="text" name="blood_pressure"
                       class="form-control" pattern="\d{2,3}/\d{2,3}"
                       title="Please enter a valid blood pressure, e.g., 120/80"
                       value="{{ vitals.blood_pressure }}">
                   </label>
                 </div>
-                <div class="col-md-6">
-                  <label>Heart Rate:
+                <div class="col-md-6 mb-2">
+                  <label for="heart_rate">Heart Rate:
                     <input type="number" name="heart_rate" class="form-control"
                       min="50" max="200" value="{{ vitals.heart_rate }}">
                   </label>
                 </div>
-                <div class="col-md-6">
-                  <label>Body Temperature:
+                <div class="col-md-6 mb-2">
+                  <label for="body_temperature">Body Temperature:
                     <input type="number" name="body_temperature"
                       class="form-control" min="15" max="45" step="0.1"
                       value="{{ vitals.body_temperature }}">
                   </label>
                 </div>
-                <div class="col-md-6">
-                  <label>Respiratory Rate:
+                <div class="col-md-6 mb-2">
+                  <label for="respiratory_rate">Respiratory Rate:
                     <input type="number" name="respiratory_rate"
                       class="form-control" min="12" max="25"
                       value="{{ vitals.respiratory_rate }}">
                   </label>
                 </div>
-                <div class="col-md-6">
-                  <label>Oxygen Saturation:
+                <div class="col-md-6 mb-2">
+                  <label for="oxygen_saturation">Oxygen Saturation:
                     <input type="number" name="oxygen_saturation"
                       class="form-control" step="0.1" max="100"
                       value="{{ vitals.oxygen_saturation }}">
                   </label>
                 </div>
-                <div class="col-md-6">
-                  <label>Weight (kg):
+                <div class="col-md-6 mb-2">
+                  <label for="weight">Weight (kg):
                     <input type="number" name="weight" class="form-control"
                       step="0.01" max="300" value="{{ vitals.weight }}">
                   </label>
                 </div>
-                <div class="col-md-6">
-                  <label>Height (m):
+                <div class="col-md-6 mb-2">
+                  <label for="height">Height (m):
                     <input type="text" name="height" class="form-control"
                       step="0.01" max="2.5" value="{{ vitals.height }}">
                   </label>
@@ -99,25 +99,36 @@
         <div class="card col-md-6 mb-4">
           <div class="card-body">
             <h5 class="card-title">Update Medical Records</h5>
-            <form id="update-medical-record-form" method="POST">
-              <label>Diagnosis:
-                <input type="text" name="diagnosis" class="form-control"
-                  value="{{ medical_record.diagnosis }}">
-              </label>
-              <label>Treatment:
-                <input type="text" name="treatment" class="form-control"
-                  value="{{ medical_record.treatment }}">
-              </label>
-              <label>Prescription:
-                <input type="text" name="prescription" class="form-control"
-                  value="{{ medical_record.prescription }}">
-              </label>
-              <label>Notes:
-                <input type="text" name="notes" class="form-control"
-                  value="{{ medical_record.notes }}">
-              </label>
-              <button type="submit" class="btn btn-primary mt-3">Update Medical
-                Records</button>
+            <form class="d-grid" id="update-medical-record-form" method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="diagnosis">Diagnosis:
+                    <input type="text" name="diagnosis" class="form-control"
+                      maxlength="255" value="{{ medical_record.diagnosis }}">
+                  </label>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="treatment">Treatment:
+                    <input type="text" name="treatment" class="form-control"
+                      maxlength="255" value="{{ medical_record.treatment }}">
+                  </label>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="prescription">Prescription:
+                    <input type="text" name="prescription" class="form-control"
+                      maxlength="255" value="{{ medical_record.prescription }}">
+                  </label>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="notes">Notes:
+                    <input type="text" name="notes" class="form-control"
+                      value="{{ medical_record.notes }}">
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Medical
+                  Records</button>
+              </div>
             </form>
           </div>
         </div>
