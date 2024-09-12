@@ -106,6 +106,7 @@ def update_a_patient(doctor_id, patient_id):
                  methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def update_patient_records(patient_id):
+    """Updates a patients records based on their ID"""
     if not isinstance(current_user, Doctor):
         abort(403, "You are not authorized to perform this function")
 
@@ -132,6 +133,9 @@ def update_patient_records(patient_id):
         vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
         medical_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
         allergies = storage.query(Allergies).filter_by(patient_id=patient_id).first()
+        appointment = storage.query(Appointment).filter_by(patient_id=patient_id).first()
+        lab_result = storage.query(Lab_Results).filter_by(patient_id=patient_id).first()
+        medication = storage.query(Medication).filter_by(patient_id=patient_id).first()
 
         if vitals:
             vitals.blood_pressure = data.get('blood_pressure', vitals.blood_pressure)
@@ -161,11 +165,28 @@ def update_patient_records(patient_id):
             allergies.save()
 
         if appointment:
-            pass
+            appointment.appointment_date = data.get('appointment_date', appointment.appointment_date)
+            appointment.status = data.get('status', appointment.status)
+            appointment.notes = data.get('notes', appointment.notes)
+            appointment.updated_at = datetime.utcnow()
+            appointment.save()
+
         if lab_result:
-            pass
+            lab_result.test_name = data.get('test_name', lab_result.test_name)
+            lab_result.result = data.get('result', lab_result.result)
+            lab_result.values = data.get('values', lab_result.values)
+            lab_result.notes = data.get('notes', lab_result.notes)
+            lab_result.updated_at = datetime.utcnow()
+            lab_result.save()
+
         if medication:
-            pass
+            medication.medicine_name = data.get('medicine_name', medication.medicine_name)
+            medication.dosage = data.get('dosage', medication.dosage)
+            medication.frequency = data.get('frequency', medication.frequency)
+            medication.duration = data.get('duration', medication.duration)
+            medication.notes = data.get('notes', medication.notes)
+            medication.updated_at = datetime.utcnow()
+            medication.save()
 
         # Log the access action
         action_taken = (
@@ -184,6 +205,7 @@ def update_patient_records(patient_id):
                  methods=['GET'], strict_slashes=False)
 @login_required
 def view_patient_records(patient_id):
+    """Views a patients records based on their ID"""
     if not isinstance(current_user, Doctor):
         abort(403, "You are not authorized to perform this function")
 
