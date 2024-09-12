@@ -198,7 +198,7 @@ def update_patient_records(patient_id):
 
         except Exception as e:
             storage._DBStorage__session.rollback() # Rollback the transaction if any error occurs
-            abort(500, f"An error occurred while updating records: {sre(e)}")
+            abort(500, f"An error occurred while updating records: {str(e)}")
 
 
 @app_views.route('/doctor/patients/<patient_id>/view_patient_records',
