@@ -51,7 +51,7 @@
                             Vitals
                         </h3>
                         <div class="col-md-4 mb-2">
-                            <label for="blood_pressure">Bood Pressure
+                            <label for="blood_pressure">Blood Pressure
                                 (mmHg)</label>
                             <input type="text" name="blood_pressure"
                                 class="form-control" id="blood_pressure"
@@ -63,8 +63,8 @@
                         <div class="col-md-4 mb-2">
                             <label for="heart_rate">Heart rate</label>
                             <input type="number" name="heart_rate"
-                                class="form-control" id="heart_rate"
-                                value="{{ heart_rate or '' }}" />
+                                class="form-control" id="heart_rate" min="50"
+                                max="200" value="{{ heart_rate or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
                             <label for="temperature">Temperature (&degC)</label>
@@ -80,11 +80,11 @@
                                 max="25" value="{{ respiratory_rate or '' }}" />
                         </div>
                         <div class="col-md-4 mb-2">
-                            <label for="oxygen_sat">Oxygen Saturation
+                            <label for="oxygen_saturation">Oxygen Saturation
                                 (%)</label>
                             <input type="number" name="oxygen_saturation"
                                 class="form-control" id="oxygen_saturation"
-                                step="0.1"
+                                step="0.1" max="100"
                                 value="{{ oxygen_saturation or '' }}" />
                         </div>
                         <div class="row text-center justify-content-center">

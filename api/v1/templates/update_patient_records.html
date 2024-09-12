@@ -39,37 +39,58 @@
         <div class="card col-md-6 mb-4">
           <div class="card-body">
             <h5 class="card-title">Update Vitals</h5>
-            <form id="update-vitals-form" method="POST">
-              <label>Blood Pressure:
-                <input type="text" name="blood_pressure" class="form-control"
-                  value="{{ vitals.blood_pressure }}">
-              </label><br>
-              <label>Heart Rate:
-                <input type="text" name="heart_rate" class="form-control"
-                  value="{{ vitals.heart_rate }}">
-              </label><br>
-              <label>Body Temperature:
-                <input type="text" name="body_temperature" class="form-control"
-                  value="{{ vitals.body_temperature }}">
-              </label><br>
-              <label>Respiratory Rate:
-                <input type="text" name="respiratory_rate" class="form-control"
-                  value="{{ vitals.respiratory_rate }}">
-              </label><br>
-              <label>Oxygen Saturation:
-                <input type="text" name="oxygen_saturation" class="form-control"
-                  value="{{ vitals.oxygen_saturation }}">
-              </label><br>
-              <label>Weight:
-                <input type="text" name="weight" class="form-control"
-                  value="{{ vitals.weight }}">
-              </label><br>
-              <label>Height:
-                <input type="text" name="height" class="form-control"
-                  value="{{ vitals.height }}">
-              </label><br>
-              <button type="submit" class="btn btn-primary mt-3">Update
-                Vitals</button>
+            <form class="d-grid" id="update-vitals-form" method="POST">
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Blood Pressure:
+                    <input type="text" name="blood_pressure"
+                      class="form-control" pattern="\d{2,3}/\d{2,3}"
+                      title="Please enter a valid blood pressure, e.g., 120/80"
+                      value="{{ vitals.blood_pressure }}">
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label>Heart Rate:
+                    <input type="number" name="heart_rate" class="form-control"
+                      min="50" max="200" value="{{ vitals.heart_rate }}">
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label>Body Temperature:
+                    <input type="number" name="body_temperature"
+                      class="form-control" min="15" max="45" step="0.1"
+                      value="{{ vitals.body_temperature }}">
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label>Respiratory Rate:
+                    <input type="number" name="respiratory_rate"
+                      class="form-control" min="12" max="25"
+                      value="{{ vitals.respiratory_rate }}">
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label>Oxygen Saturation:
+                    <input type="number" name="oxygen_saturation"
+                      class="form-control" step="0.1" max="100"
+                      value="{{ vitals.oxygen_saturation }}">
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label>Weight (kg):
+                    <input type="number" name="weight" class="form-control"
+                      step="0.01" max="300" value="{{ vitals.weight }}">
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label>Height (m):
+                    <input type="text" name="height" class="form-control"
+                      step="0.01" max="2.5" value="{{ vitals.height }}">
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Vitals</button>
+              </div>
             </form>
           </div>
         </div>
@@ -82,19 +103,19 @@
               <label>Diagnosis:
                 <input type="text" name="diagnosis" class="form-control"
                   value="{{ medical_record.diagnosis }}">
-              </label><br>
+              </label>
               <label>Treatment:
                 <input type="text" name="treatment" class="form-control"
                   value="{{ medical_record.treatment }}">
-              </label><br>
+              </label>
               <label>Prescription:
                 <input type="text" name="prescription" class="form-control"
                   value="{{ medical_record.prescription }}">
-              </label><br>
+              </label>
               <label>Notes:
                 <input type="text" name="notes" class="form-control"
                   value="{{ medical_record.notes }}">
-              </label><br>
+              </label>
               <button type="submit" class="btn btn-primary mt-3">Update Medical
                 Records</button>
             </form>
@@ -109,19 +130,19 @@
               <label>Allergen:
                 <input type="text" name="allergen" class="form-control"
                   value="{{ allergies.allergy }}">
-              </label><br>
+              </label>
               <label>Reaction:
                 <input type="text" name="reaction" class="form-control"
                   value="{{ allergies.reaction }}">
-              </label><br>
+              </label>
               <label>Severity:
                 <input type="text" name="severity" class="form-control"
                   value="{{ allergies.severity }}">
-              </label><br>
+              </label>
               <label>Notes:
                 <input type="text" name="notes" class="form-control"
                   value="{{ allergies.notes }}">
-              </label><br>
+              </label>
               <button type="submit" class="btn btn-primary mt-3">Update
                 Allergies</button>
             </form>
