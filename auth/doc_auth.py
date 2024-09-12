@@ -122,8 +122,8 @@ def login_users():
                 flash('Invalid Login. You used a wrong password for this account.', 'error')
                 return render_template('login.html', email=email)
 
-        login_user(user, remember=remember)
         flash('Logged in successfully!', 'success')
+        login_user(user, remember=remember)
 
         # Redirect based on the user role(Doctor or Patient)
         if isinstance(user, Doctor):

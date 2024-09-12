@@ -7,6 +7,41 @@ body {
     background-color: #ffe9cc;
 }
 
+.message-box {
+    min-height: 40px;
+    text-align: center;
+}
+
+.show-error {
+    background-color: #b40000;
+    color: #eaeaea;
+    padding: 0.8em;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    visibility: visible;
+}
+
+.hide-error {
+    visibility: hidden;
+}
+
+.show-success {
+    background-color: #008638;
+    color: #eaeaea;
+    padding: 0.8em;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    visibility: visible;
+}
+
+.hide-success {
+    visibility: hidden;
+}
+
 .sidebar {
     margin: 0;
     padding: 0;
