@@ -185,7 +185,7 @@ def update_patient_records(patient_id):
 
             # Log the access action
             action_taken = (
-                    f"{patient.first_name} {patient.last_name}'s records were updated by "
+                    f"{patient.first_name} {patient.last_name}'s records were UPDATED by "
                     f"Doctor {current_user.first_name} {current_user.last_name}"
                     )
             access_log = Access_Log(user_id=current_user.id, patient_id=patient_id, action_taken=action_taken)
@@ -221,7 +221,7 @@ def view_patient_records(patient_id):
 
     # Log the access action
     action_taken = (
-            f"{patient.first_name} {patient.last_name}'s records were viewed by "
+            f"{patient.first_name} {patient.last_name}'s records were VIEWED by "
             f"Doctor {current_user.first_name} {current_user.last_name}"
             )
     access_log = Access_Log(user_id=current_user.id, patient_id=patient_id, action_taken=action_taken)
