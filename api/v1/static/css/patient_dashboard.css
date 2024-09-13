@@ -63,6 +63,10 @@ main {
     width: 75%;
 }
 
+.custom_card p{
+    margin-bottom: 0.2em;
+}
+
 footer {
     opacity: 85%;
     background-color: #7e694f;

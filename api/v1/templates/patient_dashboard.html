@@ -55,48 +55,80 @@
           </header>
           <!-- Display messages -->
           <div class="message-box">
-            {% with messages = get_flashed_messages(with_categories=True) %}
-            {% for category, message in messages %}
+            {% with messages = get_flashed_messages(with_categories=True) %} {%
+            for category, message in messages %}
             <div
               class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-              id="msg" role="alert">
+              id="msg"
+              role="alert"
+            >
               {% if message %} {{ message }} {% endif %}
             </div>
-            {% endfor %}
-            {% endwith %}
+            {% endfor %} {% endwith %}
           </div>
-          <div class="card p-3 mb-5 mt-4">
+          <div class="card p-3 mb-5 mt-4 custom_card">
             <h1 class="display-6 fw-semibold mb-4">
               Welcome, {{ user.first_name }} {{ user.last_name }}
             </h1>
-            <p class="fw-semibold">Email: {{ user.email }}</p>
+            <p><b>ID:</b> {{ user.id }}</p>
+            <p><b>Email:</b> {{ user.email }}</p>
+            <p><b>Phone Number:</b> {{ user.phone_number }}</p>
+            <p><b>Gender:</b> {{ user.gender }}</p>
+            <p><b>Date of Birth:</b> {{ user.date_of_birth }}</p>
+            <p><b>Address:</b> {{ user.address }}</p>
+            <p><b>Zipcode:</b> {{ user.zipcode }}</p>
+            <p><b>Blood Group:</b> {{ user.blood_group }}</p>
+            <p>
+              <b>Emergency Contact Name:</b> {{ user.emergency_contact_name }}
+            </p>
+            <p>
+              <b>Emergency Contact Number:</b> {{ user.emergency_contact_phone
+              }}
+            </p>
+          </div>
+
+          <div class="card p-3 mb-5 mt-4 custom_card">
+            <h3>Medications</h3>
+            {% if user.medication %}
+            <ul>
+              {% for med in user.medication %}
+              <li>
+                <b>Medicine Name:</b> {{ med.medicine_name }}<br />
+                <b>Dosage:</b> {{ med.dosage }}<br />
+                <b>Frequency:</b> {{ med.frequency }}<br />
+                <b>Duration:</b> {{ med.duration }}<br />
+                <b>Notes:</b> {{ med.notes or 'No notes' }}
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <p>No medications found for this patient.</p>
+            {% endif %}
           </div>
           <!-- <button type="submit" class="btn btn-success px-5 mt-2 mx-5">View</button> -->
-      </div>
-    </main>
-  </div>
-  <footer class="text-center text-light py-3">
-    <p class="mb-0">&copy HealthPixel 2024</p>
-  </footer>
-  <script>
-    // Function to hide the element after a delay
-    function hideElementAfterDelay(elementId, delay) {
-      setTimeout(function () {
-        var element = document.getElementById(elementId);
-        if (element) {
-          element.style.transition = "opacity 1s ease-out";
-          element.style.visibility = "hidden";
-          setTimeout(function () {
-            // element.style.display = "none";
-          }, 1000);
-        }
-      }, delay);
-    }
+        </div>
+      </main>
+    </div>
+    <footer class="text-center text-light py-3">
+      <p class="mb-0">&copy HealthPixel 2024</p>
+    </footer>
+    <script>
+      // Function to hide the element after a delay
+      function hideElementAfterDelay(elementId, delay) {
+        setTimeout(function () {
+          var element = document.getElementById(elementId);
+          if (element) {
+            element.style.transition = "opacity 1s ease-out";
+            element.style.visibility = "hidden";
+            setTimeout(function () {
+              // element.style.display = "none";
+            }, 1000);
+          }
+        }, delay);
+      }
 
-    hideElementAfterDelay("msg", 5000);
-  </script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+      hideElementAfterDelay("msg", 5000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
