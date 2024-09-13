@@ -39,7 +39,7 @@
         <div class="card col-md-6 mb-4">
           <div class="card-body">
             <h5 class="card-title">Update Vitals</h5>
-            <form class="d-grid" id="update-vitals-form" method="POST">
+            <form class="d-grid" id="update_vitals_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
                   <label for="blood_pressure">Blood Pressure:
@@ -95,11 +95,11 @@
           </div>
         </div>
 
-        <!-- Update Medical Records -->
+        <!-- Update Medical Record -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Medical Records</h5>
-            <form class="d-grid" id="update-medical-record-form" method="POST">
+            <h5 class="card-title">Update Medical Record</h5>
+            <form class="d-grid" id="update_medical_record_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
                   <label for="diagnosis">Diagnosis:
@@ -113,18 +113,15 @@
                       maxlength="255" value="{{ medical_record.treatment }}">
                   </label>
                 </div>
-                <div class="col-md-6 mb-2">
-                  <label for="prescription">Prescription:
-                    <input type="text" name="prescription" class="form-control"
-                      maxlength="255" value="{{ medical_record.prescription }}">
-                  </label>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <label for="notes">Notes:
-                    <input type="text" name="notes" class="form-control"
-                      value="{{ medical_record.notes }}">
-                  </label>
-                </div>
+                <label for="prescription">Prescription:
+                  <input type="text" name="prescription"
+                    class="form-control mb-2" maxlength="255"
+                    value="{{ medical_record.prescription }}">
+                </label>
+                <label for="medical_record_notes">Notes:
+                  <textarea name="notes" class="form-control mb-2"
+                    id="medical_record_notes"></textarea>
+                </label>
                 <button type="submit" class="btn btn-primary mt-3">Update
                   Medical
                   Records</button>
@@ -133,36 +130,132 @@
           </div>
         </div>
 
-        <!-- Update Allergies -->
+        <!-- Update Allergy -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Allergies</h5>
-            <form id="update-allergies-form" method="POST">
-              <label>Allergen:
-                <input type="text" name="allergen" class="form-control"
-                  value="{{ allergies.allergy }}">
-              </label>
-              <label>Reaction:
-                <input type="text" name="reaction" class="form-control"
-                  value="{{ allergies.reaction }}">
-              </label>
-              <label>Severity:
-                <input type="text" name="severity" class="form-control"
-                  value="{{ allergies.severity }}">
-              </label>
-              <label>Notes:
-                <input type="text" name="notes" class="form-control"
-                  value="{{ allergies.notes }}">
-              </label>
-              <button type="submit" class="btn btn-primary mt-3">Update
-                Allergies</button>
+            <h5 class="card-title">Update Allergy</h5>
+            <form id="update_allergies_form" method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="allergen">Allergen:
+                    <input type="text" name="allergen" class="form-control"
+                      maxlength="100" value="{{ allergies.allergy }}">
+                  </label>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="reaction">Reaction:
+                    <input type="text" name="reaction" class="form-control"
+                      maxlength="255" value="{{ allergies.reaction }}">
+                  </label>
+                </div>
+                <label for="severity">Severity:</label>
+                <select name="severity" class="form-select mb-2" id="severity">
+                  <option value="{{ severity or '' }}" disabled>
+                    Select the
+                    severity of the allergy</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Severe">Severe</option>
+                </select>
+                <label for="notes">Notes:
+                  <textarea name="notes" class="form-control mb-2" id="
+                    notes"></textarea>
+                </label>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Allergy</button>
+              </div>
             </form>
           </div>
         </div>
 
-        <!-- Add sections for medications, lab results and appointment -->
+        <!-- Update medication -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Update Medication</h5>
+            <form id="update_medication_form" method="POST">
+              <div class="row">
+                <div class="col-md-12 mb-2">
+                  <label for="med_name">Medication Name:</label>
+                  <input type="text" name="med_name" class="form-control"
+                    maxlength="100" id="med_name"
+                    value="{{ med_name or '' }}" />
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="dosage">Dosage:</label>
+                  <input type="text" name="dosage" class="form-control"
+                    maxlength="50" id="dosage" value="{{ dosage or '' }}" />
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="frequency">Frequency:</label>
+                  <input type="text" name="frequency" class="form-control"
+                    placeholder="e.g. Twice daily" id="frequency" maxlength="50"
+                    value="{{ frequency or '' }}" />
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="start_date">Start Date:</label>
+                  <input type="date" name="start_date" class="form-control"
+                    id="start_date" value="{{ start_date or '' }}" />
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="end_date">End Date:</label>
+                  <input type="date" name="end_date" class="form-control"
+                    id="end_date" value="{{ end_date or '' }}" />
+                </div>
+                <div class="col-md-12 mb-2">
+                  <label for="prescribing_doctor">Prescribing
+                    Doctor</label>
+                  <input type="text" name="prescribing_doctor"
+                    class="form-control" id="prescribing_doctor" maxlength="100"
+                    value="{{ prescribing_doctor or '' }}" />
+                </div>
+                <label for="medication_notes">Notes:
+                  <textarea name="notes" class="form-control mb-2"
+                    id="medication_notes"></textarea>
+                </label>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Medication</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Update Lab Result -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Update Lab Result</h5>
+            <form id="update_lab_result_form" method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="test">Test Name</label>
+                  <input type="text" name="test" class="form-control"
+                    maxlength="100" id="test" value="{{ test or '' }}" />
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="result">Result</label>
+                  <input type="text" name="result" class="form-control"
+                    placeholder="e.g. Normal or High" maxlength="50" id="result"
+                    value="{{ result or '' }}" />
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="values">Values</label>
+                  <input type="text" name="values" class="form-control"
+                    id="values" value="{{ values or '' }}" />
+                </div>
+                <div class="col-md-12 mb-2">
+                  <label for="lab_result_notes">Notes</label>
+                  <textarea name="notes" class="form-control"
+                    id="lab_result_notes mb-2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Lab Result</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- Add sections lab results and appointment -->
 
     </div>
+
   </div>
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
