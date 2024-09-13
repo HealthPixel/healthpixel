@@ -4,6 +4,7 @@ import models
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Text
+from sqlalchemy.orm import relationship
 
 
 class Medication(BaseModel, Base):
@@ -28,3 +29,4 @@ class Medication(BaseModel, Base):
     frequency = Column(String(50), nullable=False)
     duration = Column(String(50), nullable=False)
     notes = Column(Text, nullable=True)
+    patient = relationship('Patient', back_populates='medication')
