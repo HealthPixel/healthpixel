@@ -57,17 +57,23 @@
                                 id="diagnosis" value="{{ diagnosis or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="treatment">Treatment</label>
+                            <label
+                                for="treatment">Treatment/Prescription</label>
                             <input type="text" name="treatment"
                                 class="form-control" maxlength="255"
                                 id="treatment" value="{{ treatment or '' }}" />
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="prescription">Prescription</label>
-                            <input type="text" name="prescription"
-                                class="form-control" placeholder=""
-                                maxlength="255" id="prescription"
-                                value="{{ prescription or '' }}" />
+                            <label for="status">Status</label>
+                            <select name="status" class="form-select"
+                                id="status">
+                                <option value="{{ status or '' }}" disabled
+                                    selected>
+                                    Select the status of this diagnosis
+                                </option>
+                                <option value="Ongoing"> Ongoing</option>
+                                <option value="Managed">Managed</option>
+                            </select>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="notes">Notes</label>

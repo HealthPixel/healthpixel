@@ -20,7 +20,7 @@ class Allergies(BaseModel, Base):
     """
     __tablename__ = 'allergies'
     patient_id = Column(String(60), ForeignKey('patients.id'), nullable=False)
-    allergy = Column(String(50), nullable=True)
+    allergen = Column(String(50), nullable=True)
     reaction = Column(Text, nullable=True)
     severity = Column(Text, nullable=True)
     notes = Column(Text, nullable=True)

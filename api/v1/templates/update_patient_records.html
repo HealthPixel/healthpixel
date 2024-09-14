@@ -38,7 +38,7 @@
         <!-- Update Vitals -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Vitals</h5>
+            <h5 class="card-title fw-semibold">Update Vitals</h5>
             <form class="d-grid" id="update_vitals_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
@@ -98,7 +98,7 @@
         <!-- Update Medical Record -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Medical Record</h5>
+            <h5 class="card-title fw-semibold">Update Medical Record</h5>
             <form class="d-grid" id="update_medical_record_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
@@ -107,17 +107,21 @@
                       maxlength="255" value="{{ medical_record.diagnosis }}">
                   </label>
                 </div>
-                <div class="col-md-6 mb-2">
-                  <label for="treatment">Treatment:
+                <div class="col-md-6">
+                  <label for="prescription">Status:
+                    <select name="status" class="form-select">
+                      <option value="{{ status or '' }}" disabled selected>
+                        Select the status of this diagnosis
+                      </option>
+                      <option value="Ongoing">Ongoing</option>
+                      <option value="Managed">Managed</option>
+                    </select>
+                  </label>
+                </div>
+                  <label for="treatment">Treatment/Prescription:
                     <input type="text" name="treatment" class="form-control"
                       maxlength="255" value="{{ medical_record.treatment }}">
                   </label>
-                </div>
-                <label for="prescription">Prescription:
-                  <input type="text" name="prescription"
-                    class="form-control mb-2" maxlength="255"
-                    value="{{ medical_record.prescription }}">
-                </label>
                 <label for="medical_record_notes">Notes:
                   <textarea name="notes" class="form-control mb-2"
                     id="medical_record_notes"></textarea>
@@ -133,7 +137,7 @@
         <!-- Update Allergy -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Allergy</h5>
+            <h5 class="card-title fw-semibold">Update Allergy</h5>
             <form id="update_allergies_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
@@ -148,15 +152,18 @@
                       maxlength="255" value="{{ allergies.reaction }}">
                   </label>
                 </div>
-                <label for="severity">Severity:</label>
-                <select name="severity" class="form-select mb-2" id="severity">
-                  <option value="{{ severity or '' }}" disabled>
-                    Select the
-                    severity of the allergy</option>
-                  <option value="Mild">Mild</option>
-                  <option value="Moderate">Moderate</option>
-                  <option value="Severe">Severe</option>
-                </select>
+                <div class="col-md-12">
+                  <label for="severity">Severity:</label>
+                  <select name="severity" class="form-select mb-2"
+                    id="severity">
+                    <option value="{{ severity or '' }}" disabled>
+                      Select the
+                      severity of the allergy</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe">Severe</option>
+                  </select>
+                </div>
                 <label for="notes">Notes:
                   <textarea name="notes" class="form-control mb-2" id="
                     notes"></textarea>
@@ -171,7 +178,7 @@
         <!-- Update medication -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Medication</h5>
+            <h5 class="card-title fw-semibold">Update Medication</h5>
             <form id="update_medication_form" method="POST">
               <div class="row">
                 <div class="col-md-12 mb-2">
@@ -222,7 +229,7 @@
         <!-- Update Lab Result -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title">Update Lab Result</h5>
+            <h5 class="card-title fw-semibold">Update Lab Result</h5>
             <form id="update_lab_result_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
@@ -252,10 +259,9 @@
             </form>
           </div>
         </div>
-        <!-- Add sections lab results and appointment -->
+        <!-- Add section for appointment -->
 
     </div>
-
   </div>
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
