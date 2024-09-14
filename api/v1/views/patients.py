@@ -151,7 +151,7 @@ def update_patient_records(patient_id):
             if medical_record:
                 medical_record.diagnosis = data.get('diagnosis', medical_record.diagnosis)
                 medical_record.treatment = data.get('treatment', medical_record.treatment)
-                medical_record.prescription = data.get('prescription', medical_record.prescription)
+                medical_record.status = data.get('status', medical_record.status)
                 medical_record.notes = data.get('notes', medical_record.notes)
                 medical_record.updated_at = datetime.utcnow()
 

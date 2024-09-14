@@ -43,7 +43,7 @@ def add_patient_medical_record(patient_id):
     if request.method == 'POST':
         diagnosis = request.form.get('diagnosis')
         treatment = request.form.get('treatment')
-        prescription = request.form.get('prescription')
+        status = request.form.get('status')
         notes = request.form.get('notes')
         action = request.form.get('action')
 
@@ -54,11 +54,11 @@ def add_patient_medical_record(patient_id):
 
         if action == 'submit':
             # Check for Empty Fields
-            if not all([diagnosis, treatment, prescription, notes]):
+            if not all([diagnosis, treatment, status, notes]):
                 flash('Required Fields are Empty!', 'error')
                 return render_template('register_medical_record.html', patient_id=patient_id,
                                        diagnosis=diagnosis, treatment=treatment, notes=notes,
-                                       prescription=prescription)
+                                       status=status)
 
             # Check if Patient has a stored medical record
             existing_record = storage.query(Medical_Record).filter_by(patient_id=patient_id).first()
@@ -66,10 +66,10 @@ def add_patient_medical_record(patient_id):
                 flash('Patient already has a registered medical rocord!', 'error')
                 return render_template('register_medical_record.html', patient_id=patient_id,
                                        diagnosis=diagnosis, treatment=treatment, notes=notes,
-                                       prescription=prescription)
+                                       status=status)
             
             new_medical_record = Medical_Record(diagnosis=diagnosis, treatment=treatment,
-                                                prescription=prescription, notes=notes)
+                                                status=status, notes=notes)
 
             try:
                 new_medical_record.patient_id = patient.id
@@ -85,7 +85,7 @@ def add_patient_medical_record(patient_id):
                 flash(f'Error: {str(e)}', 'error')
                 return render_template('register_medical_record.html', patient_id=patient_id,
                                        diagnosis=diagnosis, treatment=treatment, notes=notes,
-                                       prescription=prescription)
+                                       status=status)
 
     return render_template('register_medical_record.html', patient_id=patient_id)
 

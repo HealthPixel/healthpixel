@@ -43,13 +43,90 @@
         {% endfor %}
         {% endwith %}
       </div>
+      <!-- Page content -->
+      <h1 class="display-6 fw-semibold mb-4">
+        {{ patient.first_name }} {{ patient.last_name }}'s Profile
+      </h1>
+      <!-- Demogaphic info -->
       <div class="card p-3 mb-5 mt-4">
-        <h1 class="display-6 fw-semibold mb-4">
-          Welcome, {{ patient.first_name }} {{ patient.last_name }}
-        </h1>
-        <p class="fw-semibold">Email: {{ patient.email }}</p>
+        <h3>Demographic information</h3>
+        <hr>
+        <p><b>ID:</b> {{ patient.id }}</p>
+        <p><b>Email:</b> {{ patient.email }}</p>
+        <p><b>Phone Number:</b> {{ patient.phone_number }}</p>
+        <p><b>Gender:</b> {{ patient.gender }}</p>
+        <p><b>Date of Birth:</b> {{ patient.date_of_birth }}</p>
+        <p><b>Address:</b> {{ patient.address }}</p>
+        <p><b>Zipcode:</b> {{ patient.zipcode }}</p>
+        <p><b>Blood Group:</b> {{ patient.blood_group }}</p>
+        <p>
+          <b>Emergency Contact Name:</b> {{ patient.emergency_contact_name }}
+        </p>
+        <p>
+          <b>Emergency Contact Number:</b> {{ patient.emergency_contact_phone
+          }}
+        </p>
+      </div>
+
+      <!-- Patient Vitals -->
+      <div class="card p-3 mb-5 mt-4 custom_card">
+        <h3>Vitals</h3>
+        <p><b>Blood Pressure:</b> {{ vitals.blood_pressure }}</p>
+        <p><b>Heart rate:</b> {{ vitals.heart_rate }}<br /></p>
+        <p><b>Temperature (&degC):</b> {{ vitals.body_temperature }}<br /></p>
+        <p><b>Respiratory Rate:</b> {{ vitals.respiratory_rate }}<br /></p>
+        <p><b>Oxygen Saturation:</b> {{ vitals.oxygen_saturation }}<br /></p>
+        <p><b>Weight (kg):</b> {{ vitals.weight }}<br /></p>
+        <p><b>Height (m):</b> {{ vitals.height }}<br /></p>
+      </div>
+
+      <!-- Patient allergies (if any) -->
+      <div class="card p-3 mb-5 mt-4 custom_card">
+        <h3>Allergies</h3>
+        {% if allergies %}
+        <p><b>Allergen:</b> {{ allergies.allergen }}</p>
+        <p><b>Reaction:</b> {{ allergies.reaction }}</p>
+        <p><b>Severity:</b> {{ allergies.severity }}</p>
+        <p><b>Notes:</b> {{ allergies.notes }}</p>
+        {% else %}
+        <p>This patient has no allergies.</p>
+        {% endif %}
+      </div>
+
+      <!-- Patient Medical Record (if any) -->
+      <div class="card p-3 mb-5 mt-4 custom_card">
+        <h3>Medical Record</h3>
+        {% if medical_record %}
+        <p><b>Diagnosis:</b> {{ medical_record.diagnosis }}</p>
+        <p><b>Treatment/Prescription:</b> {{ medical_record.treatment }}</p>
+        <p><b>Status:</b> {{ medical_record.status }}</p>
+        <p><b>Notes:</b> {{ medical_record.notes }}</p>
+        {% else %}
+        <p>This patient has no Medical Record yet.</p>
+        {% endif %}
+      </div>
+
+      <!-- Patient Medication -->
+      <div class="card p-3 mb-5 mt-4 custom_card">
+        <h3>Medications</h3>
+        {% if patient.medication %}
+        <ul>
+          {% for med in patient.medication %}
+          <li>
+            <b>Medicine Name:</b> {{ med.medicine_name }}<br />
+            <b>Dosage:</b> {{ med.dosage }}<br />
+            <b>Frequency:</b> {{ med.frequency }}<br />
+            <b>Duration:</b> {{ med.duration }}<br />
+            <b>Notes:</b> {{ med.notes or 'No notes' }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>No medications found for this patient.</p>
+        {% endif %}
       </div>
     </div>
+  </div>
   </div>
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>

@@ -63,9 +63,11 @@ main {
     width: 75%;
 }
 
+/* Already taken care of with mb-5 in the html */
+/* 
 .custom_card p{
     margin-bottom: 0.2em;
-}
+} */
 
 footer {
     opacity: 85%;

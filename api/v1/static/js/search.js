@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   <p class="card-text">Date of Birth: ${patient.date_of_birth}</p>
                   <p class="card-text">Gender: ${patient.gender}</p>
                   <p class="card-text">Phone Number: ${patient.phone_number}</p>
-                  <p class="card-text">Emergency Contact: ${patient.emergency_contact_name} - ${patient.emergency_contact_phone}</p>
+                  <p class="card-text">Emergency Contact: ${patient.emergency_contact_name} | ${patient.emergency_contact_phone}</p>
                   <p class="card-text">Zip Code: ${patient.zipcode}</p>
                   <p class="card-text">Created At: ${patient.created_at}</p>
                   <p class="card-text">Updated At: ${patient.updated_at}</p>

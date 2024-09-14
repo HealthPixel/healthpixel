@@ -48,7 +48,7 @@ def add_patient_allergies(patient_id):
         action = request.form.get('action')
 
         if action == "skip":
-            flash('You skipped Patient Allergies', 'success')
+            flash('You skipped Patient Allergy', 'success')
             # Redirect to Allergy entry page after creating the patient
             return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
 
@@ -74,7 +74,7 @@ def add_patient_allergies(patient_id):
                 new_allergies.patient_id = patient.id
                 storage.new(new_allergies)
                 storage.save()
-                flash('Patient Allergies added successfully!', 'success')
+                flash('Patient Allergy added successfully!', 'success')
 
                 # Redirect to Allergy entry page after creating the patient
                 return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
