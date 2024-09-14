@@ -33,7 +33,7 @@
       </div>
     </header>
     <div class="row justify-content-center">
-      <div class="col-sm-10">
+      <div class="col-md-10">
         <!-- Display messages -->
         <div class="message-box">
           {% with messages = get_flashed_messages(with_categories=True) %}
@@ -52,22 +52,22 @@
             <h3 class="text-secondary-emphasis mb-3">
               Register a new patient
             </h3>
-            <div class="col-sm-6 mb-2">
+            <div class="col-md-6 mb-2">
               <label for="first_name">First Name</label>
               <input type="text" name="first_name" class="form-control"
                 id="first_name" value="{{ first_name or '' }}" />
             </div>
-            <div class="col-sm-6 mb-2">
+            <div class="col-md-6 mb-2">
               <label for="last_name">Last Name</label>
               <input type="text" name="last_name" class="form-control"
                 id="last_name" value="{{ last_name or '' }}" />
             </div>
-            <div class="col-sm-4 mb-2">
+            <div class="col-md-4 mb-2">
               <label for="date_of_birth">Date of Birth</label>
               <input type="date" name="date_of_birth" class="form-control"
                 id="date_of_birth" value="{{ date_of_birth or '' }}" />
             </div>
-            <div class="col-sm-4 text-center mb-2">
+            <div class="col-md-4 text-center mb-2">
               <p class="mb-1">Gender</p>
               <input type="radio" name="gender" id="male" value="Male" {% if
                 gender=='Male' %}checked{% endif %} />
@@ -76,7 +76,7 @@
                 gender=='Female' %}checked{% endif %} />
               <label for="female">Female</label>
             </div>
-            <div class="col-sm-4 mb-2">
+            <div class="col-md-4 mb-2">
               <label for="blood_group">Blood Group</label>
               <select id="blood_group" name="blood_group" class="form-select">
                 <option value="" disabled {% if not blood_group %}selected{%
@@ -101,45 +101,45 @@
                   %}>O-</option>
               </select>
             </div>
-            <div class="col-sm-8 mb-2">
+            <div class="col-md-8 mb-2">
               <label for="address">Address</label>
               <input type="text" name="address" class="form-control"
                 id="address" value="{{ address or '' }}" />
             </div>
-            <div class="col-sm-4 mb-2">
+            <div class="col-md-4 mb-2">
               <label for="zipcode">Zipcode</label>
               <input type="number" name="zipcode" class="form-control"
                 maxlength="6" id="zipcode" value="{{ zipcode or '' }}" />
             </div>
-            <div class="col-sm-8 mb-2">
+            <div class="col-md-8 mb-2">
               <label for="email">Contact Email</label>
               <input type="email" name="email" class="form-control"
                 placeholder="example@email.com" id="email"
                 value="{{ email or '' }}" />
             </div>
-            <div class="col-sm-4 mb-2">
+            <div class="col-md-4 mb-2">
               <label for="phone_number">Phone Number</label>
               <input type="tel" name="phone_number" class="form-control"
                 id="phone_number" value="{{ phone_number or '' }}" />
             </div>
-            <div class="col-sm-6 mb-2">
+            <div class="col-md-6 mb-2">
               <label for="password">Password</label>
               <input type="password" name="password" class="form-control"
                 id="password" minlength="8" value="{{ password or '' }}" />
             </div>
-            <div class="col-sm-6 mb-2">
+            <div class="col-md-6 mb-2">
               <label for="conf_password">Confirm Password</label>
               <input type="password" name="conf_password" class="form-control"
                 id="conf_password" minlength="8"
                 value="{{ conf_password or '' }}" />
             </div>
-            <div class="col-sm-8 mb-2">
+            <div class="col-md-8 mb-2">
               <label for="emg_contact_name">Emergency Contact Name</label>
               <input type="text" name="emg_contact_name"
                 class="form-control phone" id="emg_contact_name"
                 value="{{ emg_contact_name or '' }}" />
             </div>
-            <div class="col-sm-4 mb-2">
+            <div class="col-md-4 mb-2">
               <label for="emg_contact_phone">Emergency Contact Phone
                 Number</label>
               <input type="tel" name="emg_contact_phone" class="form-control"

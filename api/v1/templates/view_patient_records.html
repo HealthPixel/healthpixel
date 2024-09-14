@@ -106,27 +106,35 @@
         {% endif %}
       </div>
 
-      <!-- Patient Medication -->
+      <!-- Patient Medication (if any)-->
       <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Medications</h3>
-        {% if patient.medication %}
-        <ul>
-          {% for med in patient.medication %}
-          <li>
-            <b>Medicine Name:</b> {{ med.medicine_name }}<br />
-            <b>Dosage:</b> {{ med.dosage }}<br />
-            <b>Frequency:</b> {{ med.frequency }}<br />
-            <b>Duration:</b> {{ med.duration }}<br />
-            <b>Notes:</b> {{ med.notes or 'No notes' }}
-          </li>
-          {% endfor %}
-        </ul>
+        <h3>Medication</h3>
+        {% if medication %}
+        <p><b>Medication Name:</b> {{ medication.medication_name }}</p>
+        <p><b>Dosage:</b> {{ medication.dosage }}</p>
+        <p><b>Frequency:</b> {{ medication.frequency }}</p>
+        <p><b>Start Date:</b> {{ medication.start_date }}</p>
+        <p><b>End Date:</b> {{ medication.end_date }}</p>
+        <p><b>Prescribing Doctor:</b> {{ medication. prescribing_doctor }}</p>
+        <p><b>Notes:</b> {{ medication.notes }}</p>
         {% else %}
-        <p>No medications found for this patient.</p>
+        <p>No medication found for this patient.</p>
+        {% endif %}
+      </div>
+
+      <!-- Patient Lab results (if any) -->
+      <div class="card p-3 mb-5 mt-4 custom_card">
+        <h3>Lab results</h3>
+        {% if lab_result %}
+        <p><b>Test Name:</b> {{ lab_result.test_name }}</p>
+        <p><b>Result:</b> {{ lab_result.result }}</p>
+        <p><b>Values:</b> {{ lab_result.values }}</p>
+        <p><b>Notes:</b> {{ lab_result.notes }}</p>
+        {% else %}
+        <p>No lab results found for this patient.</p>
         {% endif %}
       </div>
     </div>
-  </div>
   </div>
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
