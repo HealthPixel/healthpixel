@@ -95,6 +95,47 @@
           </div>
         </div>
 
+        <!-- Update Allergy -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title fw-semibold">Update Allergy</h5>
+            <form id="update_allergies_form" method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="allergen">Allergen:
+                    <input type="text" name="allergen" class="form-control"
+                      maxlength="100" value="{{ allergies.allergen }}">
+                  </label>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="reaction">Reaction:
+                    <input type="text" name="reaction" class="form-control"
+                      maxlength="255" value="{{ allergies.reaction }}">
+                  </label>
+                </div>
+                <div class="col-md-12">
+                  <label for="severity">Severity:</label>
+                  <select name="severity" class="form-select mb-2"
+                    id="severity">
+                    <option value="{{ severity or '' }}" disabled>
+                      Select the
+                      severity of the allergy</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe">Severe</option>
+                  </select>
+                </div>
+                <label for="notes">Notes:
+                  <textarea name="notes" class="form-control mb-2" id="notes">
+                  </textarea>
+                </label>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Allergy</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
         <!-- Update Medical Record -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
@@ -118,10 +159,10 @@
                     </select>
                   </label>
                 </div>
-                  <label for="treatment">Treatment/Prescription:
-                    <input type="text" name="treatment" class="form-control"
-                      maxlength="255" value="{{ medical_record.treatment }}">
-                  </label>
+                <label for="treatment">Treatment/Prescription:
+                  <input type="text" name="treatment" class="form-control"
+                    maxlength="255" value="{{ medical_record.treatment }}">
+                </label>
                 <label for="medical_record_notes">Notes:
                   <textarea name="notes" class="form-control mb-2"
                     id="medical_record_notes"></textarea>
@@ -134,42 +175,35 @@
           </div>
         </div>
 
-        <!-- Update Allergy -->
+        <!-- Update Lab Results -->
         <div class="card col-md-6 mb-4">
           <div class="card-body">
-            <h5 class="card-title fw-semibold">Update Allergy</h5>
-            <form id="update_allergies_form" method="POST">
+            <h5 class="card-title fw-semibold">Update Lab Results</h5>
+            <form id="update_lab_result_form" method="POST">
               <div class="row">
                 <div class="col-md-6 mb-2">
-                  <label for="allergen">Allergen:
-                    <input type="text" name="allergen" class="form-control"
-                      maxlength="100" value="{{ allergies.allergy }}">
-                  </label>
+                  <label for="test">Test Name</label>
+                  <input type="text" name="test" class="form-control"
+                    maxlength="100" id="test" value="{{ test or '' }}" />
                 </div>
                 <div class="col-md-6 mb-2">
-                  <label for="reaction">Reaction:
-                    <input type="text" name="reaction" class="form-control"
-                      maxlength="255" value="{{ allergies.reaction }}">
-                  </label>
+                  <label for="result">Result</label>
+                  <input type="text" name="result" class="form-control"
+                    placeholder="e.g. Normal or High" maxlength="50" id="result"
+                    value="{{ result or '' }}" />
                 </div>
-                <div class="col-md-12">
-                  <label for="severity">Severity:</label>
-                  <select name="severity" class="form-select mb-2"
-                    id="severity">
-                    <option value="{{ severity or '' }}" disabled>
-                      Select the
-                      severity of the allergy</option>
-                    <option value="Mild">Mild</option>
-                    <option value="Moderate">Moderate</option>
-                    <option value="Severe">Severe</option>
-                  </select>
+                <div class="col-md-12 mb-2">
+                  <label for="values">Values</label>
+                  <input type="text" name="values" class="form-control"
+                    id="values" value="{{ values or '' }}" />
                 </div>
-                <label for="notes">Notes:
-                  <textarea name="notes" class="form-control mb-2" id="
-                    notes"></textarea>
-                </label>
+                <div class="col-md-12 mb-2">
+                  <label for="lab_result_notes">Notes</label>
+                  <textarea name="notes" class="form-control"
+                    id="lab_result_notes mb-2"></textarea>
+                </div>
                 <button type="submit" class="btn btn-primary mt-3">Update
-                  Allergy</button>
+                  Lab Result</button>
               </div>
             </form>
           </div>
@@ -221,40 +255,6 @@
                 </label>
                 <button type="submit" class="btn btn-primary mt-3">Update
                   Medication</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Update Lab Result -->
-        <div class="card col-md-6 mb-4">
-          <div class="card-body">
-            <h5 class="card-title fw-semibold">Update Lab Result</h5>
-            <form id="update_lab_result_form" method="POST">
-              <div class="row">
-                <div class="col-md-6 mb-2">
-                  <label for="test">Test Name</label>
-                  <input type="text" name="test" class="form-control"
-                    maxlength="100" id="test" value="{{ test or '' }}" />
-                </div>
-                <div class="col-md-6 mb-2">
-                  <label for="result">Result</label>
-                  <input type="text" name="result" class="form-control"
-                    placeholder="e.g. Normal or High" maxlength="50" id="result"
-                    value="{{ result or '' }}" />
-                </div>
-                <div class="col-md-6 mb-2">
-                  <label for="values">Values</label>
-                  <input type="text" name="values" class="form-control"
-                    id="values" value="{{ values or '' }}" />
-                </div>
-                <div class="col-md-12 mb-2">
-                  <label for="lab_result_notes">Notes</label>
-                  <textarea name="notes" class="form-control"
-                    id="lab_result_notes mb-2"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">Update
-                  Lab Result</button>
               </div>
             </form>
           </div>
