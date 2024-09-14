@@ -17,7 +17,9 @@ class Medication(BaseModel, Base):
         medicine_name (str): Name of the prescribed medicine
         dosage (str): Dosage of the medication
         frequency (str): Frequency of administration (e.g., once daily)
-        duration (str): Duration for which the medication should be taken
+        start_date (date): Date for which the patient should start taking medication
+        end_date (date): Date for which the patient should be done with the medication
+        prescribing_doctor (str): Name of the doctor prescribing the medication
         notes (text): Doctor's notes on the medication
     """
     __tablename__ = 'medications'
@@ -28,7 +30,7 @@ class Medication(BaseModel, Base):
     dosage = Column(String(50), nullable=False)
     frequency = Column(String(50), nullable=False)
     start_date = Column(Date, nullable=False)
-    start_date = Column(Date, nullable=False)
+    end_date = Column(Date, nullable=False)
     prescribing_doctor = Column(String(100), nullable=False)
     notes = Column(Text, nullable=True)
     patient = relationship('Patient', back_populates='medication')
