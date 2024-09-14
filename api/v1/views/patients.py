@@ -176,7 +176,7 @@ def update_patient_records(patient_id):
                 lab_result.updated_at = datetime.utcnow()
 
             if medication:
-                medication.medicine_name = data.get('medicine_name', medication.medicine_name)
+                medication.medication_name = data.get('medication_name', medication.medication_name)
                 medication.dosage = data.get('dosage', medication.dosage)
                 medication.frequency = data.get('frequency', medication.frequency)
                 medication.duration = data.get('duration', medication.duration)

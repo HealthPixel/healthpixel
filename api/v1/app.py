@@ -33,7 +33,7 @@ def load_user(id):
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    flash('You need to login before accessing that page.', 'error')
+    flash('You need to be logged in to access that page.', 'error')
     # Redirect to the login page
     return redirect(url_for('auth.login_users'))
 

@@ -24,7 +24,7 @@ class Medication(BaseModel, Base):
 
     patient_id = Column(String(60), ForeignKey('patients.id'), nullable=False)
     doctor_id = Column(String(60), ForeignKey('doctors.id'), nullable=False)
-    medicine_name = Column(String(100), nullable=False)
+    medication_name = Column(String(100), nullable=False)
     dosage = Column(String(50), nullable=False)
     frequency = Column(String(50), nullable=False)
     duration = Column(String(50), nullable=False)

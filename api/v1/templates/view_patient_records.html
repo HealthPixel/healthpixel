@@ -108,21 +108,15 @@
 
       <!-- Patient Medication -->
       <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Medications</h3>
-        {% if patient.medication %}
-        <ul>
-          {% for med in patient.medication %}
-          <li>
-            <b>Medicine Name:</b> {{ med.medicine_name }}<br />
-            <b>Dosage:</b> {{ med.dosage }}<br />
-            <b>Frequency:</b> {{ med.frequency }}<br />
-            <b>Duration:</b> {{ med.duration }}<br />
-            <b>Notes:</b> {{ med.notes or 'No notes' }}
-          </li>
-          {% endfor %}
-        </ul>
+        <h3>Medication</h3>
+        {% if medication %}
+        <p><b>Medication Name:</b> {{ medication.medication_name }}</p>
+        <p><b>Dosage:</b> {{ medication.dosage }}</p>
+        <p><b>Frequency:</b> {{ medication.frequency }}</p>
+        <p><b>Duration:</b> {{ medication.duration }}</p>
+        <p><b>Notes:</b> {{ medication.notes }}</p>
         {% else %}
-        <p>No medications found for this patient.</p>
+        <p>No medication found for this patient.</p>
         {% endif %}
       </div>
     </div>
