@@ -179,7 +179,9 @@ def update_patient_records(patient_id):
                 medication.medication_name = data.get('medication_name', medication.medication_name)
                 medication.dosage = data.get('dosage', medication.dosage)
                 medication.frequency = data.get('frequency', medication.frequency)
-                medication.duration = data.get('duration', medication.duration)
+                medication.start_date = data.get('start_date', medication.start_date)
+                medication.end_date = data.get('end_date', medication.end_date)
+                medication.prescribing_doctor = data.get('prescribing_doctor', medication.prescribing_doctor)
                 medication.notes = data.get('notes', medication.notes)
                 medication.updated_at = datetime.utcnow()
 
