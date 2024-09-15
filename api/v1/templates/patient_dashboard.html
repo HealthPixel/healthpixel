@@ -81,15 +81,17 @@
         <div class="card p-3 mb-5 mt-4 custom_card">
           <h3>Medication</h3>
           {% if medication %}
-          <p><b>Medicine Name:</b> {{ medication.medicine_name }}</p>
+          <p><b>Medicine Name:</b> {{ medication.medication_name }}</p>
           <p><b>Dosage:</b> {{ medication.dosage }}</p>
           <p><b>Frequency:</b> {{ medication.frequency }}</p>
-          <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if medication.start_date else '' }}</p>
-          <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if medication.end_date else '' }}</p>
+          <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if
+            medication.start_date else '' }}</p>
+          <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if
+            medication.end_date else '' }}</p>
 
           <p><b>Notes:</b> {{ medication.notes }}</p>
           {% else %}
-          <p>This patient has no Medical Record.</p>
+          <p>Your medications have not been added yet.</p>
           {% endif %}
         </div>
       </div>

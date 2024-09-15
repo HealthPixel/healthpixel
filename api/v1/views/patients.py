@@ -255,7 +255,7 @@ def update_patient_records(patient_id):
                 medication.updated_at = datetime.utcnow()
             else:
                 if 'submit_medication' in data:
-                    medicine_name = data.get('medicine_name')
+                    medication_name = data.get('medication_name')
                     dosage = data.get('dosage')
                     frequency = data.get('frequency')
                     start_date = data.get('start_date')
@@ -263,7 +263,7 @@ def update_patient_records(patient_id):
                     prescribing_doctor = data.get('prescribing_doctor')
                     notes = data.get('notes')
                     
-                    new_medication = Medication(medicine_name=medicine_name, dosage=dosage, frequency=frequency,
+                    new_medication = Medication(medication_name=medication_name, dosage=dosage, frequency=frequency,
                                                 start_date=start_date, end_date=end_date,
                                                 prescribing_doctor=prescribing_doctor, notes=notes)
                     new_medication.patient_id = patient.id

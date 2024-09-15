@@ -34,7 +34,6 @@ footer {
 @media screen and (max-width: 469px) {
     .logo {
         width: 45px;
-        /* margin-right: 5%; */
     }
 }
 

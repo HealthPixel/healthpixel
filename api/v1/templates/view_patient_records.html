@@ -29,9 +29,9 @@
     <div class="container">
       <header class="d-flex mt-5 text-center justify-content-between">
         <a href="{{ url_for('healthpixel') }}"
-        class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-        <a href="{{ request.referrer }}"
-        class="custom-btn">Back to Dashboard</a>
+          class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+        <a href="{{ request.referrer }}" class="btn btn-dark custom-btn">Back to
+          Dashboard</a>
       </header>
       <!-- Display messages -->
       <div class="message-box">
@@ -82,7 +82,7 @@
         <p><b>Weight (kg):</b> {{ vitals.weight }}<br /></p>
         <p><b>Height (m):</b> {{ vitals.height }}<br /></p>
         {% else %}
-        <p>This patient has no vital record.</p>
+        <p>Vitals have not been recorded.</p>
         {% endif %}
       </div>
 
@@ -95,7 +95,7 @@
         <p><b>Severity:</b> {{ allergies.severity }}</p>
         <p><b>Notes:</b> {{ allergies.notes }}</p>
         {% else %}
-        <p>This patient has no allergies record.</p>
+        <p>This patient has no allergy records.</p>
         {% endif %}
       </div>
 
@@ -108,7 +108,7 @@
         <p><b>Status:</b> {{ medical_record.status }}</p>
         <p><b>Notes:</b> {{ medical_record.notes }}</p>
         {% else %}
-        <p>This patient has no Medical Record yet.</p>
+        <p>No Medical Record has been added.</p>
         {% endif %}
       </div>
 
@@ -116,14 +116,16 @@
       <div class="card p-3 mb-5 mt-4 custom_card">
         <h3>Medication</h3>
         {% if medication %}
-        <p><b>Medicine Name:</b> {{ medication.medicine_name }}</p>
+        <p><b>Medicine Name:</b> {{ medication.medication_name }}</p>
         <p><b>Dosage:</b> {{ medication.dosage }}</p>
         <p><b>Frequency:</b> {{ medication.frequency }}</p>
-        <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if medication.start_date else '' }}</p>
-        <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if medication.end_date else '' }}</p>
+        <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if
+          medication.start_date else '' }}</p>
+        <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if
+          medication.end_date else '' }}</p>
         <p><b>Notes:</b> {{ medication.notes }}</p>
         {% else %}
-        <p>This patient has no Medical Record.</p>
+        <p>Medication has not been prescribed yet.</p>
         {% endif %}
       </div>
 
@@ -136,7 +138,7 @@
         <p><b>Values:</b> {{ lab_result.values }}</p>
         <p><b>Notes:</b> {{ lab_result.notes }}</p>
         {% else %}
-        <p>This patient has no Lab Result.</p>
+        <p>No lab result has been added.</p>
         {% endif %}
       </div>
     </div>
