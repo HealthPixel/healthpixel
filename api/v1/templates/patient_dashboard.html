@@ -84,12 +84,14 @@
           <p><b>Medication Name:</b> {{ medication.medication_name }}</p>
           <p><b>Dosage:</b> {{ medication.dosage }}</p>
           <p><b>Frequency:</b> {{ medication.frequency }}</p>
-          <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if medication.start_date else '' }}</p>
-          <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if medication.end_date else '' }}</p>
+          <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if
+            medication.start_date else '' }}</p>
+          <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if
+            medication.end_date else '' }}</p>
 
           <p><b>Notes:</b> {{ medication.notes }}</p>
           {% else %}
-          <p>Your Medications has not yet been added.</p>
+          <p>Your medications have not been added yet.</p>
           {% endif %}
         </div>
       </div>

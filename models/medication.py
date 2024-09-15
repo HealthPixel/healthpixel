@@ -14,7 +14,7 @@ class Medication(BaseModel, Base):
     Attributes:
         patient_id (str): Foreign Key referencing patient.id
         doctor_id (str): Foreign Key referencing doctor.id
-        medicine_name (str): Name of the prescribed medicine
+        medication_name (str): Name of the prescribed medicine
         dosage (str): Dosage of the medication
         frequency (str): Frequency of administration (e.g., once daily)
         start_date (date): Date for which the patient should start taking medication
