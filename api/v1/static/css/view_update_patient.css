@@ -5,10 +5,6 @@ body {
 
 header .custom-btn {
     padding: .7em;
-    border-radius: 5px;
-    background-color: black;
-    color: white;
-    text-decoration: none;
     height: fit-content;
 }
 
@@ -16,16 +12,8 @@ header .custom-btn {
     background-color: #ffe9cc;
 }
 
-/* input {
-    width: 50% !important;
-} */
-
 .card-info {
-    width: 48%;
-}
-
-.card-infos {
-    justify-content: center;
+    width: 49%;
 }
 
 .message-box {
