@@ -11,7 +11,7 @@ from models.doctor import Doctor
 from models.patient import Patient
 from models.access_log import Access_Log
 from datetime import datetime
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_required
 from models.vitals import Vitals
 from models.medical_record import Medical_Record
 from models.allergies import Allergies
@@ -138,6 +138,7 @@ def update_patient_records(patient_id):
         medication = storage.query(Medication).filter_by(patient_id=patient_id).first()
 
         try:
+            # Vitals Update
             if vitals:
                 vitals.blood_pressure = data.get('blood_pressure', vitals.blood_pressure)
                 vitals.heart_rate = data.get('heart_rate', vitals.heart_rate)
@@ -147,34 +148,102 @@ def update_patient_records(patient_id):
                 vitals.weight = data.get('weight', vitals.weight)
                 vitals.height = data.get('height', vitals.height)
                 vitals.updated_at = datetime.utcnow()
+            else:
+                if 'submit_vitals' in data:
+                    blood_pressure = data.get('blood_pressure')
+                    heart_rate = data.get('heart_rate')
+                    body_temperature = data.get('body_temperature')
+                    respiratory_rate = data.get('respiratory_rate')
+                    oxygen_saturation = data.get('oxygen_saturation')
+                    weight = data.get('weight')
+                    height = data.get('height')
+                    
+                    new_vitals = Vitals(blood_pressure=blood_pressure,
+                                heart_rate=heart_rate,
+                                body_temperature=body_temperature,
+                                respiratory_rate=respiratory_rate,
+                                oxygen_saturation=oxygen_saturation,
+                                weight=weight,
+                                height=height)
+                    new_vitals.patient_id = patient.id
+                    storage.new(new_vitals)
 
+            # Allergies Update
+            if allergies:
+                allergies.allergen = data.get('allergen', allergies.allergen)
+                allergies.reaction = data.get('reaction', allergies.reaction)
+                allergies.severity = data.get('severity', allergies.severity)
+                allergies.notes = data.get('notes', allergies.notes)
+                allergies.updated_at = datetime.utcnow()
+            else:
+                if 'submit_allergy' in data:
+                    allergen = data.get('allergen')
+                    reaction = data.get('reaction')
+                    severity = data.get('severity')
+                    notes = data.get('notes')
+                    
+                    new_allergy = Allergies(allergen=allergen, reaction=reaction,
+                                        severity=severity, notes=notes)
+                    new_allergy.patient_id = patient.id
+                    storage.new(new_allergy)
+
+            # Medical Record Update
             if medical_record:
                 medical_record.diagnosis = data.get('diagnosis', medical_record.diagnosis)
                 medical_record.treatment = data.get('treatment', medical_record.treatment)
                 medical_record.status = data.get('status', medical_record.status)
                 medical_record.notes = data.get('notes', medical_record.notes)
                 medical_record.updated_at = datetime.utcnow()
+            else:
+                if 'submit_medical_record' in data:
+                    diagnosis = data.get('diagnosis')
+                    treatment = data.get('treatment')
+                    status = data.get('status')
+                    notes = data.get('notes')
+                    
+                    new_medical_record = Medical_Record(diagnosis=diagnosis, treatment=treatment,
+                                        status=status, notes=notes)
+                    new_medical_record.doctor_id = current_user.id
+                    new_medical_record.patient_id = patient.id
+                    storage.new(new_medical_record)
 
-            if allergies:
-                allergies.allergy = data.get('allergen', allergies.allergy)
-                allergies.reaction = data.get('reaction', allergies.reaction)
-                allergies.severity = data.get('severity', allergies.severity)
-                allergies.notes = data.get('notes', allergies.notes)
-                allergies.updated_at = datetime.utcnow()
+            # # Appointment Update
+            # if appointment:
+            #     appointment.appointment_date = data.get('appointment_date', appointment.appointment_date)
+            #     appointment.status = data.get('status', appointment.status)
+            #     appointment.notes = data.get('notes', appointment.notes)
+            #     appointment.updated_at = datetime.utcnow()
+            # else:
+            #     appointment_date = data.get('appointment_date')
+            #     status = data.get('status')
+            #     notes = data.get('notes')
+                
+            #     new_appointment = Appointment(appointment_date=appointment_date, status=status, notes=notes)
+            #     new_appointment.doctor_id = current_user.id
+            #     new_appointment.patient_id = patient.id
+            #     storage.new(new_appointment)
 
-            if appointment:
-                appointment.appointment_date = data.get('appointment_date', appointment.appointment_date)
-                appointment.status = data.get('status', appointment.status)
-                appointment.notes = data.get('notes', appointment.notes)
-                appointment.updated_at = datetime.utcnow()
-
+            # Lab Result Update
             if lab_result:
                 lab_result.test_name = data.get('test_name', lab_result.test_name)
                 lab_result.result = data.get('result', lab_result.result)
                 lab_result.values = data.get('values', lab_result.values)
                 lab_result.notes = data.get('notes', lab_result.notes)
                 lab_result.updated_at = datetime.utcnow()
+            else:
+                if 'submit_lab_result' in data:
+                    test_name = data.get('test_name')
+                    result = data.get('result')
+                    values = data.get('values')
+                    notes = data.get('notes')
+                    
+                    new_lab_result = Lab_Results(test_name=test_name, result=result,
+                                        values=values, notes=notes)
+                    new_lab_result.patient_id = patient.id
+                    new_lab_result.doctor_id = current_user.id
+                    storage.new(new_lab_result)
 
+            # Medication Update
             if medication:
                 medication.medication_name = data.get('medication_name', medication.medication_name)
                 medication.dosage = data.get('dosage', medication.dosage)
@@ -184,6 +253,22 @@ def update_patient_records(patient_id):
                 medication.prescribing_doctor = data.get('prescribing_doctor', medication.prescribing_doctor)
                 medication.notes = data.get('notes', medication.notes)
                 medication.updated_at = datetime.utcnow()
+            else:
+                if 'submit_medication' in data:
+                    medicine_name = data.get('medicine_name')
+                    dosage = data.get('dosage')
+                    frequency = data.get('frequency')
+                    start_date = data.get('start_date')
+                    end_date = data.get('end_date')
+                    prescribing_doctor = data.get('prescribing_doctor')
+                    notes = data.get('notes')
+                    
+                    new_medication = Medication(medicine_name=medicine_name, dosage=dosage, frequency=frequency,
+                                                start_date=start_date, end_date=end_date,
+                                                prescribing_doctor=prescribing_doctor, notes=notes)
+                    new_medication.patient_id = patient.id
+                    new_medication.doctor_id = current_user.id
+                    storage.new(new_medication)
 
             # Log the access action
             action_taken = (

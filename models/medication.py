@@ -3,7 +3,7 @@
 import models
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Date, ForeignKey, Text
+from sqlalchemy import Column, String, ForeignKey, Text, DateTime
 from sqlalchemy.orm import relationship
 
 
@@ -29,8 +29,7 @@ class Medication(BaseModel, Base):
     medication_name = Column(String(100), nullable=False)
     dosage = Column(String(50), nullable=False)
     frequency = Column(String(50), nullable=False)
-    start_date = Column(Date, nullable=False)
-    end_date = Column(Date, nullable=False)
+    start_date = Column(DateTime, nullable=False)
+    end_date = Column(DateTime, nullable=False)
     prescribing_doctor = Column(String(100), nullable=False)
     notes = Column(Text, nullable=True)
-    patient = relationship('Patient', back_populates='medication')

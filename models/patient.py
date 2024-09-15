@@ -39,4 +39,3 @@ class Patient(BaseModel, Base, UserMixin):
     blood_group = Column(String(20), nullable=False)
     emergency_contact_name = Column(String(50), nullable=False)
     emergency_contact_phone = Column(String(50), nullable=False)
-    medication = relationship('Medication', back_populates='patient', lazy=True)

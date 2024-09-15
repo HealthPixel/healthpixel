@@ -5,10 +5,10 @@ Creates a new User and Integrates with Backend Database
 from models import storage
 from models.patient import Patient
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_required, logout_user, current_user
 import requests
 from auth import auth
+from models.medication import Medication
 
 
 @auth.route('/logout_patient')
@@ -22,10 +22,11 @@ def logout_patient():
 @login_required
 def dashboard_patient(id):
     user_data = storage._DBStorage__session.query(Patient).filter_by(id=current_user.id).first()
+    medication = storage.query(Medication).filter_by(patient_id=id).first()
     if current_user.id != id:
         return render_template('error.html', message='Unauthorized access.')
 
-    return render_template('patient_dashboard.html', user=user_data, user_id=id)
+    return render_template('patient_dashboard.html', user=user_data, user_id=id, medication=medication)
 
 
 @auth.route('/patient_dashboard')
