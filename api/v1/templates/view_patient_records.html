@@ -82,7 +82,7 @@
         <p><b>Weight (kg):</b> {{ vitals.weight }}<br /></p>
         <p><b>Height (m):</b> {{ vitals.height }}<br /></p>
         {% else %}
-        <p>This patient has no vital record.</p>
+        <p>This Patient has no Vital Record.</p>
         {% endif %}
       </div>
 
@@ -95,7 +95,7 @@
         <p><b>Severity:</b> {{ allergies.severity }}</p>
         <p><b>Notes:</b> {{ allergies.notes }}</p>
         {% else %}
-        <p>This patient has no allergies record.</p>
+        <p>This Patient has no Allergy Record.</p>
         {% endif %}
       </div>
 
@@ -108,7 +108,7 @@
         <p><b>Status:</b> {{ medical_record.status }}</p>
         <p><b>Notes:</b> {{ medical_record.notes }}</p>
         {% else %}
-        <p>This patient has no Medical Record yet.</p>
+        <p>This Patient has no Medical Record yet.</p>
         {% endif %}
       </div>
 
@@ -123,7 +123,7 @@
         <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if medication.end_date else '' }}</p>
         <p><b>Notes:</b> {{ medication.notes }}</p>
         {% else %}
-        <p>This patient has no Medical Record.</p>
+        <p>This patient has no Medication yet.</p>
         {% endif %}
       </div>
 
@@ -136,7 +136,7 @@
         <p><b>Values:</b> {{ lab_result.values }}</p>
         <p><b>Notes:</b> {{ lab_result.notes }}</p>
         {% else %}
-        <p>This patient has no Lab Result.</p>
+        <p>This patient has no Lab Result yet.</p>
         {% endif %}
       </div>
     </div>
