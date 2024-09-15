@@ -26,8 +26,9 @@
   <div class="container flex-grow-1">
     <header class="d-flex mt-5 justify-content-between text-center">
       <a href="{{ url_for('healthpixel') }}"
-      class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-      <a href="/dashboard" onclick="window.history.back(); return false;" class="custom-btn">Back to Dashboard</a>
+        class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+      <a href="/dashboard" onclick="window.history.back(); return false;"
+        class="btn btn-dark custom-btn">Back to Dashboard</a>
     </header>
     <div class="row justify-content-between">
       <h2 class="mb-4 fw-semibold">Update Patient Records</h1>
@@ -269,7 +270,7 @@
         </div>
 
         <!-- Update Lab Result -->
-        <div  class="card col-md-6 mb-4 card-info" style="margin-right: 15px;">
+        <div class="card col-md-6 mb-4 card-info" style="margin-right: 15px;">
           <div class="card-body">
             <h5 class="card-title fw-semibold">Update Lab Result</h5>
             <form id="update_lab_result_form" method="POST"
