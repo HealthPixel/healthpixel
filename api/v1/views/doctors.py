@@ -80,7 +80,6 @@ def update_a_doctor(doctor_id):
             if password and conf_password:
                 doctor.password = hashed_password
 
-            storage.new(doctor)
             storage.save()
             flash('Doctors Profile Updated Successfully!', 'success')
             return redirect(url_for('auth.dashboard_doctor', id=doctor.id))
