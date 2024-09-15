@@ -29,9 +29,8 @@
     <div class="container">
       <header class="d-flex mt-5 text-center justify-content-between">
         <a href="{{ url_for('healthpixel') }}"
-          class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-        <a href="{{ request.referrer }}" class="btn btn-dark custom-btn">Back to
-          Dashboard</a>
+        class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+        <a href="/dashboard" onclick="window.history.back(); return false;" class="custom-btn">Back to Dashboard</a>
       </header>
       <!-- Display messages -->
       <div class="message-box">
@@ -95,7 +94,7 @@
         <p><b>Severity:</b> {{ allergies.severity }}</p>
         <p><b>Notes:</b> {{ allergies.notes }}</p>
         {% else %}
-        <p>This patient has no allergy records.</p>
+        <p>This Patient has no Allergy Record.</p>
         {% endif %}
       </div>
 
@@ -116,7 +115,7 @@
       <div class="card p-3 mb-5 mt-4 custom_card">
         <h3>Medication</h3>
         {% if medication %}
-        <p><b>Medicine Name:</b> {{ medication.medication_name }}</p>
+        <p><b>Medication Name:</b> {{ medication.medication_name }}</p>
         <p><b>Dosage:</b> {{ medication.dosage }}</p>
         <p><b>Frequency:</b> {{ medication.frequency }}</p>
         <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if
@@ -125,7 +124,7 @@
           medication.end_date else '' }}</p>
         <p><b>Notes:</b> {{ medication.notes }}</p>
         {% else %}
-        <p>Medication has not been prescribed yet.</p>
+        <p>This patient has no Medication yet.</p>
         {% endif %}
       </div>
 
@@ -138,7 +137,7 @@
         <p><b>Values:</b> {{ lab_result.values }}</p>
         <p><b>Notes:</b> {{ lab_result.notes }}</p>
         {% else %}
-        <p>No lab result has been added.</p>
+        <p>This patient has no Lab Result yet.</p>
         {% endif %}
       </div>
     </div>
