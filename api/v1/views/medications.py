@@ -40,7 +40,7 @@ def create_patient_medication(doctor_id, patient_id):
     if not data:
         abort(400, "Not a JSON")
     
-    required_fields = ['medicine_name', 'dosage', 'frequency', 'duration']
+    required_fields = ['medication_name', 'dosage', 'frequency', 'start_date', 'end_date', 'prescribing_doctor']
     for field in required_fields:
         if field not in data:
             abort(400, f"Missing {field}")

@@ -30,16 +30,17 @@
       </div>
     </header>
     <div class="row justify-content-center">
-      <div class="col-sm-7">
+      <div class="col-md-7">
         <!-- Display messages -->
         <div class="message-box">
           {% with messages = get_flashed_messages(with_categories=True) %}
-              {% for category, message in messages %}
-                  <div class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-                  id="msg" role="alert">
-                    {% if message %} {{ message }} {% endif %}
-                  </div>
-              {% endfor %}
+          {% for category, message in messages %}
+          <div
+            class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+            id="msg" role="alert">
+            {% if message %} {{ message }} {% endif %}
+          </div>
+          {% endfor %}
           {% endwith %}
         </div>
         <form class="d-grid mt-4" method="POST"
@@ -47,13 +48,15 @@
           <h3 class="text-secondary-emphasis mb-3">
             Sign in to your account
           </h3>
-          <div class="col-sm-12 mb-2">
+          <div class="col-md-12 mb-2">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" value="{{ email or '' }}" />
+            <input type="email" name="email" class="form-control" id="email"
+              value="{{ email or '' }}" />
           </div>
-          <div class="col-sm-12 mb-2">
+          <div class="col-md-12 mb-2">
             <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="password" value="{{ password or '' }}" />
+            <input type="password" name="password" class="form-control"
+              id="password" value="{{ password or '' }}" />
           </div>
           <div class="form-check">
             <label class="form-check-label">

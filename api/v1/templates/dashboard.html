@@ -38,11 +38,11 @@
       <a href="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}"
         class="btn btn-primary py-2 mb-5">Edit profile</a>
       <div class="row">
-        <div class="col-sm-4 text-center">
+        <div class="col-md-4 text-center">
           <a href="{{ url_for('auth.logout_doctor') }}"
             class="btn btn-outline-danger mb-3">Logout</a>
         </div>
-        <div class="col-sm-8 text-center">
+        <div class="col-md-8 text-center">
           <a href="{{ url_for('auth.delete_doctor') }}"
             class="btn btn-danger mb-3">Delete account</a>
         </div>

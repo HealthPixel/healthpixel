@@ -112,6 +112,47 @@
           </div>
         </div>
 
+        <!-- Update Allergy -->
+        <div class="card col-md-6 mb-4">
+          <div class="card-body">
+            <h5 class="card-title fw-semibold">Update Allergy</h5>
+            <form id="update_allergies_form" method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="allergen">Allergen:
+                    <input type="text" name="allergen" class="form-control"
+                      maxlength="100" value="{{ allergies.allergen }}">
+                  </label>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="reaction">Reaction:
+                    <input type="text" name="reaction" class="form-control"
+                      maxlength="255" value="{{ allergies.reaction }}">
+                  </label>
+                </div>
+                <div class="col-md-12">
+                  <label for="severity">Severity:</label>
+                  <select name="severity" class="form-select mb-2"
+                    id="severity">
+                    <option value="{{ severity or '' }}" disabled>
+                      Select the
+                      severity of the allergy</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe">Severe</option>
+                  </select>
+                </div>
+                <label for="notes">Notes:
+                  <textarea name="notes" class="form-control mb-2" id="notes">
+                  </textarea>
+                </label>
+                <button type="submit" class="btn btn-primary mt-3">Update
+                  Allergy</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
         <!-- Update Medical Record -->
         <div class="card col-md-6 mb-4 card-info">
           <div class="card-body">

@@ -245,7 +245,7 @@ def update_patient_records(patient_id):
 
             # Medication Update
             if medication:
-                medication.medicine_name = data.get('medicine_name', medication.medicine_name)
+                medication.medication_name = data.get('medication_name', medication.medication_name)
                 medication.dosage = data.get('dosage', medication.dosage)
                 medication.frequency = data.get('frequency', medication.frequency)
                 medication.start_date = data.get('start_date', medication.start_date)
