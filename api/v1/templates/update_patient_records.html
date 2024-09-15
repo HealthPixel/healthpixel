@@ -27,7 +27,7 @@
     <header class="d-flex mt-5 justify-content-between text-center">
       <a href="{{ url_for('healthpixel') }}"
         class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-      <a href="/dashboard" onclick="window.history.back(); return false;"
+      <a href="/auth/doctor_dashboard"
         class="btn btn-dark custom-btn">Back to Dashboard</a>
     </header>
     <div class="row justify-content-between">
@@ -153,8 +153,8 @@
                     </option>
                   </select>
                 </div>
-                <label for="notes">Notes:
-                  <textarea name="notes" class="form-control mb-2" id="
+                <label for="allergy_notes">Notes:
+                  <textarea name="allergy_notes" class="form-control mb-2" id="
                     notes">{{ allergies.notes or '' }}</textarea>
                 </label>
                 <button type="submit" name="submit_allergy"
@@ -201,7 +201,7 @@
                     value="{{ medical_record.treatment or '' }}">
                 </label>
                 <label for="medical_record_notes">Notes:
-                  <textarea name="notes" class="form-control mb-2"
+                  <textarea name="medical_record_notes" class="form-control mb-2"
                     id="medical_record_notes">{{ medical_record.notes or '' }}</textarea>
                 </label>
                 <button type="submit" name="submit_medical_record"
@@ -258,7 +258,7 @@
                     value="{{ medication.prescribing_doctor or '' }}" />
                 </div>
                 <label for="medication_notes">Notes:
-                  <textarea name="notes" class="form-control mb-2"
+                  <textarea name="medication_notes" class="form-control mb-2"
                     id="medication_notes">{{ medication.notes or '' }}</textarea>
                 </label>
                 <button type="submit" name="submit_medication"
@@ -295,7 +295,7 @@
                 </div>
                 <div class="col-md-12 mb-2">
                   <label for="lab_result_notes">Notes</label>
-                  <textarea name="notes" class="form-control"
+                  <textarea name="lab_result_notes" class="form-control"
                     id="lab_result_notes mb-2">{{ lab_result.notes }}</textarea>
                 </div>
                 <button type="submit" name="submit_lab_result"
