@@ -25,9 +25,8 @@
   <div class="container flex-grow-1">
     <header class="d-flex mt-5 justify-content-between text-center">
       <a href="{{ url_for('healthpixel') }}"
-        class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-      <a href="{{ request.referrer }}"
-      class="custom-btn">Back to Dashboard</a>
+      class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+      <a href="/dashboard" onclick="window.history.back(); return false;" class="custom-btn">Back to Dashboard</a>
     </header>
     <div class="row  card-infos">
       <h2 class="mb-4 fw-semibold">Update Patient Records</h1>
@@ -107,47 +106,6 @@
                 </div>
                 <button type="submit" name="submit_vitals" class="btn btn-primary mt-3">Update
                   Vitals</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Update Allergy -->
-        <div class="card col-md-6 mb-4">
-          <div class="card-body">
-            <h5 class="card-title fw-semibold">Update Allergy</h5>
-            <form id="update_allergies_form" method="POST">
-              <div class="row">
-                <div class="col-md-6 mb-2">
-                  <label for="allergen">Allergen:
-                    <input type="text" name="allergen" class="form-control"
-                      maxlength="100" value="{{ allergies.allergen }}">
-                  </label>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <label for="reaction">Reaction:
-                    <input type="text" name="reaction" class="form-control"
-                      maxlength="255" value="{{ allergies.reaction }}">
-                  </label>
-                </div>
-                <div class="col-md-12">
-                  <label for="severity">Severity:</label>
-                  <select name="severity" class="form-select mb-2"
-                    id="severity">
-                    <option value="{{ severity or '' }}" disabled>
-                      Select the
-                      severity of the allergy</option>
-                    <option value="Mild">Mild</option>
-                    <option value="Moderate">Moderate</option>
-                    <option value="Severe">Severe</option>
-                  </select>
-                </div>
-                <label for="notes">Notes:
-                  <textarea name="notes" class="form-control mb-2" id="notes">
-                  </textarea>
-                </label>
-                <button type="submit" class="btn btn-primary mt-3">Update
-                  Allergy</button>
               </div>
             </form>
           </div>
@@ -246,10 +204,10 @@
             action="{{ url_for('app_views.update_patient_records', patient_id=patient.id) }}">
               <div class="row">
                 <div class="col-md-12 mb-2">
-                  <label for="medicine_name">Medication Name:</label>
-                  <input type="text" name="medicine_name" class="form-control"
+                  <label for="medication_name">Medication Name:</label>
+                  <input type="text" name="medication_name" class="form-control"
                     maxlength="100" id="med_name"
-                    value="{{ medication.medicine_name or '' }}" />
+                    value="{{ medication.medication_name or '' }}" />
                 </div>
                 <div class="col-md-6 mb-2">
                   <label for="dosage">Dosage:</label>
@@ -291,7 +249,7 @@
         </div>
 
         <!-- Update Lab Result -->
-        <div class="card col-md-6 mb-4 card-info">
+        <div  class="card col-md-6 mb-4 card-info" style="margin-right: 15px;">
           <div class="card-body">
             <h5 class="card-title fw-semibold">Update Lab Result</h5>
             <form id="update_lab_result_form" method="POST"
