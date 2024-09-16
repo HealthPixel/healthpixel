@@ -57,7 +57,8 @@
           {% endwith %}
         </div>
         <form class="d-grid mt-4" method="POST"
-          action="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}">
+          action="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}"
+          onsubmit="appendFullPhoneNumber()">
           <div class="row">
             <h3 class="text-secondary-emphasis mb-3">Edit Your Profile
             </h3>
@@ -137,6 +138,12 @@
       separateDialCode: true,
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
     });
+
+    // Append the full phone number before submitting the form
+    function appendFullPhoneNumber() {
+      var fullPhoneNumber = itiPhone.getNumber(); // Gets the full phone number including country code
+      phoneInput.value = fullPhoneNumber; // Update the input value with the full number
+    }
   </script>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
