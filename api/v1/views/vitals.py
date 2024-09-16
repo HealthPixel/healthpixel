@@ -61,7 +61,7 @@ def add_patient_vitals(patient_id):
         # Check if Patient has a stored vitals
         existing_vitals = storage.query(Vitals).filter_by(patient_id=patient_id).first()
         if existing_vitals:
-            flash('Patient already hass a registered Vital rocord!', 'error')
+            flash('Patient already has a registered Vital rocord!', 'error')
             return render_template('register_vitals.html', patient_id=patient_id,
                                    blood_pressure=blood_pressure, heart_rate=heart_rate,
                                    body_temperature=body_temperature, respiratory_rate=respiratory_rate,
