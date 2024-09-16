@@ -31,6 +31,8 @@
             class="text-success text-decoration-none">HealthPixel</a>
         </h1>
       </div>
+      <a href="/auth/doctor_dashboard"
+        class="btn btn-dark custom-btn">Back to Dashboard</a>
     </header>
     <div class="row justify-content-center">
       <div class="col-md-10">
@@ -200,8 +202,10 @@
 
     // Append the full phone number before submitting the form
     function appendFullPhoneNumber() {
-      var fullPhoneNumber = itiPhone.getNumber(); // Gets the full phone number including country code
-      phoneInput.value = fullPhoneNumber; // Update the input value with the full number
+      var fullPhoneNumber = itiPhone.getNumber();
+      var emgFullPhoneNumber = itiEmergencyPhone.getNumber();
+      phoneInput.value = fullPhoneNumber;
+      emergencyPhoneInput.value = emgFullPhoneNumber;
     }
   </script>
   <script

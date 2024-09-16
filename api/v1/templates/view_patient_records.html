@@ -74,11 +74,11 @@
       <div class="card p-3 mb-5 mt-4 custom_card">
         <h3>Vitals</h3>
         {% if vitals %}
-        <p><b>Blood Pressure:</b> {{ vitals.blood_pressure }}</p>
-        <p><b>Heart rate:</b> {{ vitals.heart_rate }}<br /></p>
+        <p><b>Blood Pressure(mmHg):</b> {{ vitals.blood_pressure }}</p>
+        <p><b>Heart rate(Beats Per Minute):</b> {{ vitals.heart_rate }}<br /></p>
         <p><b>Temperature (&degC):</b> {{ vitals.body_temperature }}<br /></p>
-        <p><b>Respiratory Rate:</b> {{ vitals.respiratory_rate }}<br /></p>
-        <p><b>Oxygen Saturation:</b> {{ vitals.oxygen_saturation }}<br /></p>
+        <p><b>Respiratory Rate(Breathe Per Minute):</b> {{ vitals.respiratory_rate }}<br /></p>
+        <p><b>Oxygen Saturation(%):</b> {{ vitals.oxygen_saturation }}<br /></p>
         <p><b>Weight (kg):</b> {{ vitals.weight }}<br /></p>
         <p><b>Height (m):</b> {{ vitals.height }}<br /></p>
         {% else %}
