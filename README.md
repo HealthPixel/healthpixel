@@ -1,5 +1,5 @@
 # HealthPixel
-HealthPixel is a web application designed to streamline the process of accessing and updating patient medical records. The platform enables healthcare professionals to quickly retrieve a patient’s medical history, update records in real time, and ensure that patient data remains secure and accessible.
+HealthPixel is a web application designed to streamline the process of accessing and updating patient medical records. The platform enables healthcare professionals to quickly retrieve a patient’s medical history, update records in real-time, and ensure that patient data remains secure and accessible.
 
 ## Features
 1. Quick Access to Patient Records

@@ -3,8 +3,12 @@ body {
 }
 
 img {
-    width: 100px;
+    width: 120px;
 }
+
+blockquote footer {
+    background-color: transparent !important;
+} 
 
 footer {
     background-color: #7e694f;
