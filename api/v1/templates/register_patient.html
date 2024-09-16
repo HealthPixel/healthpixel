@@ -110,7 +110,8 @@
             <div class="col-md-4 mb-2">
               <label for="zipcode">Zipcode</label>
               <input type="number" name="zipcode" class="form-control"
-                maxlength="6" id="zipcode" value="{{ zipcode or '' }}" />
+                minlength="5" maxlength="6" id="zipcode"
+                value="{{ zipcode or '' }}" />
             </div>
             <div class="col-md-8 mb-2">
               <label for="email">Contact Email</label>
