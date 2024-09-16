@@ -53,6 +53,10 @@ def page_not_found(e):
 def unauthorzed_access(e):
     return render_template('error403.html'), 403
 
+@app.route('/developers')
+def developers():
+    return render_template('developers.html')
+
 if __name__ == "__main__":
     """ Main Function """
     host = getenv("HP_MYSQL_HOST", "0.0.0.0")
