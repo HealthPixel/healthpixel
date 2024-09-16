@@ -27,8 +27,8 @@
     <header class="d-flex mt-5 justify-content-between text-center">
       <a href="{{ url_for('healthpixel') }}"
         class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-      <a href="/auth/doctor_dashboard"
-        class="btn btn-dark custom-btn">Back to Dashboard</a>
+      <a href="/auth/doctor_dashboard" class="btn btn-dark custom-btn">Back to
+        Dashboard</a>
     </header>
     <div class="row justify-content-between">
       <h2 class="mb-4 fw-semibold">Update Patient Records</h1>
@@ -201,7 +201,8 @@
                     value="{{ medical_record.treatment or '' }}">
                 </label>
                 <label for="medical_record_notes">Notes:
-                  <textarea name="medical_record_notes" class="form-control mb-2"
+                  <textarea name="medical_record_notes"
+                    class="form-control mb-2"
                     id="medical_record_notes">{{ medical_record.notes or '' }}</textarea>
                 </label>
                 <button type="submit" name="submit_medical_record"
