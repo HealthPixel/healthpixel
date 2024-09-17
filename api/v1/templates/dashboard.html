@@ -70,15 +70,18 @@
           <h1 class="display-6 fw-semibold mb-4">
             Welcome, Dr. {{ user.first_name }} {{ user.last_name }}
           </h1>
-          <p class="fw-semibold" style="margin-bottom: 5px;">Email: {{ user.email }}</p>
-          <p class="fw-semibold" style="margin-bottom: 5px;">Specialization: {{ user.specialization }}</p>
-          <p class="fw-semibold" style="margin-bottom: 5px;">Phone Number: {{ user.phone_number }}</p>
+          <p class="fw-semibold" style="margin-bottom: 5px;">Email: {{
+            user.email }}</p>
+          <p class="fw-semibold" style="margin-bottom: 5px;">Specialization: {{
+            user.specialization }}</p>
+          <p class="fw-semibold" style="margin-bottom: 5px;">Phone Number: {{
+            user.phone_number }}</p>
         </div>
         <div class="search_input p-3">
           <h4 class="text-success">Search a patient:</h4>
           <input type="search" name="search_patient"
             class="form-control rounded-pill border border-secondary border-3"
-            placeholder="email or ID" id="search_patient" />
+            placeholder="example@email.com" id="search_patient" />
         </div>
         <div class="patient_list"></div>
       </div>

@@ -8,17 +8,27 @@ body {
 }
 
 #abs-img {
-    top: 75px;
+    top: 65px;
     left: 50px;
     z-index: 1;
     width: 300px;
 }
 
-@media screen and (min-width:768px) {
-    .display-3 {
-        margin-top: 10px;
-        text-shadow: 3px 3px 1px grey;
-    }    
+.ratio-custom {
+    position: relative;
+    width: 50%;
+    max-width: 50%;
+    height: 0;
+    padding-bottom: 23.64%;
+    box-sizing: border-box;
+}
+
+.ratio-custom iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .custom-icon {
@@ -31,6 +41,24 @@ footer {
 }
 
 /* Media queries */
+@media screen and (min-width:768px) {
+    .display-3 {
+        margin-top: 10px;
+        text-shadow: 3px 3px 1px grey;
+    }
+    .ratio-custom {
+        box-shadow: 0 0 15px grey;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .ratio-custom {
+        width: 100%;
+        max-width: 100%;
+        padding-bottom: 47.28%;
+    }
+}
+
 @media screen and (max-width: 469px) {
     .logo {
         width: 45px;
