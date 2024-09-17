@@ -48,9 +48,8 @@
           {% endfor %}
           {% endwith %}
         </div>
-        <form class="d-grid mt-3" method="POST"
-          action="{{ url_for('app_views.register_patient') }}"
-          onsubmit="appendFullPhoneNumber()">
+        <form id="" class="d-grid mt-3" method="POST"
+          action="{{ url_for('app_views.register_patient') }}">
           <div class="row">
             <h3 class="text-secondary-emphasis mb-3">
               Register a new patient
@@ -150,7 +149,7 @@
                 id="emg_contact_phone" value="{{ emg_contact_phone or '' }}" />
             </div>
           </div>
-          <button type="submit" id="submit-pat-btn" class="btn btn-lg btn-success mt-3 mb-5">
+          <button type="submit" class="btn btn-lg btn-success mt-3 mb-5">
             Next &#8594
           </button>
       </div>

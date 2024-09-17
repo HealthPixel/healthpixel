@@ -32,7 +32,7 @@ def register_doctor():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        phone = request.form['phone']
+        phone = request.form['phone_number']
         specialization = request.form['specialization']
         password = request.form['password']
         conf_password = request.form['conf_password']
@@ -164,4 +164,4 @@ def delete_doctor():
     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
     response = requests.delete(delete_doc_api_url)
     flash("Your account has been deleted successfully!", 'success')
-    return redirect(url_for('auth.login_users'))
+    return redirect(url_for('auth.register_doctor'))
