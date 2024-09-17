@@ -36,9 +36,9 @@ def dashboard_redirect_patient():
     return redirect(url_for('auth.dashboard_patient', id=current_user.id))
 
 
-# @auth.route('/delete_doctor', methods=['GET'])
-# def delete_doctor():
-#     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
-#     response = requests.delete(delete_doc_api_url)
-#     del_success = "Your account has been deleted successfully!"
-#     return redirect(url_for('auth.login', del_success=del_success))
+@auth.route('/delete_patient/<patient_id>', methods=['GET'])
+def delete_patient(patient_id):
+    delete_pat_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}/patient/{patient_id}"
+    response = requests.delete(delete_pat_api_url)
+    flash("Patient account has been deleted successfully!", 'success')
+    return redirect(url_for('auth.dashboard_doctor', id=current_user.id))

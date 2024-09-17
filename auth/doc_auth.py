@@ -32,7 +32,7 @@ def register_doctor():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        phone = request.form['phone']
+        phone = request.form['phone_number']
         specialization = request.form['specialization']
         password = request.form['password']
         conf_password = request.form['conf_password']
@@ -79,6 +79,7 @@ def register_doctor():
             storage.save()
             # register_success = "You have successfully created an account. Please login!"
             login_user(new_doc)
+            flash('You\'ve registered as a Doctor and logged in successfully', 'success')
             return redirect(url_for('auth.dashboard_doctor', id=new_doc.id))
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
@@ -160,6 +161,7 @@ def dashboard_redirect_doctor():
 
 
 @auth.route('/delete_doctor', methods=['GET'])
+@login_required
 def delete_doctor():
     delete_doc_api_url = f"http://127.0.0.1:5000/api/v1/doctor/{current_user.id}"
     response = requests.delete(delete_doc_api_url)
