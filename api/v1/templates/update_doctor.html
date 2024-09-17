@@ -102,43 +102,10 @@
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
   </footer>
-  <script>
-    // Function to hide the element after a delay
-    function hideElementAfterDelay(elementId, delay) {
-      setTimeout(function () {
-        var element = document.getElementById(elementId);
-        if (element) {
-          element.style.transition = "opacity 1s ease-out";
-          element.style.visibility = "hidden";
-          setTimeout(function () {
-            // element.style.display = "none";
-          }, 1000);
-        }
-      }, delay);
-    }
-
-    hideElementAfterDelay("msg", 5000);
-  </script>
-  <!-- For formatted phone numbers -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-  <script>
-    // Initialize intl-tel-input for phone number
-    var phoneInput = document.querySelector("#phone");
-    var itiPhone = window.intlTelInput(phoneInput, {
-      initialCountry: "ng", // Set default country
-      separateDialCode: true,
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
-
-    // Append the full phone number before submitting the form
-    function appendFullPhoneNumber() {
-      var fullPhoneNumber = itiPhone.getNumber(); // Gets the full phone number including country code
-      phoneInput.value = fullPhoneNumber; // Update the input value with the full number
-    }
-  </script>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/func.js') }}"></script>
+
 </body>
 
 </html>

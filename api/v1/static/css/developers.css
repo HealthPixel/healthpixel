@@ -1,5 +1,11 @@
 body {
     background-color: #F0DBBF;
+    font-family: "SUSE", sans-serif;
+}
+
+header .custom-btn {
+    padding: .7em;
+    height: fit-content;
 }
 
 img {

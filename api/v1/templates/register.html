@@ -50,8 +50,7 @@
           {% endwith %}
         </div>
         <form class="d-grid mt-4" method="POST"
-          action="{{ url_for('auth.register_doctor') }}"
-          onsubmit="appendFullPhoneNumber()">
+          action="{{ url_for('auth.register_doctor') }}">
           <div class="row">
             <h3 class="text-secondary-emphasis mb-3">Create a Doctor Account
             </h3>
@@ -71,7 +70,7 @@
                 class="form-control" id="email" value="{{ email or '' }}" />
             </div>
             <div class="col-md-5 mb-2">
-              <label for="tel">Phone Number</label>
+              <label for="phone">Phone Number</label>
               <input type="tel" name="phone" class="form-control" id="phone"
                 value="{{ phone or '' }}" />
             </div>
@@ -79,7 +78,7 @@
               <label for="specialization">Specialization</label>
               <input type="text" name="specialization"
                 placeholder="e.g. Cardiologist" class="form-control mb-2"
-                maxlength="100" value="{{ specialization or '' }}" />
+                maxlength="100" id="specialization" value="{{ specialization or '' }}" />
             </div>
             <div class="col-md-6 mb-2">
               <label for="password">Password</label>
@@ -93,7 +92,7 @@
                 value="{{ conf_password or '' }}" />
             </div>
           </div>
-          <button type="submit" class="btn btn-lg btn-success mt-3">
+          <button type="submit" id="submit-doc-btn" class="btn btn-lg btn-success mt-3">
             Create Account
           </button>
           <p class="text-center text-secondary-emphasis mt-3">
@@ -109,44 +108,13 @@
   <footer class="text-center text-light py-3">
     <p class="mb-0">&copy HealthPixel 2024</p>
   </footer>
-  <script>
-    // Function to hide the element after a delay
-    function hideElementAfterDelay(elementId, delay) {
-      setTimeout(function () {
-        var element = document.getElementById(elementId);
-        if (element) {
-          element.style.transition = "opacity 1s ease-out";
-          element.style.visibility = "hidden";
-          setTimeout(function () {
-            // element.style.display = "none";
-          }, 1000);
-        }
-      }, delay);
-    }
-
-    hideElementAfterDelay("msg", 5000);
-  </script>
   <!-- For formatted phone numbers -->
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-  <script>
-    // Initialize intl-tel-input for phone number
-    var phoneInput = document.querySelector("#phone");
-    var itiPhone = window.intlTelInput(phoneInput, {
-      initialCountry: "ng", // Set default country
-      separateDialCode: true,
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-    });
-
-    // Append the full phone number before submitting the form
-    function appendFullPhoneNumber() {
-      var fullPhoneNumber = itiPhone.getNumber(); // Gets the full phone number including country code
-      phoneInput.value = fullPhoneNumber; // Update the input value with the full number
-    }
-  </script>
   <!-- JS Bootstrap cdn -->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/func.js') }}"></script>
 </body>
 
 </html>

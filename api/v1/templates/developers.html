@@ -18,6 +18,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap"
+        rel="stylesheet" />
     <!-- css file link -->
     <link rel="stylesheet"
         href="{{ url_for('static', filename='css/developers.css') }}" />
@@ -29,20 +32,25 @@
 
 <body class="d-flex flex-column min-vh-100">
     <div class="container py-5 flex-grow-1">
-        <header class="justify-content-center text-center mb-5">
+        <header class="d-flex text-center justify-content-between mb-4">
+            <a href="{{ url_for('healthpixel') }}"
+              class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+            <!-- <a href="{{ url_for('healthpixel') }}" class="btn btn-dark custom-btn">Home Page</a> -->
+        </header>
+        <section class="justify-content-center text-center mb-5">
             <h4 class="fw-bold">Hello there! We are the developers of
                 HealthPixel and we welcome you
                 to our page! Here's a little bit about each of us. Please tell
                 us what you think and how we can make this site better</h4>
-        </header>
+        </section>
         <!-- Samuel -->
         <div class="row">
-            <div class="col-md-4 d-inline-block">
+            <div class="col-md-3 d-inline-block">
                 <img src="../static/img/Samuel.jpg" alt="Samuel Odumu"
                     class="img-fluid float-start rounded">
-                <a href="https://github.com/samuelodumu" class="btn btn-lg"><i
+                <a href="https://github.com/samuelodumu" target="_blank" class="btn btn-lg"><i
                         class="bi bi-github"></i></a>
-                <a href="https://x.com/SamuelOdumu" class="btn btn-lg"><i
+                <a href="https://x.com/SamuelOdumu" target="_blank" class="btn btn-lg"><i
                         class="bi bi-twitter-x"></i></a>
             </div>
             <div class="col-md-8 py-3">
@@ -64,12 +72,12 @@
         </div>
         <!-- Keith -->
         <div class="row mb-4">
-            <div class="col-md-4 d-inline-block">
+            <div class="col-md-3 d-inline-block">
                 <img src="../static/img/Keith.jpg" alt="Keith Juma"
                     class="img-fluid float-start rounded">
-                <a href="https://github.com/TaiKeith" class="btn btn-lg"><i
+                <a href="https://github.com/TaiKeith" target="_blank" class="btn btn-lg"><i
                         class="bi bi-github"></i></a>
-                <a href="mailto:keithsteve.ks@hotmail.com" class="btn btn-lg"><i
+                <a href="mailto:keithsteve.ks@hotmail.com" target="_blank" class="btn btn-lg"><i
                         class="bi bi-envelope"></i></i></a>
             </div>
             <div class="col-md-8 py-3">
@@ -83,21 +91,22 @@
         </div>
         <!-- Fortune -->
         <div class="row">
-            <div class="col-md-4 d-inline-block">
+            <div class="col-md-3 d-inline-block">
                 <img src="../static/img/Fortune.jpg" alt="Fortune Iheanacho"
                     class="img-fluid float-start rounded">
-                <a href="https://github.com/na-cho-dev" class="btn btn-lg"><i
+                <a href="https://github.com/na-cho-dev" target="_blank" class="btn btn-lg"><i
                         class="bi bi-github"></i></a>
-                <a href="https://x.com/na_cho_dev" class="btn btn-lg"><i
+                <a href="https://x.com/na_cho_dev" target="_blank" class="btn btn-lg"><i
                         class="bi bi-twitter-x"></i></a>
             </div>
             <div class="col-md-8 py-3">
-                <p>Hi, I'm Fortune, a Web Developer and aspiring Full Stack
-                    Developer. I work comfortably on both the backend and
-                    frontend (at least for this project), and I'm excited to see
-                    what I build next. In my spare time, I enjoy watching
-                    football (Arsenal for life!), playing chess, or watching a
-                    movie.
+                <p>Hi, I'm Fortune Iheanacho aka Nacho. I'm a Web Developer and an aspiring Software
+                    Engineer. I work comfortably on both the backend and
+                    frontend web development, and I'm excited to see
+                    what I build next. In my spare time, I enjoy programming, playing chess, or watching a
+                    movie, and I'm also an Arsenal fan 😄👌<br/>
+                    I look forward to designing and developing more intricate web site and apps to solve
+                    different problems.
                 </p>
             </div>
         </div>
