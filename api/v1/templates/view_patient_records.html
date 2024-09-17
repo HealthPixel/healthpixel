@@ -64,7 +64,8 @@
             {{ patient.first_name }} {{ patient.last_name }}'s Profile
           </h1>
           <a
-            href="{{ url_for('auth.delete_patient', patient_id=patient.id) }}" class="btn btn-dark custom-btn"
+            href="{{ url_for('auth.delete_patient', patient_id=patient.id) }}"
+            class="btn btn-dark custom-btn" id="patientDelete"
             >Delete Patient</a>
         </div>
         <!-- Demogaphic info -->
@@ -175,8 +176,8 @@
     <footer class="text-center text-light py-3">
       <p class="mb-0">&copy HealthPixel 2024</p>
     </footer>
-    <script src="{{ url_for('static', filename='js/func.js') }}"></script>
     <!-- JS Bootstrap cdn -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/func.js') }}"></script>
   </body>
 </html>

@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const patientDelete = document.querySelector('#patientDelete');
+    if (patientDelete) {
+        patientDelete.addEventListener('click', (event) => {
+            if (!confirm("Are you sure you want to delete this patient?")) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    const doctorDelete = document.querySelector('#doctorDelete');
+    if (doctorDelete) {
+        doctorDelete.addEventListener('click', (event) => {
+            if (!confirm("Are you sure you want to delete your account?")) {
+                event.preventDefault();
+            }
+        });
+    }
+
     // Hide and Show Password
     const togglePassword = document.querySelector('#togglePassword');
     const togglePassword2 = document.querySelector('#togglePassword2');

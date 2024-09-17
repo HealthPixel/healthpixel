@@ -47,7 +47,8 @@ body {
     padding: 0;
     width: 25%;
     height: 100%;
-    background-color: #CDB699;
+    background-color: #E4BE8B;
+    border-right: 7px solid #7e694f;
     position: fixed;
     left: 0;
     overflow: auto;
@@ -68,9 +69,9 @@ main {
 }
 
 footer {
-    opacity: 85%;
+    opacity: 100%;
     background-color: #7e694f;
-    z-index: 1;
+    z-index: 9;
 }
 
 /* On screens that are less than 769px wide, make the sidebar into a topbar */

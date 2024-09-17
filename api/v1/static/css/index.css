@@ -1,10 +1,29 @@
 body {
     background-color: #F0DBBF;
+    font-family: "SUSE", sans-serif;
 }
 
 .logo {
     width: 65px;
     height: auto;
+}
+
+main {
+    min-height: 55vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#about-us {
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#about-us p {
+    text-align: justify;
 }
 
 #abs-img {
