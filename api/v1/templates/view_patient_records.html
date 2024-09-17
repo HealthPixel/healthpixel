@@ -1,155 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap css cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- css file link -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/view_update_patient.css') }}"
+    />
+    <!-- page favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/favicon.ico') }}"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Bootstrap css cdn -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet" />
-  <!-- google fonts link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap"
-    rel="stylesheet" />
-  <!-- css file link -->
-  <link rel="stylesheet"
-    href="{{ url_for('static', filename='css/view_update_patient.css') }}" />
-  <!-- page favicon -->
-  <link rel="shortcut icon"
-    href="{{ url_for('static', filename='img/favicon.ico') }}" />
+    <title>HealthPixel Patient Profile</title>
+  </head>
 
-  <title>HealthPixel Patient Profile</title>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-  <div class="flex-grow-1">
-    <div class="container">
-      <header class="d-flex mt-5 text-center justify-content-between">
-        <a href="{{ url_for('healthpixel') }}"
-          class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-        <a href="/dashboard" onclick="window.history.back(); return false;"
-          class="btn btn-dark custom-btn">Back to Dashboard</a>
-      </header>
-      <!-- Display messages -->
-      <div class="message-box">
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% for category, message in messages %}
-        <div
-          class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-          id="msg" role="alert">
-          {% if message %} {{ message }} {% endif %}
+  <body class="d-flex flex-column min-vh-100">
+    <div class="flex-grow-1">
+      <div class="container">
+        <header class="d-flex mt-5 text-center justify-content-between">
+          <a
+            href="{{ url_for('healthpixel') }}"
+            class="text-success fw-bold mb-4 text-decoration-none fs-2"
+            >HealthPixel</a
+          >
+          <a
+            href="/dashboard"
+            onclick="window.history.back(); return false;"
+            class="btn btn-dark custom-btn"
+            >Back to Dashboard</a
+          >
+        </header>
+        <!-- Display messages -->
+        <div class="message-box">
+          {% with messages = get_flashed_messages(with_categories=True) %} {%
+          for category, message in messages %}
+          <div
+            class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+            id="msg"
+            role="alert"
+          >
+            {% if message %} {{ message }} {% endif %}
+          </div>
+          {% endfor %} {% endwith %}
         </div>
-        {% endfor %}
-        {% endwith %}
-      </div>
-      <!-- Page content -->
-      <h1 class="display-6 fw-semibold mb-4">
-        {{ patient.first_name }} {{ patient.last_name }}'s Profile
-      </h1>
-      <!-- Demogaphic info -->
-      <div class="card p-3 mb-5 mt-4">
-        <h3>Demographic information</h3>
-        <hr>
-        <p><b>ID:</b> {{ patient.id }}</p>
-        <p><b>Email:</b> {{ patient.email }}</p>
-        <p><b>Phone Number:</b> {{ patient.phone_number }}</p>
-        <p><b>Gender:</b> {{ patient.gender }}</p>
-        <p><b>Date of Birth:</b> {{ patient.date_of_birth }}</p>
-        <p><b>Address:</b> {{ patient.address }}</p>
-        <p><b>Zipcode:</b> {{ patient.zipcode }}</p>
-        <p><b>Blood Group:</b> {{ patient.blood_group }}</p>
-        <p>
-          <b>Emergency Contact Name:</b> {{ patient.emergency_contact_name }}
-        </p>
-        <p>
-          <b>Emergency Contact Number:</b> {{ patient.emergency_contact_phone
-          }}
-        </p>
-      </div>
+        <!-- Page content -->
+        <div class="patient-info-header mb-4">
+          <h1 class="display-6 fw-semibold">
+            {{ patient.first_name }} {{ patient.last_name }}'s Profile
+          </h1>
+          <a
+            href="{{ url_for('auth.delete_patient', patient_id=patient.id) }}" class="btn btn-dark custom-btn"
+            >Delete Patient</a>
+        </div>
+        <!-- Demogaphic info -->
+        <div class="card p-3 mb-5 mt-4">
+          <h3>Demographic information</h3>
+          <hr />
+          <p><b>ID:</b> {{ patient.id }}</p>
+          <p><b>Email:</b> {{ patient.email }}</p>
+          <p><b>Phone Number:</b> {{ patient.phone_number }}</p>
+          <p><b>Gender:</b> {{ patient.gender }}</p>
+          <p><b>Date of Birth:</b> {{ patient.date_of_birth }}</p>
+          <p><b>Address:</b> {{ patient.address }}</p>
+          <p><b>Zipcode:</b> {{ patient.zipcode }}</p>
+          <p><b>Blood Group:</b> {{ patient.blood_group }}</p>
+          <p>
+            <b>Emergency Contact Name:</b> {{ patient.emergency_contact_name }}
+          </p>
+          <p>
+            <b>Emergency Contact Number:</b> {{ patient.emergency_contact_phone
+            }}
+          </p>
+        </div>
 
-      <!-- Patient Vitals -->
-      <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Vitals</h3>
-        {% if vitals %}
-        <p><b>Blood Pressure(mmHg):</b> {{ vitals.blood_pressure }}</p>
-        <p><b>Heart rate(Beats Per Minute):</b> {{ vitals.heart_rate }}<br /></p>
-        <p><b>Temperature (&degC):</b> {{ vitals.body_temperature }}<br /></p>
-        <p><b>Respiratory Rate(Breathe Per Minute):</b> {{ vitals.respiratory_rate }}<br /></p>
-        <p><b>Oxygen Saturation(%):</b> {{ vitals.oxygen_saturation }}<br /></p>
-        <p><b>Weight (kg):</b> {{ vitals.weight }}<br /></p>
-        <p><b>Height (m):</b> {{ vitals.height }}<br /></p>
-        {% else %}
-        <p>Vitals have not been recorded.</p>
-        {% endif %}
-      </div>
+        <!-- Patient Vitals -->
+        <div class="card p-3 mb-5 mt-4 custom_card">
+          <h3>Vitals</h3>
+          {% if vitals %}
+          <p><b>Blood Pressure(mmHg):</b> {{ vitals.blood_pressure }}</p>
+          <p>
+            <b>Heart rate(Beats Per Minute):</b> {{ vitals.heart_rate }}<br />
+          </p>
+          <p><b>Temperature (&degC):</b> {{ vitals.body_temperature }}<br /></p>
+          <p>
+            <b>Respiratory Rate(Breathe Per Minute):</b> {{
+            vitals.respiratory_rate }}<br />
+          </p>
+          <p>
+            <b>Oxygen Saturation(%):</b> {{ vitals.oxygen_saturation }}<br />
+          </p>
+          <p><b>Weight (kg):</b> {{ vitals.weight }}<br /></p>
+          <p><b>Height (m):</b> {{ vitals.height }}<br /></p>
+          {% else %}
+          <p>Vitals have not been recorded.</p>
+          {% endif %}
+        </div>
 
-      <!-- Patient allergies (if any) -->
-      <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Allergies</h3>
-        {% if allergies %}
-        <p><b>Allergen:</b> {{ allergies.allergen }}</p>
-        <p><b>Reaction:</b> {{ allergies.reaction }}</p>
-        <p><b>Severity:</b> {{ allergies.severity }}</p>
-        <p><b>Notes:</b> {{ allergies.notes }}</p>
-        {% else %}
-        <p>This Patient has no Allergy Record.</p>
-        {% endif %}
-      </div>
+        <!-- Patient allergies (if any) -->
+        <div class="card p-3 mb-5 mt-4 custom_card">
+          <h3>Allergies</h3>
+          {% if allergies %}
+          <p><b>Allergen:</b> {{ allergies.allergen }}</p>
+          <p><b>Reaction:</b> {{ allergies.reaction }}</p>
+          <p><b>Severity:</b> {{ allergies.severity }}</p>
+          <p><b>Notes:</b> {{ allergies.notes }}</p>
+          {% else %}
+          <p>This Patient has no Allergy Record.</p>
+          {% endif %}
+        </div>
 
-      <!-- Patient Medical Record (if any) -->
-      <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Medical Record</h3>
-        {% if medical_record %}
-        <p><b>Diagnosis:</b> {{ medical_record.diagnosis }}</p>
-        <p><b>Treatment/Prescription:</b> {{ medical_record.treatment }}</p>
-        <p><b>Status:</b> {{ medical_record.status }}</p>
-        <p><b>Notes:</b> {{ medical_record.notes }}</p>
-        {% else %}
-        <p>No Medical Record has been added.</p>
-        {% endif %}
-      </div>
+        <!-- Patient Medical Record (if any) -->
+        <div class="card p-3 mb-5 mt-4 custom_card">
+          <h3>Medical Record</h3>
+          {% if medical_record %}
+          <p><b>Diagnosis:</b> {{ medical_record.diagnosis }}</p>
+          <p><b>Treatment/Prescription:</b> {{ medical_record.treatment }}</p>
+          <p><b>Status:</b> {{ medical_record.status }}</p>
+          <p><b>Notes:</b> {{ medical_record.notes }}</p>
+          {% else %}
+          <p>No Medical Record has been added.</p>
+          {% endif %}
+        </div>
 
-      <!-- Patient Medication (if any) -->
-      <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Medication</h3>
-        {% if medication %}
-        <p><b>Medication Name:</b> {{ medication.medication_name }}</p>
-        <p><b>Dosage:</b> {{ medication.dosage }}</p>
-        <p><b>Frequency:</b> {{ medication.frequency }}</p>
-        <p><b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if
-          medication.start_date else '' }}</p>
-        <p><b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if
-          medication.end_date else '' }}</p>
-        <p><b>Notes:</b> {{ medication.notes }}</p>
-        {% else %}
-        <p>This patient has no Medication yet.</p>
-        {% endif %}
-      </div>
+        <!-- Patient Medication (if any) -->
+        <div class="card p-3 mb-5 mt-4 custom_card">
+          <h3>Medication</h3>
+          {% if medication %}
+          <p><b>Medication Name:</b> {{ medication.medication_name }}</p>
+          <p><b>Dosage:</b> {{ medication.dosage }}</p>
+          <p><b>Frequency:</b> {{ medication.frequency }}</p>
+          <p>
+            <b>Start Date:</b> {{ medication.start_date.strftime('%Y-%m-%d') if
+            medication.start_date else '' }}
+          </p>
+          <p>
+            <b>End Date:</b> {{ medication.end_date.strftime('%Y-%m-%d') if
+            medication.end_date else '' }}
+          </p>
+          <p><b>Notes:</b> {{ medication.notes }}</p>
+          {% else %}
+          <p>This patient has no Medication yet.</p>
+          {% endif %}
+        </div>
 
-      <!-- Patient Lab Result -->
-      <div class="card p-3 mb-5 mt-4 custom_card">
-        <h3>Lab Result</h3>
-        {% if lab_result %}
-        <p><b>Test Name:</b> {{ lab_result.test_name }}</p>
-        <p><b>Result:</b> {{ lab_result.result }}</p>
-        <p><b>Values:</b> {{ lab_result.values }}</p>
-        <p><b>Notes:</b> {{ lab_result.notes }}</p>
-        {% else %}
-        <p>This patient has no Lab Result yet.</p>
-        {% endif %}
+        <!-- Patient Lab Result -->
+        <div class="card p-3 mb-5 mt-4 custom_card">
+          <h3>Lab Result</h3>
+          {% if lab_result %}
+          <p><b>Test Name:</b> {{ lab_result.test_name }}</p>
+          <p><b>Result:</b> {{ lab_result.result }}</p>
+          <p><b>Values:</b> {{ lab_result.values }}</p>
+          <p><b>Notes:</b> {{ lab_result.notes }}</p>
+          {% else %}
+          <p>This patient has no Lab Result yet.</p>
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
-  <footer class="text-center text-light py-3">
-    <p class="mb-0">&copy HealthPixel 2024</p>
-  </footer>
-  <script src="{{ url_for('static', filename='js/func.js') }}"></script>
-  <!-- JS Bootstrap cdn -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+    <footer class="text-center text-light py-3">
+      <p class="mb-0">&copy HealthPixel 2024</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/func.js') }}"></script>
+    <!-- JS Bootstrap cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

@@ -8,6 +8,24 @@ header .custom-btn {
     height: fit-content;
 }
 
+.patient-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.patient-info-header>a {
+    padding: .7em;
+    background-color: #b40000;
+    border: 3px solid #b40000;
+}
+
+.patient-info-header>a:hover{
+    background-color: transparent;
+    border: 3px solid #b40000;
+    color: #b40000;
+}
+
 .card {
     background-color: #ffe9cc;
 }
