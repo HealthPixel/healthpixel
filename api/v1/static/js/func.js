@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Delete account confirmation
     const patientDelete = document.querySelector('#patientDelete');
     if (patientDelete) {
         patientDelete.addEventListener('click', (event) => {

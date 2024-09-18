@@ -3,6 +3,40 @@ body {
     font-family: "SUSE", sans-serif;
 }
 
+.card {
+    background-color: #ffe9cc;
+}
+
+.custom-card p {
+    margin-bottom: 10px;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    height: 100%;
+    background-color: #E7C79C;
+    border-right: 7px solid #7e694f;
+    position: fixed;
+    left: 0;
+    overflow: auto;
+}
+.sidebar img {
+    width: 80px;
+    height: auto;
+}
+
+main {
+    position: relative; 
+    margin-left: 25%; 
+    width: 75%;
+}
+
+#search_patient {
+    width: 80%;
+}
+
 .message-box {
     min-height: 40px;
     text-align: center;
@@ -36,36 +70,6 @@ body {
 
 .hide-success {
     visibility: hidden;
-}
-
-.card {
-    background-color: #ffe9cc;
-}
-
-.sidebar {
-    margin: 0;
-    padding: 0;
-    width: 25%;
-    height: 100%;
-    background-color: #E7C79C;
-    border-right: 7px solid #7e694f;
-    position: fixed;
-    left: 0;
-    overflow: auto;
-}
-.sidebar img {
-    width: 80px;
-    height: auto;
-}
-
-main {
-    position: relative; 
-    margin-left: 25%; 
-    width: 75%;
-}
-
-#search_patient {
-    width: 80%;
 }
 
 footer {
