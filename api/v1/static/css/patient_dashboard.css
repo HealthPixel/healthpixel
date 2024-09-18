@@ -7,36 +7,6 @@ body {
     background-color: #ffe9cc;
 }
 
-.custom-card p {
-    margin-bottom: 10px;
-}
-
-.sidebar {
-    margin: 0;
-    padding: 0;
-    width: 25%;
-    height: 100%;
-    background-color: #E7C79C;
-    border-right: 7px solid #7e694f;
-    position: fixed;
-    left: 0;
-    overflow: auto;
-}
-.sidebar img {
-    width: 80px;
-    height: auto;
-}
-
-main {
-    position: relative; 
-    margin-left: 25%; 
-    width: 75%;
-}
-
-#search_patient {
-    width: 80%;
-}
-
 .message-box {
     min-height: 40px;
     text-align: center;
@@ -72,12 +42,6 @@ main {
     visibility: hidden;
 }
 
-<<<<<<< HEAD:api/v1/static/css/doctor_patient_dashboard.css
-=======
-.card {
-    background-color: #ffe9cc;
-}
-
 .sidebar {
     margin: 0;
     padding: 0;
@@ -85,11 +49,9 @@ main {
     height: 100%;
     background-color: #cfb99f;
     position: fixed;
-    top: 0;
     left: 0;
-    overflow: hidden;
+    overflow: auto;
 }
-
 .sidebar img {
     width: 80px;
     height: auto;
@@ -101,24 +63,20 @@ main {
     width: 75%;
 }
 
->>>>>>> 89bbd29b38de2aab28ab2f120c992bb2c7fc9dfc:api/v1/static/css/dashboard.css
 footer {
     background-color: #7e694f;
-    z-index: 9;
+    z-index: 1;
 }
 
 /* Media queries */
-/* On screens that are more than 916px wide: */
+/* On screens that are more than 916px wide */
 @media screen and (min-width: 916px) {
-    #search_patient {
-        width: 80%;
-    }
-
     /* remove the list icon */
     #menu {
         display: none;
     }
 }
+
 /* On screens that are less than 916px wide */
 @media screen and (max-width: 916px) {
     /* make the sidebar into a topbar */
@@ -128,21 +86,15 @@ footer {
         position: relative;
         /* transition: 0.5s; */
     }
-    
+
+    /* position the list icon */
     #menu {
-        position: fixed;
-        top: 70px;
-        right: 110px;
+        position: fixed                                         ;
+        top: 40px;
+        right: 70px;
     }
 
     main {
-        padding: 20px;
         margin-left: 10%;
-    }
-}
-
-@media screen and (max-width: 469px) {
-    #menu {
-        right: 60px;
     }
 }
