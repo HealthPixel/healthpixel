@@ -1,22 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-        // Open and close the topbar on smaller screens
-        const menu = document.querySelector('#menu');
-        const sidebar = document.querySelector('#sidebar');
-        if (menu) {
-            menu.addEventListener('click', (event) => {
-                if (sidebar.style.height == '0px' || !sidebar.style.height) {
-                    sidebar.style.height = 'fit-content';
-                    menu.classList.add('bi-x')
-                    menu.classList.remove('bi-list')
-                } else {
-                    sidebar.style.height = '0px'
-                    menu.classList.add('bi-list')
-                    menu.classList.remove('bi-x')
-                }
-            });
-        }
-                
-        // Alert before deleting a doctor or patient
+
+    // Open and close the topbar on smaller screens
+    const menu = document.querySelector('#menu');
+    const sidebar = document.querySelector('#sidebar');
+    if (menu) {
+        menu.addEventListener('click', (event) => {
+            if (sidebar.style.height == '0px' || !sidebar.style.height) {
+                sidebar.style.height = 'fit-content';
+                menu.classList.add('bi-x')
+                menu.classList.remove('bi-list')
+            } else {
+                sidebar.style.height = '0px'
+                menu.classList.add('bi-list')
+                menu.classList.remove('bi-x')
+            }
+        });
+    }
+
+    // Alert before deleting a doctor or patient
     const patientDelete = document.querySelector('#patientDelete');
     if (patientDelete) {
         patientDelete.addEventListener('click', (event) => {

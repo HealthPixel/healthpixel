@@ -3,6 +3,41 @@ body {
     font-family: "SUSE", sans-serif;
 }
 
+
+.card {
+    background-color: #ffe9cc;
+}
+
+.custom-card p {
+    margin-bottom: 10px;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    height: 100%;
+    background-color: #E7C79C;
+    border-right: 7px solid #7e694f;
+    position: fixed;
+    left: 0;
+    overflow: auto;
+}
+.sidebar img {
+    width: 80px;
+    height: auto;
+}
+
+main {
+    position: relative; 
+    margin-left: 25%; 
+    width: 75%;
+}
+
+#search_patient {
+    width: 80%;
+}
+
 .message-box {
     min-height: 40px;
     text-align: center;
@@ -91,16 +126,11 @@ footer {
         position: relative;
         /* transition: 0.5s; */
     }
-    
-    #menu {
-        position: fixed;
-        top: 70px;
-        right: 110px;
-    }
 
     main {
         padding: 20px;
-        margin-left: 10%;
+        width: 95%;
+        margin: auto;
     }
 }
 

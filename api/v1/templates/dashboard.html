@@ -19,7 +19,7 @@
     rel="stylesheet" />
   <!-- css file link -->
   <link rel="stylesheet"
-    href="{{ url_for('static', filename='css/dashboard.css') }}" />
+    href="{{ url_for('static', filename='css/doctor_patient_dashboard.css') }}" />
   <!-- page favicon -->
   <link rel="shortcut icon"
     href="{{ url_for('static', filename='img/favicon.ico') }}" />
@@ -47,12 +47,12 @@
         </div>
       </div>
     </div>
-    <main class="px-4 mt-5 mb-4" id="main">
+    <main class="px-4 py-5" id="main">
       <div class="container">
-        <header class="d-flex text-center justify-content-between">
+        <header class="d-flex mb-4 text-center justify-content-between">
           <a href="{{ url_for('healthpixel') }}"
             class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
-          <i class="bi bi-list display-5" id="menu"></i>
+          <i class="bi bi-list display-5 text-success" id="menu"></i>
         </header>
         <!-- Display messages -->
         <div class="message-box">
