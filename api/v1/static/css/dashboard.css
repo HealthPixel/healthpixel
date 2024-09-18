@@ -47,12 +47,13 @@ body {
     padding: 0;
     width: 25%;
     height: 100%;
-    background-color: #E7C79C;
-    border-right: 7px solid #7e694f;
+    background-color: #cfb99f;
     position: fixed;
+    top: 0;
     left: 0;
-    overflow: auto;
+    overflow: hidden;
 }
+
 .sidebar img {
     width: 80px;
     height: auto;
@@ -64,29 +65,47 @@ main {
     width: 75%;
 }
 
-#search_patient {
-    width: 80%;
-}
-
 footer {
-    opacity: 100%;
     background-color: #7e694f;
     z-index: 9;
 }
 
-/* On screens that are less than 769px wide, make the sidebar into a topbar */
-@media screen and (max-width: 916px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
+/* Media queries */
+/* On screens that are more than 916px wide: */
+@media screen and (min-width: 916px) {
+    #search_patient {
+        width: 80%;
     }
 
-    footer {
-        opacity: 100%;
+    /* remove the list icon */
+    #menu {
+        display: none;
+    }
+}
+/* On screens that are less than 916px wide */
+@media screen and (max-width: 916px) {
+    /* make the sidebar into a topbar */
+    .sidebar {
+        width: 100%;
+        height: 0;
+        position: relative;
+        /* transition: 0.5s; */
+    }
+    
+    #menu {
+        position: fixed;
+        top: 70px;
+        right: 110px;
     }
 
     main {
+        padding: 20px;
         margin-left: 10%;
+    }
+}
+
+@media screen and (max-width: 469px) {
+    #menu {
+        right: 60px;
     }
 }

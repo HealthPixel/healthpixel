@@ -3,16 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
   let foundPatientId = null;
 
   // Ensure these buttons are correctly selected
-  const viewButton = document.getElementById('btn_view_patient_records');
-  const updateButton = document.getElementById('btn_update_patient_records');
   const searchInput = document.getElementById('search_patient');
+  const patientList = document.querySelector('.patient_list');
 
   searchInput.addEventListener('input', function () {
     const searchQuery = this.value.trim();
 
     clearTimeout(debounceTimer);
 
-    const patientList = document.querySelector('.patient_list');
     if (searchQuery.length < 3) {
       patientList.innerHTML = '';
       return;
@@ -42,13 +40,19 @@ document.addEventListener('DOMContentLoaded', function () {
                   <p class="card-text">Zip Code: ${patient.zipcode}</p>
                   <p class="card-text">Created At: ${patient.created_at}</p>
                   <p class="card-text">Updated At: ${patient.updated_at}</p>
+                  <div class="row justify-content-between">
+                    <div class="col-md-5">
+                      <button class="btn btn-success btn-large py-2 mb-3 btn-view" data-id="${patient.id}">View Patient's Records</button>
+                    </div>
+                    <div class="col-md-5">
+                      <button class="btn btn-success btn-large py-2 btn-update" data-id="${patient.id}">Update Patient's Records</button>
+                    </div>
+                  </div>
                 </div>
                 `;
                 patientList.innerHTML += patientItem;
-                foundPatientId = patient.id; // Make sure patient ID is set
               });
             } else {
-              foundPatientId = null;
               patientList.innerHTML = '<p class="text-danger">No patient found</p>';
             }
           })
@@ -60,25 +64,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 300); // Delay by 300ms
   });
 
-  // Handle the "View Patient's Record" button
-  viewButton.addEventListener('click', function () {
-    if (foundPatientId) {
-      // Redirect to the view patient record page with the patient's ID
-      window.location.href = `/api/v1/doctor/patients/${foundPatientId}/view_patient_records`;
-    } else {
-      // If no patient was searched, show an alert
-      alert('Please search for a patient to view their records.');
-    }
-  });
-
-  // Handle the "Update Patient's Record" button
-  updateButton.addEventListener('click', function () {
-    if (foundPatientId) {
-      // Redirect to the update page with the patient's ID
-      window.location.href = `/api/v1/doctor/patients/${foundPatientId}/update_patient_records`;
-    } else {
-      // If no patient was searched, show an alert
-      alert('Please search for a patient before updating their records.');
+  // Event delegation
+  patientList.addEventListener('click', function (event) {
+    if (event.target.classList.contains('btn-view')) {
+      const patientId = event.target.getAttribute('data-id');
+      if (patientId) {
+        window.location.href = `/api/v1/doctor/patients/${patientId}/view_patient_records`;
+      }
+    } else if (event.target.classList.contains('btn-update')) {
+      const patientId = event.target.getAttribute('data-id');
+      if (patientId) {
+        window.location.href = `/api/v1/doctor/patients/${patientId}/update_patient_records`
+      }
     }
   });
 });

@@ -1,138 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap css cdn -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- google fonts link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap"
-      rel="stylesheet"
-    />
-    <!-- css file link -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}"
-    />
-    <!-- page favicon -->
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='img/favicon.ico') }}"
-    />
 
-    <title>HealthPixel Doctor Dashboard</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap css cdn -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet" />
+  <!-- Bootstrap icons cdn -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <!-- google fonts link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap"
+    rel="stylesheet" />
+  <!-- css file link -->
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <!-- page favicon -->
+  <link rel="shortcut icon"
+    href="{{ url_for('static', filename='img/favicon.ico') }}" />
 
-  <body class="d-flex flex-column min-vh-100">
-    <div class="flex-grow-1">
-      <div class="navbar flex-column justify-content-start sidebar py-2">
-        <img
-          src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
-          class="mb-5 mt-4"
-          alt="HealthPixel Logo"
-        />
-        <a
-          href="{{ url_for('app_views.register_patient') }}"
-          class="btn btn-success btn-large py-2 mb-5"
-          >Register Patient</a
-        >
-        <a
-          href="#"
-          class="btn btn-success btn-large py-2 mb-5"
-          id="btn_view_patient_records"
-          >View Patient's Record</a
-        >
-        <a
-          href="#"
-          class="btn btn-success btn-large py-2 mb-5"
-          id="btn_update_patient_records"
-          >Update Patient's Record</a
-        >
-        <a
-          href="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}"
-          class="btn btn-primary py-2 mb-5"
-          >Edit profile</a
-        >
-        <div class="row">
-          <div class="col-md-4 text-center">
-            <a
-              href="{{ url_for('auth.logout_doctor') }}"
-              class="btn btn-outline-danger mb-3"
-              >Logout</a
-            >
-          </div>
-          <div class="col-md-8 text-center">
-            <a
-              href="{{ url_for('auth.delete_doctor') }}"
-              class="btn btn-danger mb-3" id="doctorDelete"
-              >Delete account</a
-            >
-          </div>
+  <title>HealthPixel Doctor Dashboard</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <div class="flex-grow-1">
+    <div class="navbar flex-column justify-content-start sidebar" id="sidebar">
+      <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
+        class="mb-5 mt-4" alt="HealthPixel Logo" />
+      <a href="{{ url_for('app_views.register_patient') }}"
+        class="btn btn-success btn-large py-2 mb-5">Register Patient</a>
+      <a href="{{ url_for('app_views.update_a_doctor', doctor_id=current_user.id) }}"
+        class="btn btn-primary py-2 mb-5">Edit profile</a>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <a href="{{ url_for('auth.logout_doctor') }}"
+            class="btn btn-outline-danger mb-3">Logout</a>
+        </div>
+        <div class="col-md-8 text-center">
+          <a href="{{ url_for('auth.delete_doctor') }}"
+            class="btn btn-danger mb-3" id="doctorDelete">Delete account</a>
         </div>
       </div>
-      <main class="px-4 mt-5 mb-4">
-        <div class="container">
-          <header class="d-flex text-center">
-            <a
-              href="{{ url_for('healthpixel') }}"
-              class="text-success fw-bold mb-4 text-decoration-none fs-2"
-              >HealthPixel</a
-            >
-          </header>
-          <!-- Display messages -->
-          <div class="message-box">
-            {% with messages = get_flashed_messages(with_categories=True) %} {%
-            for category, message in messages %}
-            <div
-              class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
-              id="msg"
-              role="alert"
-            >
-              {% if message %} {{ message }} {% endif %}
-            </div>
-            {% endfor %} {% endwith %}
-          </div>
-          <div class="card p-4 mt-4 mb-5">
-            <h1 class="display-6 fw-semibold mb-4">
-              Welcome, Dr. {{ user.first_name }} {{ user.last_name }}
-            </h1>
-            <p class="fw-semibold" style="margin-bottom: 5px">
-              Email: {{ user.email }}
-            </p>
-            <p class="fw-semibold" style="margin-bottom: 5px">
-              Specialization: {{ user.specialization }}
-            </p>
-            <p class="fw-semibold" style="margin-bottom: 5px">
-              Phone Number: {{ user.phone_number }}
-            </p>
-          </div>
-          <div class="search_input p-3">
-            <h4 class="text-success">Search a patient:</h4>
-            <input
-              type="search"
-              name="search_patient"
-              class="form-control rounded-pill border border-secondary border-3"
-              placeholder="example@email.com"
-              id="search_patient"
-            />
-          </div>
-          <div class="patient_list"></div>
-        </div>
-        <!--Container End-->
-      </main>
     </div>
-    <footer class="text-center text-light py-3">
-      <p class="mb-0">&copy HealthPixel 2024</p>
-    </footer>
-    <!-- JS Bootstrap cdn -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/func.js') }}"></script>
-  </body>
+    <main class="px-4 mt-5 mb-4" id="main">
+      <div class="container">
+        <header class="d-flex text-center justify-content-between">
+          <a href="{{ url_for('healthpixel') }}"
+            class="text-success fw-bold mb-4 text-decoration-none fs-2">HealthPixel</a>
+          <i class="bi bi-list display-5" id="menu"></i>
+        </header>
+        <!-- Display messages -->
+        <div class="message-box">
+          {% with messages = get_flashed_messages(with_categories=True) %} {%
+          for category, message in messages %}
+          <div
+            class="{% if message %}show-{{ category }}{% else %}hide-{{ category }}{% endif %}"
+            id="msg" role="alert">
+            {% if message %} {{ message }} {% endif %}
+          </div>
+          {% endfor %} {% endwith %}
+        </div>
+        <div class="card p-4 mt-4 mb-5">
+          <h1 class="display-6 fw-semibold mb-4">
+            Welcome, Dr. {{ user.first_name }} {{ user.last_name }}
+          </h1>
+          <p class="fw-semibold" style="margin-bottom: 5px">
+            Email: {{ user.email }}
+          </p>
+          <p class="fw-semibold" style="margin-bottom: 5px">
+            Specialization: {{ user.specialization }}
+          </p>
+          <p class="fw-semibold" style="margin-bottom: 5px">
+            Phone Number: {{ user.phone_number }}
+          </p>
+        </div>
+        <div class="search_input p-3">
+          <h4 class="text-success fw-bold">Search a patient:</h4>
+          <input type="search" name="search_patient"
+            class="form-control rounded-pill border border-secondary border-3"
+            placeholder="example@email.com" id="search_patient" />
+        </div>
+        <div class="patient_list"></div>
+      </div>
+      <!--Container End-->
+    </main>
+  </div>
+  <footer class="text-center text-light py-3">
+    <p class="mb-0">&copy HealthPixel 2024</p>
+  </footer>
+  <!-- JS Bootstrap cdn -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Search script -->
+  <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+  <!-- Script for other functions -->
+  <script src="{{ url_for('static', filename='js/func.js') }}"></script>
+</body>
+
 </html>

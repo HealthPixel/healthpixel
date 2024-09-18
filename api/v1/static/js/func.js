@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+        // Open and close the topbar on smaller screens
+        const menu = document.querySelector('#menu');
+        const sidebar = document.querySelector('#sidebar');
+        if (menu) {
+            menu.addEventListener('click', (event) => {
+                if (sidebar.style.height == '0px' || !sidebar.style.height) {
+                    sidebar.style.height = 'fit-content';
+                    menu.classList.add('bi-x')
+                    menu.classList.remove('bi-list')
+                } else {
+                    sidebar.style.height = '0px'
+                    menu.classList.add('bi-list')
+                    menu.classList.remove('bi-x')
+                }
+            });
+        }
+                
+        // Alert before deleting a doctor or patient
     const patientDelete = document.querySelector('#patientDelete');
     if (patientDelete) {
         patientDelete.addEventListener('click', (event) => {
@@ -26,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eyeIcon2 = document.querySelector('#eyeIcon2');
 
     if (togglePassword) {
-        togglePassword.addEventListener('click', (e) => {
+        togglePassword.addEventListener('click', (_e) => {
             // toggle the type attribute
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
             password.setAttribute('type', type);
@@ -42,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     if (togglePassword2) {
-        togglePassword2.addEventListener('click', (e) => {
+        togglePassword2.addEventListener('click', (_e) => {
             // toggle the type attribute
             const type = conf_password.getAttribute('type') === 'password' ? 'text' : 'password';
             conf_password.setAttribute('type', type);
@@ -100,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let form = document.querySelector("form");
         if (form) {
-            form.addEventListener("submit", function (event) {
+            form.addEventListener("submit", function (_event) {
                 // event.preventDefault(); // Prevent form submission for debugging
 
                 if (itiPhone) {
