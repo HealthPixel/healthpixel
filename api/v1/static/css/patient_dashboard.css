@@ -68,6 +68,7 @@ footer {
     z-index: 1;
 }
 
+/* Media queries */
 /* On screens that are more than 916px wide */
 @media screen and (min-width: 916px) {
     /* remove the list icon */

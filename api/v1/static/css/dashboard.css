@@ -66,11 +66,11 @@ main {
 }
 
 footer {
-    opacity: 100%;
     background-color: #7e694f;
     z-index: 9;
 }
 
+/* Media queries */
 /* On screens that are more than 916px wide: */
 @media screen and (min-width: 916px) {
     #search_patient {
