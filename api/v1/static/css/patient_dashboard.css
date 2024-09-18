@@ -7,10 +7,6 @@ body {
     background-color: #ffe9cc;
 }
 
-.custom-card p {
-    margin-bottom: 10px;
-}
-
 .message-box {
     min-height: 40px;
     text-align: center;
@@ -51,8 +47,7 @@ body {
     padding: 0;
     width: 25%;
     height: 100%;
-    background-color: #E7C79C;
-    border-right: 7px solid #7e694f;
+    background-color: #cfb99f;
     position: fixed;
     left: 0;
     overflow: auto;
@@ -68,28 +63,34 @@ main {
     width: 75%;
 }
 
-/* Already taken care of with mb-5 in the html */
-/* 
-.custom_card p{
-    margin-bottom: 0.2em;
-} */
-
 footer {
-    opacity: 100%;
     background-color: #7e694f;
     z-index: 1;
 }
 
-/* On screens that are less than 769px wide, make the sidebar into a topbar */
+/* On screens that are more than 916px wide */
+@media screen and (min-width: 916px) {
+    /* remove the list icon */
+    #menu {
+        display: none;
+    }
+}
+
+/* On screens that are less than 916px wide */
 @media screen and (max-width: 916px) {
+    /* make the sidebar into a topbar */
     .sidebar {
         width: 100%;
-        height: auto;
+        height: 0;
         position: relative;
+        /* transition: 0.5s; */
     }
 
-    footer {
-        opacity: 100%;
+    /* position the list icon */
+    #menu {
+        position: fixed                                         ;
+        top: 40px;
+        right: 70px;
     }
 
     main {

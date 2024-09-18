@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchQuery = this.value.trim();
 
     clearTimeout(debounceTimer);
-
+    
     const patientList = document.querySelector('.patient_list');
     if (searchQuery.length < 3) {
       patientList.innerHTML = '';

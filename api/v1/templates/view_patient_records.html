@@ -59,13 +59,13 @@
           {% endfor %} {% endwith %}
         </div>
         <!-- Page content -->
-        <div class="patient-info-header mb-4">
+        <div class="patient-info-header d-flex justify-content-between mb-4">
           <h1 class="display-6 fw-semibold">
             {{ patient.first_name }} {{ patient.last_name }}'s Profile
           </h1>
           <a
             href="{{ url_for('auth.delete_patient', patient_id=patient.id) }}"
-            class="btn btn-dark custom-btn" id="patientDelete"
+            class="btn btn-outline-danger custom-btn" id="patientDelete"
             >Delete Patient</a>
         </div>
         <!-- Demogaphic info -->

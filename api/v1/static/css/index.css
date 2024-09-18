@@ -7,20 +7,6 @@ body {
     height: auto;
 }
 
-main {
-    min-height: 55vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#about-us {
-    min-height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #about-us p {
     text-align: justify;
 }
