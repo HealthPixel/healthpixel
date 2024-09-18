@@ -132,6 +132,14 @@ footer {
         width: 95%;
         margin: auto;
     }
+
+    #search_patient {
+        width: 100%;
+    }
+
+    #search_patient input {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 469px) {
