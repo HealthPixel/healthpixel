@@ -3,6 +3,7 @@ body {
     font-family: "SUSE", sans-serif;
 }
 
+
 .card {
     background-color: #ffe9cc;
 }
@@ -72,8 +73,6 @@ main {
     visibility: hidden;
 }
 
-<<<<<<< HEAD:api/v1/static/css/doctor_patient_dashboard.css
-=======
 .card {
     background-color: #ffe9cc;
 }
@@ -101,7 +100,6 @@ main {
     width: 75%;
 }
 
->>>>>>> 89bbd29b38de2aab28ab2f120c992bb2c7fc9dfc:api/v1/static/css/dashboard.css
 footer {
     background-color: #7e694f;
     z-index: 9;
@@ -128,16 +126,11 @@ footer {
         position: relative;
         /* transition: 0.5s; */
     }
-    
-    #menu {
-        position: fixed;
-        top: 70px;
-        right: 110px;
-    }
 
     main {
         padding: 20px;
-        margin-left: 10%;
+        width: 95%;
+        margin: auto;
     }
 }
 
