@@ -12,6 +12,7 @@ from models.patient import Patient
 from auth import auth
 from api.v1.views import app_views
 from datetime import timedelta
+from models import storage
 
 
 app = Flask(__name__)
@@ -39,6 +40,11 @@ def unauthorized():
 
 app.register_blueprint(auth)
 app.register_blueprint(app_views)
+
+@app.teardown_appcontext
+def close_db(error):
+    """ Remove the current SQLAlchemy Session """
+    storage.close()
 
 
 @app.route('/')

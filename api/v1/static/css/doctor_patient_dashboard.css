@@ -100,6 +100,27 @@ main {
     width: 75%;
 }
 
+.search-view {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.view-patients {
+    text-decoration: none;
+    padding: .5em;
+    border-radius: 5px;
+    background: #008638;
+    color: white;
+}
+
+.view-patients:hover {
+    background: #00682b;
+}
+
 footer {
     background-color: #7e694f;
     z-index: 9;
