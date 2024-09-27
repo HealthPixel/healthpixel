@@ -81,7 +81,7 @@ def update_a_doctor(doctor_id):
                 doctor.password = hashed_password
 
             storage.save()
-            flash('Doctors Profile Updated Successfully!', 'success')
+            flash('Your profile is successfully updated!', 'success')
             return redirect(url_for('auth.dashboard_doctor', id=doctor.id))
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
