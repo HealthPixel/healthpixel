@@ -74,12 +74,12 @@ def add_patient_allergies(patient_id):
                 new_allergies.patient_id = patient.id
                 storage.new(new_allergies)
                 storage.save()
-                flash('Patient Allergy added successfully!', 'success')
+                flash('Patient allergy added successfully!', 'success')
 
-                # Redirect to Allergy entry page after creating the patient
+                # Redirect to allergy entry form after creating the patient
                 return redirect(url_for('app_views.add_patient_medical_record', patient_id=patient.id))
             except Exception as e:
-                # abort(500, f"An error occured while saving the allergies: {str(e)}")
+                # abort(500, f"An error occured while saving the allergy: {str(e)}")
                 flash(f'Error: {str(e)}', 'error')
                 return render_template('register_allergy.html', patient_id=patient_id, notes=notes,
                                        allergen=allergen, reaction=reaction, severity=severity)

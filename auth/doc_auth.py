@@ -120,7 +120,7 @@ def login_users():
                 flash('Invalid Login. User does not exist.', 'error')
                 return render_template('login.html')
             else:
-                flash('Invalid Login. You used a wrong password for this account.', 'error')
+                flash('Invalid Login. Password incorrect.', 'error')
                 return render_template('login.html', email=email)
 
         flash('Logged in successfully!', 'success')
