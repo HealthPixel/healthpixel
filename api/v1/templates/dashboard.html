@@ -29,7 +29,8 @@
 
 <body class="d-flex flex-column min-vh-100">
   <div class="flex-grow-1">
-    <div class="navbar flex-column justify-content-start sidebar" id="sidebar">
+    <div class="navbar flex-column justify-content-start sidebar" id="sidebar"
+    style="padding-left: 7px; padding-right: 5px;">
       <img src="{{ url_for('static', filename='img/healthpixel_logo.png') }}"
         class="mb-5 mt-4" alt="HealthPixel Logo" />
       <a href="{{ url_for('app_views.register_patient') }}"
@@ -81,9 +82,12 @@
         </div>
         <div class="search_input p-3">
           <h4 class="text-success fw-bold">Search a patient:</h4>
-          <input type="search" name="search_patient"
+          <div class="search-view">
+            <input type="search" name="search_patient"
             class="form-control rounded-pill border border-secondary border-3"
             placeholder="example@email.com" id="search_patient" />
+            <a href="#" id="viewPatient" class="view-patients">View All Patients</a>
+          </div>
         </div>
         <div class="patient_list"></div>
       </div>
@@ -100,6 +104,7 @@
   <script src="{{ url_for('static', filename='js/search.js') }}"></script>
   <!-- Script for other functions -->
   <script src="{{ url_for('static', filename='js/func.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/view_all.js') }}"></script>
 </body>
 
 </html>
