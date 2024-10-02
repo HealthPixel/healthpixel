@@ -13,7 +13,6 @@ from models.patient import Patient
 from auth import auth
 from api.v1.views import app_views
 from datetime import timedelta
-from models import storage
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash
