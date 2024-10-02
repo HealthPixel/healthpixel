@@ -6,6 +6,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Date
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
+from flask import current_app
+from itsdangerous import URLSafeTimedSerializer as Serializer
 
 
 class Patient(BaseModel, Base, UserMixin):
@@ -39,3 +41,19 @@ class Patient(BaseModel, Base, UserMixin):
     blood_group = Column(String(20), nullable=False)
     emergency_contact_name = Column(String(50), nullable=False)
     emergency_contact_phone = Column(String(50), nullable=False)
+
+
+    def get_reset_token(self):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id})
+
+    @staticmethod
+    def verify_reset_token(token):
+        from models import storage
+
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except Exception:
+            return None
+        return storage.query(Doctor).get(user_id)
